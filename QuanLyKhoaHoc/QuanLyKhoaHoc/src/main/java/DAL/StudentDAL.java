@@ -75,24 +75,24 @@ public class StudentDAL extends MyDatabaseManager {
         //this.readStudents();
         return result;
     }
-    public static void main(String[] args) {
-        StudentDAL dal = new StudentDAL();
+//    public static void main(String[] args) {
+//        StudentDAL dal = new StudentDAL();
+////        try {
+////            dal.readStudents();
+////        } catch (SQLException ex) {
+////            Logger.getLogger(StudentDAL.class.getName()).log(Level.SEVERE, null, ex);
+////        }
+//        Student student = new Student();
+//        student.setFirstName("Tran Khoi");
+//        student.setLastName("Nguyen");
+//        student.setEnrollmentDate(java.sql.Date.valueOf("2003-10-15"));
 //        try {
+//            dal.readStudents();
+//            //dal.insertStudent(student);
+//            //dal.deleteStudent(37);
 //            dal.readStudents();
 //        } catch (SQLException ex) {
 //            Logger.getLogger(StudentDAL.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        Student student = new Student();
-        student.setFirstName("Tran Khoi");
-        student.setLastName("Nguyen");
-        student.setEnrollmentDate(java.sql.Date.valueOf("2003-10-15"));
-        try {
-            dal.readStudents();
-            //dal.insertStudent(student);
-            //dal.deleteStudent(37);
-            dal.readStudents();
-        } catch (SQLException ex) {
-            Logger.getLogger(StudentDAL.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+//    }
 }

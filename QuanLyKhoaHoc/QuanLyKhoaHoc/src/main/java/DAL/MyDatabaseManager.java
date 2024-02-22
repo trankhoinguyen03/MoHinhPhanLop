@@ -52,12 +52,12 @@ public class MyDatabaseManager {
         return rs;
     }
     
-//    public void doUpdateQuery() throws SQLException {
-//
+////    public void doUpdateQuery() throws SQLException {
+////
+////    }
+//    
+//    public static void main(String[] args) {
+//        new MyDatabaseManager().connectDB();
 //    }
-    
-    public static void main(String[] args) {
-        new MyDatabaseManager().connectDB();
-    }
 }
 
