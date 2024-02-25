@@ -19,8 +19,8 @@ public class LecturersBLL {
         dal = new LecturersDAL();
     }
     
-    public void readLecturerss() throws SQLException {
-        dal.readLecturerss();
+    public void readLecturers() throws SQLException {
+        dal.readLecturers();
     }
     public int updateLecturers(Lecturers s) throws SQLException {
         return dal.updateLecturers(s);

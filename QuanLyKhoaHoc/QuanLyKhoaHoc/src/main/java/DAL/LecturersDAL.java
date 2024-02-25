@@ -18,7 +18,7 @@ public class LecturersDAL extends MyDatabaseManager {
         super();
         this.connectDB();
     }
-       public void readLecturerss() throws SQLException {
+    public void readLecturers() throws SQLException {
         String query = "SELECT * FROM Person WHERE HireDate >0";
         ResultSet rs = this.doReadQuery(query);
         if (rs != null) {
