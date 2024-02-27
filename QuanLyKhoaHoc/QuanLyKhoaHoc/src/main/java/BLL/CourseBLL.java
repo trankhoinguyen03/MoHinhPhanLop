@@ -19,24 +19,6 @@ public class CourseBLL {
     public CourseBLL() {
         dal = new CourseDAL();
     }
-    public void readOnlineCourse() throws SQLException {
-        dal.readOnlineCourse();
-    }
-    public void readOnsiteCourse() throws SQLException {
-        dal.readOnsiteCourse();
-    }
-    public int updateOnlineCourse(OnlineCourse s) throws SQLException {
-        return dal.updateOnlineCourse(s);
-    }
-    public int updateOnsiteCourse(OnsiteCourse s) throws SQLException {
-        return dal.updateOnsiteCourse(s);
-    }
-    public int insertCourse(OnlineCourse s) throws SQLException {
-        return dal.insertCourse(s);
-    }
-    public int insertCourse(OnsiteCourse s) throws SQLException {
-        return dal.insertCourse(s);
-    }
     public void findCourse(String title) throws SQLException {
         dal.findCourse(title);
     }
