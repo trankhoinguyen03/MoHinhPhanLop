@@ -41,6 +41,7 @@ public class TrangChu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1100, 600));
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -146,6 +147,7 @@ public class TrangChu extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -153,8 +155,8 @@ public class TrangChu extends javax.swing.JFrame {
         jPanel2.removeAll();
         jPanel2.repaint();
         Course gui = new Course();
-        gui.setLocation(0, -50);
-        gui.setSize(815, 615);
+        gui.setLocation(-20, -50);
+        gui.setSize(840, 630);
         gui.setVisible(true);
         gui.setResizable(true);
         jPanel2.add(gui);
@@ -166,8 +168,8 @@ public class TrangChu extends javax.swing.JFrame {
         jPanel2.removeAll();
         jPanel2.repaint();
         CourseIntructor gui = new CourseIntructor();
-        gui.setLocation(0, -50);
-        gui.setSize(815, 615);
+        gui.setLocation(-20, -50);
+        gui.setSize(840, 630);
         gui.setVisible(true);
         gui.setResizable(true);
         jPanel2.add(gui);
@@ -179,8 +181,8 @@ public class TrangChu extends javax.swing.JFrame {
         jPanel2.removeAll();
         jPanel2.repaint();
         Information gui = new Information();
-        gui.setLocation(0, -50);
-        gui.setSize(815, 615);
+        gui.setLocation(-20, -50);
+        gui.setSize(840, 630);
         gui.setVisible(true);
         gui.setResizable(true);
         jPanel2.add(gui);
@@ -192,8 +194,8 @@ public class TrangChu extends javax.swing.JFrame {
         jPanel2.removeAll();
         jPanel2.repaint();
         StudentGrade gui = new StudentGrade();
-        gui.setLocation(0, -50);
-        gui.setSize(815, 615);
+        gui.setLocation(-20, -50);
+        gui.setSize(840, 630);
         gui.setVisible(true);
         gui.setResizable(true);
         jPanel2.add(gui);
