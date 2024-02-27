@@ -40,6 +40,7 @@ public class TrangChu extends javax.swing.JFrame {
         jRadioButtonMenuItem1.setText("jRadioButtonMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1100, 600));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -152,6 +153,17 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
+        jPanel2.removeAll();
+        jPanel2.repaint();
+        Information gui = new Information();
+        gui.setLocation(0, -50);
+        gui.setSize(815, 615);
+        gui.setTitle("Internal frame");
+        gui.setVisible(true);
+        gui.setClosable(true);
+        gui.setResizable(true);
+        jPanel2.add(gui);
+        jPanel2.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     /**

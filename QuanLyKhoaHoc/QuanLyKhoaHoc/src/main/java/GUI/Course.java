@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.school;
+package GUI;
 
 /**
  *
  * @author Admin
  */
-public class Course extends javax.swing.JFrame {
+public class Course extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Course
