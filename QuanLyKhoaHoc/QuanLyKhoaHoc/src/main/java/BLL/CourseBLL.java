@@ -5,8 +5,6 @@
 package BLL;
 
 import DAL.CourseDAL;
-import DAL.OnlineCourse;
-import DAL.OnsiteCourse;
 import java.sql.SQLException;
 
 /**
