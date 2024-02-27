@@ -8,6 +8,9 @@ import DTO.OnlineCourse;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,46 +23,57 @@ public class OnlineCourseDAL extends MyDatabaseManager {
         this.connectDB();
     }
     
-    public void readOnlineCourse() throws SQLException {
-        String query = "SELECT * FROM Course INNER JOIN OnlineCourse ON Course.CourseID = OnlineCourse.CourseID;";
-        ResultSet rs = this.doReadQuery(query);
-        if (rs != null) {
-            //int i = 1;
+    public ArrayList<OnlineCourse> getList() {
+        ArrayList list = new ArrayList<OnlineCourse>();
+        String query = "select *from onlinecourse";
+        try {
+            PreparedStatement pst = c.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-//                System.out.print(rs.getString("PersonId") + " - ");
-//                System.out.println(rs.getString("Lastname") + " " + rs.getString("Firstname"));
-//                //i++;
+                OnlineCourse value = new OnlineCourse();
+                value.setCourseId(rs.getInt(1));
+                value.setUrl(rs.getString(2));              
+                list.add(value);              
             }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return list;
     }
-    public int insertCourse(OnlineCourse s) throws SQLException {
-        String query = "Insert Course (Title, Credits, DepartmentID) VALUES (?, ?, ?)";
-        PreparedStatement p = c.prepareStatement(query);
-        p.setString(1, s.getTitle());
-        p.setInt(2, s.getCredits());
-        p.setInt(3, s.getDepartmentId());
-        int result = p.executeUpdate();
-        insertOnlineCourse(s);
-        return result;
+    public int addOnlineCourse(OnlineCourse value) {
+        try {
+            String query= "Insert into onlinecourse (CourseID, url ) VALUES(?,?)";
+            PreparedStatement pst = c.prepareStatement(query);
+            pst.setInt(1, value.getCourseId());
+            pst.setNString(2, value.getUrl());
+            return pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
-    public int insertOnlineCourse(OnlineCourse s) throws SQLException {
-        String query = "Insert OnlineCourse (url) VALUES (?)";
-        PreparedStatement p = c.prepareStatement(query);
-        p.setString(1, s.getUrl());
-        int result = p.executeUpdate();
-        return result;
-    }  
-    public int updateOnlineCourse(OnlineCourse s) throws SQLException {
-        String query = "UPDATE Course\n" +
-                        "INNER JOIN OnlineCourse ON Course.CourseID = OnlineCourse.CourseID\n" +
-                        "SET Title = ?, Credits = ?, DepartmentID = ?, url = ?" +
-                        "WHERE OnlineCourse.CourseID = ?";
-        PreparedStatement p = c.prepareStatement(query);
-        p.setString(1, s.getTitle());
-        p.setInt(2, s.getCredits());
-        p.setInt(3, s.getDepartmentId());
-        p.setString(4, s.getUrl());
-        int result = p.executeUpdate();
-        return result;
+    public int updateOnlineCourse(OnlineCourse value){
+        try {
+            String query= "update onlinecourse set url=? where CourseID=? ";
+            PreparedStatement pst= c.prepareStatement(query);
+            pst.setNString(1, value.getUrl());
+            pst.setInt(2, value.getCourseId());
+            return pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+    public int deleteOnlineCourse(int value){
+        try {
+            String query="delete from onlinecourse where CourseID=?";
+            PreparedStatement pst= c.prepareStatement(query);
+            pst.setInt(1, value);
+            return pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
 }

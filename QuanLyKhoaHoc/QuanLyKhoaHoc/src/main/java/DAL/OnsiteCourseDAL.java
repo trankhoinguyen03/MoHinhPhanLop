@@ -8,6 +8,10 @@ import DTO.OnsiteCourse;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,51 +23,63 @@ public class OnsiteCourseDAL extends MyDatabaseManager {
         super();
         this.connectDB();
     }
-    
-    public void readOnsiteCourse() throws SQLException {
-        String query = "SELECT * FROM Course INNER JOIN OnsiteCourse ON Course.CourseID = OnsiteCourse.CourseID;";
-        ResultSet rs = this.doReadQuery(query);
-        if (rs != null) {
-            //int i = 1;
+    public ArrayList<OnsiteCourse> getList() {
+        ArrayList list = new ArrayList<OnsiteCourse>();
+        String query = "select *from onsitecourse";
+        try {
+            PreparedStatement pst = c.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-//                System.out.print(rs.getString("PersonId") + " - ");
-//                System.out.println(rs.getString("Lastname") + " " + rs.getString("Firstname"));
-//                //i++;
+                OnsiteCourse value = new OnsiteCourse();
+                value.setCourseId(rs.getInt(1));
+                value.setLocation(rs.getString(2));
+                value.setDays(rs.getString(3));
+                value.setTime(rs.getTime(4));               
+                list.add(value);              
             }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return list;
     }
-    public int insertCourse(OnsiteCourse s) throws SQLException {
-        String query = "Insert Course (Title, Credits, DepartmentID) VALUES (?, ?, ?)";
-        PreparedStatement p = c.prepareStatement(query);
-        p.setString(1, s.getTitle());
-        p.setInt(2, s.getCredits());
-        p.setInt(3, s.getDepartmentId());
-        int result = p.executeUpdate();
-        insertOnsiteCourse(s);
-        return result;
+    public int addOnsiteCourse(OnsiteCourse value) {
+        try {
+            String query= "Insert into onsitecourse (CourseID, Location, Days, Time ) VALUES(?,?,?,?)";
+            PreparedStatement pst = c.prepareStatement(query);
+            pst.setInt(1, value.getCourseId());
+            pst.setNString(2, value.getLocation());
+            pst.setNString(3, value.getDays());
+            pst.setTime(4, value.getTime());
+            return pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
-    public int insertOnsiteCourse(OnsiteCourse s) throws SQLException {
-        String query = "Insert OnsiteCourse (Location, Days, Time) VALUES (?, ?, ?)";
-        PreparedStatement p = c.prepareStatement(query);
-        p.setString(1, s.getLocation());
-        p.setString(2, s.getDays());
-        p.setString(3, s.getTime().toString());
-        int result = p.executeUpdate();
-        return result;
+    public int updateOnsiteCourse(OnsiteCourse value){
+        try {
+            String query= "update onsitecourse set Location=?, Days=?, Time=?  where CourseID=? ";
+            PreparedStatement pst= c.prepareStatement(query);
+            pst.setNString(1, value.getLocation());
+            pst.setNString(2, value.getDays());
+            pst.setTime(3, value.getTime());
+            pst.setInt(4, value.getCourseId());
+            return pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
     }
-    public int updateOnsiteCourse(OnsiteCourse s) throws SQLException {
-        String query = "UPDATE Course\n" +
-                        "INNER JOIN OnsiteCourse ON Course.CourseID = OnsiteCourse.CourseID\n" +
-                        "SET Title = ?, Credits = ?, DepartmentID = ?, Location = ?, Days = ?, Time = ?" +
-                        "WHERE OnsiteCourse.CourseID = ?";
-        PreparedStatement p = c.prepareStatement(query);
-        p.setString(1, s.getTitle());
-        p.setInt(2, s.getCredits());
-        p.setInt(3, s.getDepartmentId());
-        p.setString(4, s.getLocation());
-        p.setString(5, s.getDays());
-        p.setString(6, s.getTime().toString());
-        int result = p.executeUpdate();
-        return result;
-    }
+    public int deleteOnsiteCourse(int value){
+        try {
+            String query="delete from onsitecourse where CourseID=?";
+            PreparedStatement pst= c.prepareStatement(query);
+            pst.setInt(1, value);
+            return pst.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }    
 }

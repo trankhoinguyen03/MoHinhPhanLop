@@ -9,17 +9,14 @@ package DTO;
  * @author Acer
  */
 public class OnlineCourse {
-    int courseId, credits, departmentId;
-    String title, url;
+    private int courseId;
+    private String url;
 
     public OnlineCourse() {
     }
 
-    public OnlineCourse(int courseId, int credits, int departmentId, String title, String url) {
+    public OnlineCourse(int courseId, String url) {
         this.courseId = courseId;
-        this.credits = credits;
-        this.departmentId = departmentId;
-        this.title = title;
         this.url = url;
     }
 
@@ -31,30 +28,6 @@ public class OnlineCourse {
         this.courseId = courseId;
     }
 
-    public int getCredits() {
-        return credits;
-    }
-
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
-
-    public int getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getUrl() {
         return url;
     }
@@ -62,5 +35,6 @@ public class OnlineCourse {
     public void setUrl(String url) {
         this.url = url;
     }
+    
     
 }

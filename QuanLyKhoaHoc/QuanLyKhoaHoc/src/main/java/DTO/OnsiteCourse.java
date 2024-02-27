@@ -11,18 +11,16 @@ import java.sql.Time;
  * @author Acer
  */
 public class OnsiteCourse {
-    int courseId, credits, departmentId;
-    String title, location, days;
-    Time time;
+    private int courseId;
+    private String location;
+    private String days;
+    private Time time;
 
     public OnsiteCourse() {
     }
 
-    public OnsiteCourse(int courseId, int credits, int departmentId, String title, String location, String days, Time time) {
+    public OnsiteCourse(int courseId, String location, String days, Time time) {
         this.courseId = courseId;
-        this.credits = credits;
-        this.departmentId = departmentId;
-        this.title = title;
         this.location = location;
         this.days = days;
         this.time = time;
@@ -34,30 +32,6 @@ public class OnsiteCourse {
 
     public void setCourseId(int courseId) {
         this.courseId = courseId;
-    }
-
-    public int getCredits() {
-        return credits;
-    }
-
-    public void setCredits(int credits) {
-        this.credits = credits;
-    }
-
-    public int getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     public String getLocation() {
