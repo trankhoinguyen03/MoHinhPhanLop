@@ -66,6 +66,11 @@ public class TrangChu extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton3.setText("KẾT QUẢ KHÓA HỌC");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton4.setText("THÔNG TIN CÁ NHÂN");
@@ -145,10 +150,28 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        jPanel2.removeAll();
+        jPanel2.repaint();
+        Course gui = new Course();
+        gui.setLocation(0, -50);
+        gui.setSize(815, 615);
+        gui.setVisible(true);
+        gui.setResizable(true);
+        jPanel2.add(gui);
+        jPanel2.repaint();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        jPanel2.removeAll();
+        jPanel2.repaint();
+        CourseIntructor gui = new CourseIntructor();
+        gui.setLocation(0, -50);
+        gui.setSize(815, 615);
+        gui.setVisible(true);
+        gui.setResizable(true);
+        jPanel2.add(gui);
+        jPanel2.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -158,13 +181,24 @@ public class TrangChu extends javax.swing.JFrame {
         Information gui = new Information();
         gui.setLocation(0, -50);
         gui.setSize(815, 615);
-        gui.setTitle("Internal frame");
         gui.setVisible(true);
-        gui.setClosable(true);
         gui.setResizable(true);
         jPanel2.add(gui);
         jPanel2.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        jPanel2.removeAll();
+        jPanel2.repaint();
+        StudentGrade gui = new StudentGrade();
+        gui.setLocation(0, -50);
+        gui.setSize(815, 615);
+        gui.setVisible(true);
+        gui.setResizable(true);
+        jPanel2.add(gui);
+        jPanel2.repaint();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
