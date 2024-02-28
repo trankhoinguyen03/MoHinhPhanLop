@@ -5,14 +5,19 @@
 package GUI;
 
 import BLL.CourseBLL;
+import BLL.DepartmentBLL;
 import BLL.OnlineCourseBLL;
 import BLL.OnsiteCourseBLL;
 import DTO.OnlineCourse;
 import DTO.OnsiteCourse;
 import DTO.Course;
+import DTO.Department;
 import GUI.CourseInsert_Edit;
+import java.sql.SQLException;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -23,6 +28,7 @@ import javax.swing.table.DefaultTableModel;
 public class CourseGUI extends javax.swing.JInternalFrame {
 
     private CourseBLL courseBLL = new CourseBLL();
+    private DepartmentBLL departmentBLL = new DepartmentBLL();
     private OnlineCourseBLL onlineCourseBLL = new OnlineCourseBLL();
     private OnsiteCourseBLL onsiteCourseBLL = new OnsiteCourseBLL();
     private DefaultTableModel model;
@@ -162,6 +168,43 @@ public class CourseGUI extends javax.swing.JInternalFrame {
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
+        CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
+        courseInsert_Edit.setInsert(true);
+        courseInsert_Edit.setFlag(true);
+        try {
+            courseInsert_Edit.getjComboBox1().setSelectedIndex(0);
+            courseInsert_Edit.getjComboBox1().setEnabled(true);
+            
+            courseInsert_Edit.getjTextFieldId().setText(""+(courseBLL.getLastCourseId()+1));
+            courseInsert_Edit.getjTextFieldId().setEditable(false);
+
+            courseInsert_Edit.getjTextFieldTen().setText("");
+            courseInsert_Edit.getjTextFieldTen().setEditable(true);
+
+            courseInsert_Edit.getjTextFieldGia().setText("");
+            courseInsert_Edit.getjTextFieldGia().setEditable(true);
+
+            courseInsert_Edit.getjTextFieldUrl().setText("");
+            courseInsert_Edit.getjTextFieldUrl().setEditable(true);
+
+            courseInsert_Edit.getjTextFieldDiaChi().setEnabled(false);
+
+            courseInsert_Edit.getjTextFieldGio().setEnabled(false);
+
+            courseInsert_Edit.getjTextFieldNgay().setEnabled(false);
+            
+            ArrayList<String> data = new ArrayList<>();
+
+            for(Department x: departmentBLL.getListDepartment()) {
+                data.add(x.getName());
+            }
+            courseInsert_Edit.getjComboBox2().setModel(new javax.swing.DefaultComboBoxModel<>(data.toArray(String[]::new)));
+            
+            courseInsert_Edit.getjButton1().setVisible(true);
+            courseInsert_Edit.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonAddActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -174,6 +217,8 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                     for (OnlineCourse y : onlineCourseBLL.getList()) {
                         if (x.getCourseId() == y.getCourseId()) {
                             CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
+                            courseInsert_Edit.getjButton1().setVisible(false);
+                            
                             courseInsert_Edit.getjComboBox1().setSelectedIndex(0);
                             courseInsert_Edit.getjComboBox1().setEnabled(false);
                             
@@ -216,6 +261,8 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                     for (OnsiteCourse y : onsiteCourseBLL.getList()) {
                         if (x.getCourseId() == y.getCourseId()) {
                             CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
+                            courseInsert_Edit.getjButton1().setVisible(false);
+                            
                             courseInsert_Edit.getjComboBox1().setSelectedIndex(1);
                             courseInsert_Edit.getjComboBox1().setEnabled(false);
                             
@@ -278,6 +325,106 @@ public class CourseGUI extends javax.swing.JInternalFrame {
 
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         // TODO add your handling code here:
+        int selectedRow = jTable1.getSelectedRow();
+        if(selectedRow != -1) {
+            // Lấy dữ liệu từ hàng đã chọn
+            boolean flag = false;
+            for (Course x : courseBLL.getList()) {
+                if (x.getCourseId() == (int) this.jTable1.getValueAt(selectedRow, 0)) {
+                    for (OnlineCourse y : onlineCourseBLL.getList()) {
+                        if (x.getCourseId() == y.getCourseId()) {
+                            CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
+                            courseInsert_Edit.getjButton1().setVisible(false);
+                            
+                            courseInsert_Edit.getjComboBox1().setSelectedIndex(0);
+                            courseInsert_Edit.getjComboBox1().setEnabled(false);
+                            
+                            courseInsert_Edit.getjTextFieldId().setText(Integer.toString(x.getCourseId()));
+                            courseInsert_Edit.getjTextFieldId().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldTen().setText(x.getTitle());
+                            courseInsert_Edit.getjTextFieldTen().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldGia().setText(Integer.toString(x.getCredits()));
+                            courseInsert_Edit.getjTextFieldGia().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldUrl().setText(y.getUrl());
+                            courseInsert_Edit.getjTextFieldUrl().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldDiaChi().setEnabled(false);
+                            
+                            courseInsert_Edit.getjTextFieldGio().setEnabled(false);
+                            
+                            courseInsert_Edit.getjTextFieldNgay().setEnabled(false);
+                            
+                            for(int i=0;i< courseInsert_Edit.getjComboBox2().getItemCount();i++){
+                                String item= (String) courseInsert_Edit.getjComboBox2().getItemAt(i);
+                                String departmentId= Integer.toString(x.getDepartmentId());
+                                if(item.equals(departmentId)){
+                                    courseInsert_Edit.getjComboBox2().setSelectedIndex(i);
+                                    courseInsert_Edit.getjComboBox2().setEnabled(false);
+                                    break;
+                                }
+                            }
+                            
+                            courseInsert_Edit.setVisible(true);
+                            flag = true;
+                            break;
+                        }
+                    }
+                    if (flag) {
+                        continue;
+                    }
+                    for (OnsiteCourse y : onsiteCourseBLL.getList()) {
+                        if (x.getCourseId() == y.getCourseId()) {
+                            CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
+                            courseInsert_Edit.getjButton1().setVisible(false);
+                            
+                            courseInsert_Edit.getjComboBox1().setSelectedIndex(1);
+                            courseInsert_Edit.getjComboBox1().setEnabled(false);
+                            
+                            courseInsert_Edit.getjTextFieldId().setText(Integer.toString(x.getCourseId()));
+                            courseInsert_Edit.getjTextFieldId().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldTen().setText(x.getTitle());
+                            courseInsert_Edit.getjTextFieldTen().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldGia().setText(Integer.toString(x.getCredits()));
+                            courseInsert_Edit.getjTextFieldGia().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldUrl().setEnabled(false);
+                            
+                            courseInsert_Edit.getjTextFieldDiaChi().setText(y.getLocation());
+                            courseInsert_Edit.getjTextFieldDiaChi().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldGio().setText(y.getTime().toString());
+                            courseInsert_Edit.getjTextFieldGio().setEditable(false);
+                            
+                            courseInsert_Edit.getjTextFieldNgay().setText(y.getDays());
+                            courseInsert_Edit.getjTextFieldNgay().setEditable(false);
+                            
+                            for(int i=0;i< courseInsert_Edit.getjComboBox2().getItemCount();i++){
+                                String item= (String) courseInsert_Edit.getjComboBox2().getItemAt(i);
+                                String departmentId= Integer.toString(x.getDepartmentId());
+                                if(item.equals(departmentId)){
+                                    courseInsert_Edit.getjComboBox2().setSelectedIndex(i);
+                                    courseInsert_Edit.getjComboBox2().setEnabled(false);
+                                    break;
+                                }
+                            }
+                            
+                            courseInsert_Edit.setVisible(true);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Mở một hộp thoại chỉnh sửa hoặc một form chỉnh sửa với dữ liệu đã chọn
+            // Ví dụ: new EditDialog(data).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một bản ghi để chỉnh sửa.");
+        }
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 
     /**

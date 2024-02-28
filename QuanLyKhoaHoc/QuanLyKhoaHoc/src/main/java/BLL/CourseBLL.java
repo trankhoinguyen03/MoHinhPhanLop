@@ -38,6 +38,10 @@ public class CourseBLL {
         }
         return courseDAL.addCourse(value);
     }
+    
+    public int getLastCourseId() throws SQLException {
+        return courseDAL.getLastCourseId();
+    }
 
     public int updateCourse(Course value) {
         if (value.getCourseId() <= 0 || value.getCredits() <= 0 || value.getDepartmentId() <= 0) {

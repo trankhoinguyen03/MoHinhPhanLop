@@ -75,7 +75,20 @@ public class CourseDAL extends MyDatabaseManager {
         }
         return 0;
     }
-
+    
+    public int getLastCourseId() throws SQLException {
+        String query = "Select Max(CourseId) From Course";
+        PreparedStatement pst = c.prepareStatement(query);
+        ResultSet rs = pst.executeQuery();
+        if (rs.next()) {
+            int id = rs.getInt(1);
+            return id;
+        } else {
+            // Xử lý trường hợp không có dữ liệu, ví dụ:
+            throw new SQLException("No data found");
+        }
+    }
+    
     public int updateCourse(Course value) {
         try {
             String query = "update Course set Title=?, Credits=?, DepartmentID=? where CourseID=? ";
