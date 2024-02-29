@@ -72,7 +72,7 @@ public class CourseIntructorGUI extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
-        jTextField5 = new javax.swing.JTextField();
+        txtSearch = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableCourseIns = new javax.swing.JTable();
@@ -121,9 +121,9 @@ public class CourseIntructorGUI extends javax.swing.JFrame {
 
         btnXoa.setText("Xóa");
 
-        jTextField5.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField5KeyReleased(evt);
+                txtSearchKeyReleased(evt);
             }
         });
 
@@ -226,7 +226,7 @@ public class CourseIntructorGUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
@@ -270,7 +270,7 @@ public class CourseIntructorGUI extends javax.swing.JFrame {
                     .addComponent(btnThem)
                     .addComponent(btnSua)
                     .addComponent(btnXoa)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,23 +319,23 @@ public class CourseIntructorGUI extends javax.swing.JFrame {
 
     }//GEN-LAST:event_namePersonActionPerformed
 
-    private void jTextField5KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyReleased
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         // TODO add your handling code here:
-        if(jTextField5.getText().isEmpty()){
+        if(txtSearch.getText().isEmpty()){
             model.setRowCount(0);
             try {
                 model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
             } catch (Exception ex) {
                 Logger.getLogger(CourseIntructorGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else if(cIBLL.searchCourseInstructor(jTextField5.getText().trim()).size()>0){
+        }else if(cIBLL.searchCourseInstructor(txtSearch.getText().trim()).size()>0){
             model.setRowCount(0);
-            model = addArrayListToTable(cIBLL.searchCourseInstructor(jTextField5.getText().trim()));
+            model = addArrayListToTable(cIBLL.searchCourseInstructor(txtSearch.getText().trim()));
         } else{
         model.setRowCount(0);
         }
         tableCourseIns.setModel(model);
-    }//GEN-LAST:event_jTextField5KeyReleased
+    }//GEN-LAST:event_txtSearchKeyReleased
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -400,7 +400,7 @@ public class CourseIntructorGUI extends javax.swing.JFrame {
               JOptionPane.showMessageDialog( null, "Update success!!!?" );
 
             }                
-            jTextField5.setText("");
+            txtSearch.setText("");
             model.setRowCount(0);
             model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
             tableCourseIns.setModel(model);
@@ -504,11 +504,11 @@ public class CourseIntructorGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField maGV;
     private javax.swing.JTextField maKH;
     private javax.swing.JComboBox<Course> nameCourse;
     private javax.swing.JComboBox<Lecturers> namePerson;
     private javax.swing.JTable tableCourseIns;
+    private javax.swing.JTextField txtSearch;
     // End of variables declaration//GEN-END:variables
 }
