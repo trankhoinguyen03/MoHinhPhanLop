@@ -27,17 +27,10 @@ public class CourseBLL {
     }
 
     public int addCourse(Course value) {
-        if (value.getCredits() <= 0 || value.getDepartmentId() <= 0) {
-            JOptionPane.showMessageDialog(null, "CourseId, Credits, DepartmentId must be positive");
-            return 0;
+        if (checkValue(value.getTitle(), value.getCredits())) {
+            return courseDAL.addCourse(value);
         }
-//        for (Course x : this.getList()) {
-//            if (x.getCourseId() == value.getCourseId()) {
-//                JOptionPane.showMessageDialog(null, "CourseId already exists");
-//                return 0;
-//            }
-//        }
-        return courseDAL.addCourse(value);
+        return 0;
     }
     
     public int getLastCourseId() throws SQLException {
@@ -45,21 +38,22 @@ public class CourseBLL {
     }
 
     public int updateCourse(Course value) {
-        if (value.getCourseId() <= 0 || value.getCredits() <= 0 || value.getDepartmentId() <= 0) {
-            JOptionPane.showMessageDialog(null, "CourseId, Credits, DepartmentId must be positive");
-            return 0;
+        if (checkValue(value.getTitle(), value.getCredits())) {
+            return courseDAL.updateCourse(value);
         }
-        boolean flag = false;
-        for (Course x : this.getList()) {
-            if (x.getCourseId() == value.getCourseId()) {
-                flag = true;
-            }
+        return 0;
+    }
+    
+    public boolean checkValue(String title, int credits) {
+        if("".equals(title)) {
+            JOptionPane.showMessageDialog(null, "Title not null!");
+            return false;
         }
-        if (flag == false) {
-            JOptionPane.showMessageDialog(null, "CourseId does not exist yet");
-            return 0;
+        else if(credits <= 0) {
+            JOptionPane.showMessageDialog(null, "Credits must be numbers 1 through 4!");
+            return false;
         }
-        return courseDAL.updateCourse(value);
+        return true;
     }
 
     public int deleteCourse(int value) {
@@ -67,7 +61,7 @@ public class CourseBLL {
     }
 
     public ArrayList<Course> searchCourse(String value) {
-        ArrayList<Course> list = new ArrayList<Course>();
+        ArrayList<Course> list = new ArrayList<>();
         for (Course x : this.getList()) {
 
             String id = Integer.toString(x.getCourseId()).toLowerCase();

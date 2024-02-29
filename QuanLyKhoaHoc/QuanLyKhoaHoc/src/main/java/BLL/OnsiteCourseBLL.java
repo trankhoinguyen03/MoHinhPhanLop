@@ -4,9 +4,13 @@
  */
 package BLL;
 
+import DAL.CourseDAL;
 import DTO.OnsiteCourse;
 import DAL.OnsiteCourseDAL;
-import java.sql.SQLException;
+import DTO.Course;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -15,6 +19,7 @@ import javax.swing.JOptionPane;
  * @author Acer
  */
 public class OnsiteCourseBLL {
+    CourseDAL courseDAL = new CourseDAL();
     OnsiteCourseDAL onsiteCourseDAL = new OnsiteCourseDAL();
 
     public ArrayList<OnsiteCourse> getList() {
@@ -22,35 +27,46 @@ public class OnsiteCourseBLL {
     }
 
     public int addCourse(OnsiteCourse value) {
-        if (value.getCourseId() <= 0 ) {
-            JOptionPane.showMessageDialog(null, "CourseId must be positive");
-            return 0;
+        if(checkValue(value.getLocation(), value.getDays(), value.getTime())) {
+            return onsiteCourseDAL.addOnsiteCourse(value);
         }
-        for (OnsiteCourse x : this.getList()) {
-            if (x.getCourseId() == value.getCourseId()) {
-                JOptionPane.showMessageDialog(null, "CourseId already exists");
-                return 0;
-            }
-        }
-        return onsiteCourseDAL.addOnsiteCourse(value);
+        return 0;
     }
 
     public int updateCourse(OnsiteCourse value) {
-        if (value.getCourseId() <= 0) {
-            JOptionPane.showMessageDialog(null, "CourseId must be positive");
-            return 0;
+        if(checkValue(value.getLocation(), value.getDays(), value.getTime())) {
+            return onsiteCourseDAL.updateOnsiteCourse(value);
         }
-        boolean flag=false;
-        for (OnsiteCourse x : this.getList()) {
-            if (x.getCourseId() == value.getCourseId()) {
-                flag=true;
+        return 0;
+    }
+    
+    public boolean checkValue(String location, String days, String time) {
+        if("".equals(location)) {
+            JOptionPane.showMessageDialog(null, "location not null!");
+            return false;
+        }
+        else if("".equals(days)) {
+            JOptionPane.showMessageDialog(null, "days not null!");
+            return false;
+        }
+        else if(!days.matches("[MTWHFS]*")) {
+            JOptionPane.showMessageDialog(null, "days must only contain M T W H F S");
+            return false;
+        }
+        else if("".equals(time)) {
+            JOptionPane.showMessageDialog(null, "time not null!");
+            return false;
+        }
+        else {
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:00");
+                LocalTime.parse(time, formatter);
+            } catch (DateTimeParseException e) {
+                JOptionPane.showMessageDialog(null, "time not invalid!");
+                return false;
             }
         }
-        if(flag==false){
-           JOptionPane.showMessageDialog(null, "CourseId does not exist yet");
-           return 0;
-        }
-        return onsiteCourseDAL.updateOnsiteCourse(value);
+        return true;
     }
 
     public int deleteCourse(int value) {
@@ -66,15 +82,15 @@ public class OnsiteCourseBLL {
         }
         return onsiteCourseDAL.deleteOnsiteCourse(value);
     }
-    public ArrayList<OnsiteCourse> searchCourse(String value){
-        ArrayList<OnsiteCourse> list= new ArrayList<OnsiteCourse>();
-        for (OnsiteCourse x : this.getList()) {
-            String id= Integer.toString(x.getCourseId()).toLowerCase();   
-            String time= x.getTime().toString().toLowerCase();
-            if(id.contains(value.toLowerCase())|| x.getLocation().toLowerCase().contains(value.toLowerCase())|| x.getDays().toLowerCase().contains(value.toLowerCase())|| time.contains(value.toLowerCase())){
-                list.add(x);
-            }
+    public ArrayList<Course> searchCourse(){
+        ArrayList<Course> searchList= new ArrayList<>();
+        for (Course x : courseDAL.getList()) {
+            for(OnsiteCourse y : getList()) {
+                if(x.getCourseId() == y.getCourseId()){
+                    searchList.add(x);
+                }
+            }               
         }
-        return list;
+        return searchList;
     }
 }

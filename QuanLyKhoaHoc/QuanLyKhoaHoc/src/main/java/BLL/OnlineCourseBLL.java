@@ -7,6 +7,9 @@ package BLL;
 import DAL.CourseDAL;
 import DTO.OnlineCourse;
 import DAL.OnlineCourseDAL;
+import DTO.Course;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -24,37 +27,35 @@ public class OnlineCourseBLL {
     }
 
     public int addCourse(OnlineCourse value) {
-        if (value.getCourseId() <= 0 ) {
-            JOptionPane.showMessageDialog(null, "CourseId must be positive");
-            return 0;
+        if(checkValue(value.getUrl())) {
+            return onlineCourseDAL.addOnlineCourse(value);
         }
-        for (OnlineCourse x : this.getList()) {
-            if (x.getCourseId() == value.getCourseId()) {
-                JOptionPane.showMessageDialog(null, "CourseId already exists");
-                return 0;
-            }
-        }
-        return onlineCourseDAL.addOnlineCourse(value);
+        return 0;
     }
 
     public int updateCourse(OnlineCourse value) {
-        if (value.getCourseId() <= 0) {
-            JOptionPane.showMessageDialog(null, "CourseId must be positive");
-            return 0;
+        if(checkValue(value.getUrl())) {
+            return onlineCourseDAL.updateOnlineCourse(value);
         }
-        boolean flag=false;
-        for (OnlineCourse x : this.getList()) {
-            if (x.getCourseId() == value.getCourseId()) {
-                flag=true;
+        return 0;
+    }
+    
+    public boolean checkValue(String url) {
+        if("".equals(url)) {
+            JOptionPane.showMessageDialog(null, "url not null!");
+            return false;
+        }
+        else {
+            try {
+                new URL(url);
+            } catch (MalformedURLException e) {
+                JOptionPane.showMessageDialog(null, "url not invalid!");
+                return false;
             }
         }
-        if(flag==false){
-           JOptionPane.showMessageDialog(null, "CourseId does not exist yet");
-           return 0;
-        }
-        return onlineCourseDAL.updateOnlineCourse(value);
+        return true;
     }
-
+    
     public int deleteCourse(int value) {
         boolean flag=false;
         for (OnlineCourse x : this.getList()) {
@@ -68,14 +69,15 @@ public class OnlineCourseBLL {
         }
         return onlineCourseDAL.deleteOnlineCourse(value);
     }
-    public ArrayList<OnlineCourse> searchCourse(String value){
-        ArrayList<OnlineCourse> list= new ArrayList<OnlineCourse>();
-        for (OnlineCourse x : this.getList()) {
-            String id= Integer.toString(x.getCourseId()).toLowerCase();                    
-            if(id.contains(value.toLowerCase())|| x.getUrl().toLowerCase().contains(value.toLowerCase())){
-                list.add(x);
-            }
+    public ArrayList<Course> searchCourse(){
+        ArrayList<Course> searchList= new ArrayList<>();
+        for (Course x : courseDAL.getList()) {
+            for(OnlineCourse y : getList()) {
+                if(x.getCourseId() == y.getCourseId()){
+                    searchList.add(x);
+                }
+            }               
         }
-        return list;
+        return searchList;
     }
 }

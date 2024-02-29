@@ -45,7 +45,7 @@ public class CourseGUI extends javax.swing.JInternalFrame {
     }
 
     public void loadToTable(ArrayList<Course> list) {
-        String[] header = {"Mã khóa học", "Tên khóa học", "Giá", "Mã phòng", "Phương thức", ""};
+        String[] header = {"Mã khóa học", "Tên khóa học", "Tín chỉ", "Mã phòng", "Phương thức", ""};
         model = new DefaultTableModel(header, 0);
         this.jTable1.setModel(model);
         for (Course x : list) {
@@ -122,7 +122,7 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã khóa học", "Tên khóa học", "Giá", "Mã phòng", "Phương thức", ""
+                "Mã khóa học", "Tên khóa học", "Tín chỉ", "Mã phòng", "Phương thức", ""
             }
         ));
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -168,12 +168,20 @@ public class CourseGUI extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(jTextField1.getText() == "") {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm!");
+        if("".equals(jTextField1.getText())) {
+            JOptionPane.showMessageDialog(null, "Please enter search information!");
+            loadToTable(courseBLL.getList());
         }
         else {
-            if(courseBLL.searchCourse(jTextField1.getText()).isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Không tìm thấy khóa học!");
+            if("online".equalsIgnoreCase(jTextField1.getText())) {
+                loadToTable(onlineCourseBLL.searchCourse());
+            }
+            else if("onsite".equalsIgnoreCase(jTextField1.getText())) {
+                loadToTable(onsiteCourseBLL.searchCourse());
+            }
+            else if(courseBLL.searchCourse(jTextField1.getText()).isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No courses found!");
+                loadToTable(courseBLL.getList());
             }
             else {
                 loadToTable(courseBLL.searchCourse(jTextField1.getText()));

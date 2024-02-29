@@ -276,79 +276,74 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
                 if(insert == true) {
                     Course course = new Course();
                     course.setTitle(jTextFieldTen.getText());
-                    course.setCredits(Integer.parseInt(jTextFieldGia.getText()));
+                    if(!jTextFieldGia.getText().isEmpty()) {
+                        course.setCredits(Integer.parseInt(jTextFieldGia.getText()));
+                    }
                     for(Department x: departmentBLL.getListDepartment()) {
                         if(x.getName().equals(jComboBox2.getSelectedItem().toString())) {
                             course.setDepartmentId(x.getDepartmentId());
                         }
                     }
-                    courseBLL.addCourse(course);
-                    if(jComboBox1.getSelectedIndex() == 0) {                       
-                        OnlineCourse online = new OnlineCourse();
-                        online.setCourseId(courseBLL.getLastCourseId());
-                        online.setUrl(jTextFieldUrl.getText());
-                        if(onlineBLL.addCourse(online) != 0) {
-                            JOptionPane.showMessageDialog(null, "Thêm khóa học thành công!");
-                            Clear();
+                    if(courseBLL.addCourse(course) != 0) {
+                        if(jComboBox1.getSelectedIndex() == 0) {                       
+                            OnlineCourse online = new OnlineCourse();
+                            online.setCourseId(courseBLL.getLastCourseId());
+                            online.setUrl(jTextFieldUrl.getText());
+                            if(onlineBLL.addCourse(online) != 0) {
+                                JOptionPane.showMessageDialog(null, "Added course successfully!");
+                                Clear();
+                            }
                         }
                         else {
-                            JOptionPane.showMessageDialog(null, "Thêm thất bại!");
+                            OnsiteCourse onsite = new OnsiteCourse();
+                            onsite.setCourseId(courseBLL.getLastCourseId());
+                            onsite.setLocation(jTextFieldDiaChi.getText());
+                            onsite.setDays(jTextFieldNgay.getText());
+                            onsite.setTime(jTextFieldGio.getText());
+                            if(onsiteBLL.addCourse(onsite) != 0) {
+                                JOptionPane.showMessageDialog(null, "Added course successfully!");
+                                Clear();
+                            }
                         }
                     }
-                    else {
-                        OnsiteCourse onsite = new OnsiteCourse();
-                        onsite.setCourseId(courseBLL.getLastCourseId());
-                        onsite.setLocation(jTextFieldDiaChi.getText());
-                        onsite.setDays(jTextFieldNgay.getText());
-                        onsite.setTime(jTextFieldGio.getText());
-                        if(onsiteBLL.addCourse(onsite) != 0) {
-                            JOptionPane.showMessageDialog(null, "Thêm khóa học thành công!");
-                            Clear();
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(null, "Thêm thất bại!");
-                        }
-                    }
+                    
                 }
                 else {
                     Course course = new Course();
                     course.setCourseId(Integer.parseInt(jTextFieldId.getText()));
                     course.setTitle(jTextFieldTen.getText());
-                    course.setCredits(Integer.parseInt(jTextFieldGia.getText()));
+                    if(!jTextFieldGia.getText().isEmpty()) {
+                        course.setCredits(Integer.parseInt(jTextFieldGia.getText()));
+                    }
                     for(Department x: departmentBLL.getListDepartment()) {
                         if(x.getName().equals(jComboBox2.getSelectedItem().toString())) {
                             course.setDepartmentId(x.getDepartmentId());
                         }
                     }
-                    courseBLL.updateCourse(course);
-                    if(jComboBox1.getSelectedIndex() == 0) {                       
-                        OnlineCourse online = new OnlineCourse();
-                        online.setCourseId(Integer.parseInt(jTextFieldId.getText()));
-                        online.setUrl(jTextFieldUrl.getText());
-                        if(onlineBLL.updateCourse(online) != 0) {
-                            JOptionPane.showMessageDialog(null, "Sửa khóa học thành công!");
-                            Clear();
-                            dispose();
+                    if(courseBLL.updateCourse(course) != 0) {
+                        if(jComboBox1.getSelectedIndex() == 0) {                       
+                            OnlineCourse online = new OnlineCourse();
+                            online.setCourseId(Integer.parseInt(jTextFieldId.getText()));
+                            online.setUrl(jTextFieldUrl.getText());
+                            if(onlineBLL.updateCourse(online) != 0) {
+                                JOptionPane.showMessageDialog(null, "Edited the course successfully !");
+                                Clear();
+                                dispose();
+                            }
                         }
                         else {
-                            JOptionPane.showMessageDialog(null, "Sửa thất bại!");
-                        }
-                    }
-                    else {
-                        OnsiteCourse onsite = new OnsiteCourse();
-                        onsite.setCourseId(Integer.parseInt(jTextFieldId.getText()));
-                        onsite.setLocation(jTextFieldDiaChi.getText());
-                        onsite.setDays(jTextFieldNgay.getText());
-                        onsite.setTime(jTextFieldGio.getText());
-                        if(onsiteBLL.updateCourse(onsite) != 0) {
-                            JOptionPane.showMessageDialog(null, "Sửa khóa học thành công!");
-                            Clear();
-                            dispose();
-                        }
-                        else {
-                            JOptionPane.showMessageDialog(null, "Sửa thất bại!");
-                        }
-                    }
+                            OnsiteCourse onsite = new OnsiteCourse();
+                            onsite.setCourseId(Integer.parseInt(jTextFieldId.getText()));
+                            onsite.setLocation(jTextFieldDiaChi.getText());
+                            onsite.setDays(jTextFieldNgay.getText());
+                            onsite.setTime(jTextFieldGio.getText());
+                            if(onsiteBLL.updateCourse(onsite) != 0) {
+                                JOptionPane.showMessageDialog(null, "Edited the course successfully !");
+                                Clear();
+                                dispose();
+                            }
+                        } 
+                    } 
                 }
             }
         } catch (SQLException ex) {
