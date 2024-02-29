@@ -34,9 +34,7 @@ public class CourseInstructorBLL {
     }
     public ArrayList<CourseInstructor>  loadDSCourseInstructor() throws Exception{
        
-        ArrayList<CourseInstructor> data = new ArrayList<CourseInstructor>();
-        data=dal.loadDatabase();
-        return data;
+        return dal.loadDatabase();
     }
     public boolean updateCourseInstructor(CourseInstructor csinOld, CourseInstructor csinNew) throws Exception{
                 if(csinOld.getCourseID()==csinNew.getCourseID() && csinOld.getPersonID()== csinNew.getPersonID())
@@ -54,9 +52,7 @@ public class CourseInstructorBLL {
     }
      public ArrayList<CourseInstructor> searchCourseInstructor(String keyword)
     {
-        ArrayList<CourseInstructor> searchID = new ArrayList<>();
-        searchID.addAll(dal.findByChar(keyword));
-        return searchID;
+         return dal.findByChar(keyword);
     }
      public void saveold(int id,String Title,int personID,String fullName){
          this.saveCiold = new CourseInstructor(id,Title,personID,fullName);
