@@ -13,11 +13,14 @@ import DTO.OnsiteCourse;
 import DTO.Course;
 import DTO.Department;
 import GUI.CourseInsert_Edit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -153,6 +156,11 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                 jButtonDeleteMouseClicked(evt);
             }
         });
+        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButtonDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(487, 448, -1, 31));
 
         pack();
@@ -160,6 +168,17 @@ public class CourseGUI extends javax.swing.JInternalFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(jTextField1.getText() == "") {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin tìm kiếm!");
+        }
+        else {
+            if(courseBLL.searchCourse(jTextField1.getText()).isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Không tìm thấy khóa học!");
+            }
+            else {
+                loadToTable(courseBLL.searchCourse(jTextField1.getText()));
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -169,14 +188,23 @@ public class CourseGUI extends javax.swing.JInternalFrame {
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
         // TODO add your handling code here:
         CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
+        courseInsert_Edit.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                loadToTable(courseBLL.getList());
+            }
+        });
+
+        courseInsert_Edit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        courseInsert_Edit.setVisible(true);
         courseInsert_Edit.setInsert(true);
         courseInsert_Edit.setFlag(true);
         try {
             courseInsert_Edit.getjComboBox1().setSelectedIndex(0);
             courseInsert_Edit.getjComboBox1().setEnabled(true);
             
-            courseInsert_Edit.getjTextFieldId().setText(""+(courseBLL.getLastCourseId()+1));
-            courseInsert_Edit.getjTextFieldId().setEditable(false);
+            courseInsert_Edit.getjTextFieldId().setText("");
+            courseInsert_Edit.getjTextFieldId().setEnabled(false);
 
             courseInsert_Edit.getjTextFieldTen().setText("");
             courseInsert_Edit.getjTextFieldTen().setEditable(true);
@@ -326,6 +354,19 @@ public class CourseGUI extends javax.swing.JInternalFrame {
     private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable1.getSelectedRow();
+        CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
+        courseInsert_Edit.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                loadToTable(courseBLL.getList());
+            }
+        });
+
+        courseInsert_Edit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        courseInsert_Edit.setVisible(true);
+        courseInsert_Edit.getjButton1().setVisible(true);
+        courseInsert_Edit.setInsert(false);
+        courseInsert_Edit.setFlag(true);
         if(selectedRow != -1) {
             // Lấy dữ liệu từ hàng đã chọn
             boolean flag = false;
@@ -333,8 +374,6 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                 if (x.getCourseId() == (int) this.jTable1.getValueAt(selectedRow, 0)) {
                     for (OnlineCourse y : onlineCourseBLL.getList()) {
                         if (x.getCourseId() == y.getCourseId()) {
-                            CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
-                            courseInsert_Edit.getjButton1().setVisible(false);
                             
                             courseInsert_Edit.getjComboBox1().setSelectedIndex(0);
                             courseInsert_Edit.getjComboBox1().setEnabled(false);
@@ -343,13 +382,13 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                             courseInsert_Edit.getjTextFieldId().setEditable(false);
                             
                             courseInsert_Edit.getjTextFieldTen().setText(x.getTitle());
-                            courseInsert_Edit.getjTextFieldTen().setEditable(false);
+                            courseInsert_Edit.getjTextFieldTen().setEditable(true);
                             
                             courseInsert_Edit.getjTextFieldGia().setText(Integer.toString(x.getCredits()));
-                            courseInsert_Edit.getjTextFieldGia().setEditable(false);
+                            courseInsert_Edit.getjTextFieldGia().setEditable(true);
                             
                             courseInsert_Edit.getjTextFieldUrl().setText(y.getUrl());
-                            courseInsert_Edit.getjTextFieldUrl().setEditable(false);
+                            courseInsert_Edit.getjTextFieldUrl().setEditable(true);
                             
                             courseInsert_Edit.getjTextFieldDiaChi().setEnabled(false);
                             
@@ -357,16 +396,24 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                             
                             courseInsert_Edit.getjTextFieldNgay().setEnabled(false);
                             
-                            for(int i=0;i< courseInsert_Edit.getjComboBox2().getItemCount();i++){
-                                String item= (String) courseInsert_Edit.getjComboBox2().getItemAt(i);
-                                String departmentId= Integer.toString(x.getDepartmentId());
-                                if(item.equals(departmentId)){
-                                    courseInsert_Edit.getjComboBox2().setSelectedIndex(i);
-                                    courseInsert_Edit.getjComboBox2().setEnabled(false);
-                                    break;
+                            ArrayList<String> data = new ArrayList<>();
+                            try {
+                                for(Department z: departmentBLL.getListDepartment()) {
+                                    data.add(z.getName());
                                 }
+                                courseInsert_Edit.getjComboBox2().setModel(new javax.swing.DefaultComboBoxModel<>(data.toArray(String[]::new)));
+
+                                for(int i=0;i< courseInsert_Edit.getjComboBox2().getItemCount();i++){
+                                    String item= (String) courseInsert_Edit.getjComboBox2().getItemAt(i);
+                                    if(item.equals(departmentBLL.getDeparment(x.getDepartmentId()).getName())){
+                                        courseInsert_Edit.getjComboBox2().setSelectedIndex(i);
+                                        courseInsert_Edit.getjComboBox2().setEnabled(true);
+                                        break;
+                                    }
+                                }
+                            } catch (SQLException ex) {
+                                Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            
                             courseInsert_Edit.setVisible(true);
                             flag = true;
                             break;
@@ -377,8 +424,6 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                     }
                     for (OnsiteCourse y : onsiteCourseBLL.getList()) {
                         if (x.getCourseId() == y.getCourseId()) {
-                            CourseInsert_Edit courseInsert_Edit = new CourseInsert_Edit();
-                            courseInsert_Edit.getjButton1().setVisible(false);
                             
                             courseInsert_Edit.getjComboBox1().setSelectedIndex(1);
                             courseInsert_Edit.getjComboBox1().setEnabled(false);
@@ -387,30 +432,39 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                             courseInsert_Edit.getjTextFieldId().setEditable(false);
                             
                             courseInsert_Edit.getjTextFieldTen().setText(x.getTitle());
-                            courseInsert_Edit.getjTextFieldTen().setEditable(false);
+                            courseInsert_Edit.getjTextFieldTen().setEditable(true);
                             
                             courseInsert_Edit.getjTextFieldGia().setText(Integer.toString(x.getCredits()));
-                            courseInsert_Edit.getjTextFieldGia().setEditable(false);
+                            courseInsert_Edit.getjTextFieldGia().setEditable(true);
                             
                             courseInsert_Edit.getjTextFieldUrl().setEnabled(false);
                             
                             courseInsert_Edit.getjTextFieldDiaChi().setText(y.getLocation());
-                            courseInsert_Edit.getjTextFieldDiaChi().setEditable(false);
+                            courseInsert_Edit.getjTextFieldDiaChi().setEditable(true);
                             
                             courseInsert_Edit.getjTextFieldGio().setText(y.getTime().toString());
-                            courseInsert_Edit.getjTextFieldGio().setEditable(false);
+                            courseInsert_Edit.getjTextFieldGio().setEditable(true);
                             
                             courseInsert_Edit.getjTextFieldNgay().setText(y.getDays());
-                            courseInsert_Edit.getjTextFieldNgay().setEditable(false);
+                            courseInsert_Edit.getjTextFieldNgay().setEditable(true);
                             
-                            for(int i=0;i< courseInsert_Edit.getjComboBox2().getItemCount();i++){
-                                String item= (String) courseInsert_Edit.getjComboBox2().getItemAt(i);
-                                String departmentId= Integer.toString(x.getDepartmentId());
-                                if(item.equals(departmentId)){
-                                    courseInsert_Edit.getjComboBox2().setSelectedIndex(i);
-                                    courseInsert_Edit.getjComboBox2().setEnabled(false);
-                                    break;
+                            ArrayList<String> data = new ArrayList<>();
+                                                        try {
+                                for(Department z: departmentBLL.getListDepartment()) {
+                                    data.add(z.getName());
                                 }
+                                courseInsert_Edit.getjComboBox2().setModel(new javax.swing.DefaultComboBoxModel<>(data.toArray(String[]::new)));
+
+                                for(int i=0;i< courseInsert_Edit.getjComboBox2().getItemCount();i++){
+                                    String item= (String) courseInsert_Edit.getjComboBox2().getItemAt(i);
+                                    if(item.equals(departmentBLL.getDeparment(x.getDepartmentId()).getName())){
+                                        courseInsert_Edit.getjComboBox2().setSelectedIndex(i);
+                                        courseInsert_Edit.getjComboBox2().setEnabled(true);
+                                        break;
+                                    }
+                                }
+                            } catch (SQLException ex) {
+                                Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             
                             courseInsert_Edit.setVisible(true);
@@ -426,6 +480,10 @@ public class CourseGUI extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn một bản ghi để chỉnh sửa.");
         }
     }//GEN-LAST:event_jButtonUpdateActionPerformed
+
+    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonDeleteActionPerformed
 
     /**
      * @param args the command line arguments

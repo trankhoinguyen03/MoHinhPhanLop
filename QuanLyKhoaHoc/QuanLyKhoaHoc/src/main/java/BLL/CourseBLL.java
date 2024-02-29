@@ -27,16 +27,16 @@ public class CourseBLL {
     }
 
     public int addCourse(Course value) {
-        if (value.getCourseId() <= 0 || value.getCredits() <= 0 || value.getDepartmentId() <= 0) {
+        if (value.getCredits() <= 0 || value.getDepartmentId() <= 0) {
             JOptionPane.showMessageDialog(null, "CourseId, Credits, DepartmentId must be positive");
             return 0;
         }
-        for (Course x : this.getList()) {
-            if (x.getCourseId() == value.getCourseId()) {
-                JOptionPane.showMessageDialog(null, "CourseId already exists");
-                return 0;
-            }
-        }
+//        for (Course x : this.getList()) {
+//            if (x.getCourseId() == value.getCourseId()) {
+//                JOptionPane.showMessageDialog(null, "CourseId already exists");
+//                return 0;
+//            }
+//        }
         return courseDAL.addCourse(value);
     }
     

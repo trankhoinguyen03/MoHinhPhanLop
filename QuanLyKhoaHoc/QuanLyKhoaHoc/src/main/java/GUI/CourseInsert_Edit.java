@@ -4,9 +4,28 @@
  */
 package GUI;
 import BLL.CourseBLL;
+import BLL.DepartmentBLL;
+import BLL.OnlineCourseBLL;
+import BLL.OnsiteCourseBLL;
+import DTO.Course;
+import DTO.Department;
+import DTO.OnlineCourse;
+import DTO.OnsiteCourse;
+import java.sql.SQLException;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
+import java.text.ParseException;
+
 
 /**
  *
@@ -14,7 +33,10 @@ import javax.swing.JTextField;
  */
 public class CourseInsert_Edit extends javax.swing.JFrame {
     CourseBLL courseBLL=new CourseBLL();
-    boolean insert;
+    OnlineCourseBLL onlineBLL=new OnlineCourseBLL();
+    OnsiteCourseBLL onsiteBLL=new OnsiteCourseBLL();
+    DepartmentBLL departmentBLL = new DepartmentBLL();
+    boolean insert = true;
     boolean flag = false;
     
     /**
@@ -36,8 +58,6 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
     public void setInsert(boolean insert) {
         this.insert = insert;
     }
-
-    
 
     public boolean isFlag() {
         return flag;
@@ -126,6 +146,16 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
     public void setjTextFieldUrl(JTextField jTextFieldUrl) {
         this.jTextFieldUrl = jTextFieldUrl;
     }
+    
+    public void Clear() {
+        jTextFieldDiaChi.setText("");
+        jTextFieldGia.setText("");
+        jTextFieldGio.setText("");
+        jTextFieldId.setText("");
+        jTextFieldNgay.setText("");
+        jTextFieldTen.setText("");
+        jTextFieldUrl.setText("");
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -157,6 +187,7 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -212,6 +243,8 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
         getContentPane().add(jTextFieldUrl, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 75, 265, 25));
         getContentPane().add(jTextFieldDiaChi, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 112, 265, 25));
         getContentPane().add(jTextFieldNgay, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 149, 170, -1));
+
+        jTextFieldGio.setToolTipText("");
         getContentPane().add(jTextFieldGio, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 185, 170, -1));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -238,7 +271,89 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
+        try {
+            if(flag == true) {
+                if(insert == true) {
+                    Course course = new Course();
+                    course.setTitle(jTextFieldTen.getText());
+                    course.setCredits(Integer.parseInt(jTextFieldGia.getText()));
+                    for(Department x: departmentBLL.getListDepartment()) {
+                        if(x.getName().equals(jComboBox2.getSelectedItem().toString())) {
+                            course.setDepartmentId(x.getDepartmentId());
+                        }
+                    }
+                    courseBLL.addCourse(course);
+                    if(jComboBox1.getSelectedIndex() == 0) {                       
+                        OnlineCourse online = new OnlineCourse();
+                        online.setCourseId(courseBLL.getLastCourseId());
+                        online.setUrl(jTextFieldUrl.getText());
+                        if(onlineBLL.addCourse(online) != 0) {
+                            JOptionPane.showMessageDialog(null, "Thêm khóa học thành công!");
+                            Clear();
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "Thêm thất bại!");
+                        }
+                    }
+                    else {
+                        OnsiteCourse onsite = new OnsiteCourse();
+                        onsite.setCourseId(courseBLL.getLastCourseId());
+                        onsite.setLocation(jTextFieldDiaChi.getText());
+                        onsite.setDays(jTextFieldNgay.getText());
+                        onsite.setTime(jTextFieldGio.getText());
+                        if(onsiteBLL.addCourse(onsite) != 0) {
+                            JOptionPane.showMessageDialog(null, "Thêm khóa học thành công!");
+                            Clear();
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "Thêm thất bại!");
+                        }
+                    }
+                }
+                else {
+                    Course course = new Course();
+                    course.setCourseId(Integer.parseInt(jTextFieldId.getText()));
+                    course.setTitle(jTextFieldTen.getText());
+                    course.setCredits(Integer.parseInt(jTextFieldGia.getText()));
+                    for(Department x: departmentBLL.getListDepartment()) {
+                        if(x.getName().equals(jComboBox2.getSelectedItem().toString())) {
+                            course.setDepartmentId(x.getDepartmentId());
+                        }
+                    }
+                    courseBLL.updateCourse(course);
+                    if(jComboBox1.getSelectedIndex() == 0) {                       
+                        OnlineCourse online = new OnlineCourse();
+                        online.setCourseId(Integer.parseInt(jTextFieldId.getText()));
+                        online.setUrl(jTextFieldUrl.getText());
+                        if(onlineBLL.updateCourse(online) != 0) {
+                            JOptionPane.showMessageDialog(null, "Sửa khóa học thành công!");
+                            Clear();
+                            dispose();
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "Sửa thất bại!");
+                        }
+                    }
+                    else {
+                        OnsiteCourse onsite = new OnsiteCourse();
+                        onsite.setCourseId(Integer.parseInt(jTextFieldId.getText()));
+                        onsite.setLocation(jTextFieldDiaChi.getText());
+                        onsite.setDays(jTextFieldNgay.getText());
+                        onsite.setTime(jTextFieldGio.getText());
+                        if(onsiteBLL.updateCourse(onsite) != 0) {
+                            JOptionPane.showMessageDialog(null, "Sửa khóa học thành công!");
+                            Clear();
+                            dispose();
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null, "Sửa thất bại!");
+                        }
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseInsert_Edit.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -299,6 +414,7 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new CourseInsert_Edit().setVisible(true);
+                
             }
         });
     }

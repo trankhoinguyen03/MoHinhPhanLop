@@ -34,7 +34,7 @@ public class OnsiteCourseDAL extends MyDatabaseManager {
                 value.setCourseId(rs.getInt(1));
                 value.setLocation(rs.getString(2));
                 value.setDays(rs.getString(3));
-                value.setTime(rs.getTime(4));               
+                value.setTime(rs.getString(4));               
                 list.add(value);              
             }
             
@@ -50,7 +50,7 @@ public class OnsiteCourseDAL extends MyDatabaseManager {
             pst.setInt(1, value.getCourseId());
             pst.setNString(2, value.getLocation());
             pst.setNString(3, value.getDays());
-            pst.setTime(4, value.getTime());
+            pst.setString(4, value.getTime().toString());
             return pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,7 +63,7 @@ public class OnsiteCourseDAL extends MyDatabaseManager {
             PreparedStatement pst= c.prepareStatement(query);
             pst.setNString(1, value.getLocation());
             pst.setNString(2, value.getDays());
-            pst.setTime(3, value.getTime());
+            pst.setString(3, value.getTime().toString());
             pst.setInt(4, value.getCourseId());
             return pst.executeUpdate();
         } catch (SQLException ex) {

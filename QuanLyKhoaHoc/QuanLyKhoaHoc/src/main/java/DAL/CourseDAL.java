@@ -88,12 +88,11 @@ public class CourseDAL extends MyDatabaseManager {
 
     public int addCourse(Course value) {
         try {
-            String query = "Insert into Course (CourseID, Title, Credits, DepartmentID ) VALUES(?,?,?,?)";
+            String query = "Insert into Course (Title, Credits, DepartmentID ) VALUES(?,?,?)";
             PreparedStatement pst = c.prepareStatement(query);
-            pst.setInt(1, value.getCourseId());
-            pst.setNString(2, value.getTitle());
-            pst.setInt(3, value.getCredits());
-            pst.setInt(4, value.getDepartmentId());
+            pst.setNString(1, value.getTitle());
+            pst.setInt(2, value.getCredits());
+            pst.setInt(3, value.getDepartmentId());
             return pst.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,7 +25,8 @@ public class DepartmentDAL extends MyDatabaseManager {
         Department department = new Department();
         String query = "Select * From Department Where DepartmentID = ?";
         PreparedStatement pst = c.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
+        pst.setInt(1, id);
+        ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 department.setDepartmentId(rs.getInt(1));
                 department.setName(rs.getString(2));

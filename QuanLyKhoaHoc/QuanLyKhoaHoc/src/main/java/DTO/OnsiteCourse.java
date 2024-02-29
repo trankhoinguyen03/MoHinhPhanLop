@@ -14,12 +14,12 @@ public class OnsiteCourse {
     private int courseId;
     private String location;
     private String days;
-    private Time time;
+    private String time;
 
     public OnsiteCourse() {
     }
 
-    public OnsiteCourse(int courseId, String location, String days, Time time) {
+    public OnsiteCourse(int courseId, String location, String days, String time) {
         this.courseId = courseId;
         this.location = location;
         this.days = days;
@@ -50,11 +50,11 @@ public class OnsiteCourse {
         this.days = days;
     }
 
-    public Time getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(String time) {
         this.time = time;
     }
     
