@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Admin
@@ -167,13 +170,19 @@ public class HomePage extends javax.swing.JFrame {
         // TODO add your handling code here:
         jPanel2.removeAll();
         jPanel2.repaint();
-        CourseIntructorGUI gui = new CourseIntructorGUI();
+        CourseIntructorGUI gui;
+        try {
+            gui = new CourseIntructorGUI();
+        
         gui.setLocation(-10, -50);
         gui.setSize(830, 620);
         gui.setVisible(true);
-        gui.setResizable(true);
+        gui.setResizable(true);        
         jPanel2.add(gui);
         jPanel2.repaint();
+        } catch (Exception ex) {
+            Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

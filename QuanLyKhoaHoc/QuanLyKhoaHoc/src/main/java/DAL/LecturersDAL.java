@@ -8,6 +8,8 @@ import DTO.Lecturers;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,6 +20,31 @@ public class LecturersDAL extends MyDatabaseManager {
     public LecturersDAL() {
         super();
         this.connectDB();
+    }
+    public ArrayList<Lecturers> loadDatabase() throws Exception {
+        ArrayList<Lecturers> list = new ArrayList<>();
+        Statement st = c.createStatement(); 
+        String query ="SELECT * FROM  Person WHERE HireDate >0 ;";
+        try {
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                Lecturers cs = new Lecturers(
+                        rs.getInt("PersonID"),
+                        rs.getString("LastName"),
+                        rs.getString("FirstName"),
+                        rs.getDate("HireDate"),
+                         rs.getDate("EnrollmentDate")
+                );
+                list.add(cs);
+            }
+            rs.close();
+            
+
+        } catch (SQLException ex) {
+            System.out.println("Khong the load database person: " + ex);
+        }
+
+        return list;
     }
     public void readLecturers() throws SQLException {
         String query = "SELECT * FROM Person WHERE HireDate >0";

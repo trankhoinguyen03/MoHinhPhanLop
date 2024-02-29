@@ -7,6 +7,7 @@ package BLL;
 import DTO.Lecturers;
 import DAL.LecturersDAL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,5 +34,16 @@ public class LecturersBLL {
     }
     public int deleteLecturers(int personID) throws SQLException {
         return dal.deleteLecturers(personID);
+    }
+    public ArrayList<Lecturers> loadData() throws Exception{
+        return dal.loadDatabase();
+    }
+    public Lecturers findElement(int id) throws Exception{
+        ArrayList<Lecturers> list = dal.loadDatabase();
+        for(Lecturers ps : list){
+            if(ps.getPersonId() == id)
+                return ps;
+        }
+        return null;
     }
 }

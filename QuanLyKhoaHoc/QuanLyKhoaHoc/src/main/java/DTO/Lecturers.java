@@ -14,7 +14,7 @@ public class Lecturers {
     String firstName, lastName;
     int personId;
     Date hireDate;
-
+    Date enrollmentDate;
     public Lecturers() {
     }
 
@@ -23,6 +23,14 @@ public class Lecturers {
         this.lastName = lastName;
         this.personId = personId;
         this.hireDate = hireDate;
+    }
+
+    public Lecturers(int personId,String lastName,String firstName,  Date hireDate,Date EnrollmentDate) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.personId = personId;
+        this.hireDate = hireDate;
+        this.enrollmentDate=EnrollmentDate;
     }
 
     public String getFirstName() {
@@ -55,6 +63,10 @@ public class Lecturers {
 
     public void setHireDate(Date hireDate) {
         this.hireDate = hireDate;
+    }
+    @Override
+    public String toString() {
+        return this.lastName + " " + this.firstName;
     }
     
 }

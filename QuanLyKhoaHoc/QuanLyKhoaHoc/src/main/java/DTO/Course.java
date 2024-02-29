@@ -55,5 +55,9 @@ public class Course {
     public void setDepartmentId(int DepartmentId) {
         this.DepartmentId = DepartmentId;
     }
+    @Override
+    public String toString() {
+        return getTitle();
+    }
     
 }

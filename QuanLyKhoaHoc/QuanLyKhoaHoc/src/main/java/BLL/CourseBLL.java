@@ -6,6 +6,7 @@ package BLL;
 
 import DAL.CourseDAL;
 import DTO.Course;
+import DTO.Lecturers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -78,5 +79,17 @@ public class CourseBLL {
         }
         return list;
     }
+     public ArrayList<Course> loadData() throws Exception{
+        return courseDAL.loadDatabase();
+    }
+      public Course findElement(int id) throws Exception{
+        ArrayList<Course> list = courseDAL.loadDatabase();
+        for(Course co : list){
+            if(co.getCourseId() == id)
+                return co;
+        }
+        return null;
+    } 
+    
     
 }

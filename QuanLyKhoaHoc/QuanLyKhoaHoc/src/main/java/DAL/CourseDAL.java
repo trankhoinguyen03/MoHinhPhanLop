@@ -8,6 +8,7 @@ import DTO.Course;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,31 @@ public class CourseDAL extends MyDatabaseManager {
     public CourseDAL() {
         super();
         this.connectDB();
-    }   
+    }  
+    public ArrayList<Course> loadDatabase() throws Exception {
+        ArrayList<Course> list = new ArrayList<>();
+        Statement st = c.createStatement(); 
+        String query ="SELECT * FROM  Course ";
+        try {
+            ResultSet rs = st.executeQuery(query);
+            while (rs.next()) {
+                Course cs = new Course(
+                        rs.getInt("CourseID"),
+                        rs.getString("Title"),
+                        rs.getInt("Credits"),
+                         rs.getInt("DepartmentID")
+                );
+                list.add(cs);
+            }
+            rs.close();
+            
+
+        } catch (SQLException ex) {
+            System.out.println("Khong the load database Course: " + ex);
+        }
+
+        return list;
+    }
     public ArrayList<Course> getList() {
         ArrayList list = new ArrayList<Course>();
         String query = "select *from Course";
