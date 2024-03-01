@@ -43,8 +43,7 @@ public class CourseInstructorBLL {
                     dal.updateCourseInstructor(csinOld,csinNew);
                     return true;
                 } catch (Exception e) {
-                    System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
-                   
+                    System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");   
                 }
                 
                 return false;

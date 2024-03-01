@@ -27,6 +27,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
     DefaultTableModel model = new DefaultTableModel();
     DefaultComboBoxModel<Course> comboBoxModel;
     DefaultComboBoxModel<Lecturers> comboBoxModelPS;   
+    private boolean insert;
 
     /**
      * Creates new form TeachingAssignment
@@ -81,7 +82,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
         btnXong = new javax.swing.JButton();
         btnHuy = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
@@ -119,6 +120,11 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 82, 24));
 
         btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnThemActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         btnSua.setText("Sửa");
@@ -130,6 +136,11 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
         getContentPane().add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
 
         btnXoa.setText("Xóa");
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
 
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -320,32 +331,73 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_tableCourseInsMouseClicked
-
+    
     private void btnXongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXongActionPerformed
         // TODO add your handling code here:
-        int maKhoahoc = Integer.parseInt(maKH.getText());
-        int maGiangvien = Integer.parseInt(maGV.getText());
-        try {
-            CourseInstructor a =   cIBLL.returnOld();
-            CourseInstructor b =   cIBLL.getCourseInstructorNewByID(courseBLL.findElement(maKhoahoc),personBLL.findElement(maGiangvien));
+        if(!insert) {
+            int maKhoahoc = Integer.parseInt(maKH.getText());
+            int maGiangvien = Integer.parseInt(maGV.getText());
+            try {
+                CourseInstructor a =   cIBLL.returnOld();
+                CourseInstructor b =   cIBLL.getCourseInstructorNewByID(courseBLL.findElement(maKhoahoc),personBLL.findElement(maGiangvien));
 
-            if(!cIBLL.updateCourseInstructor(a, b)){
-                JOptionPane.showMessageDialog( null, "Update fail!!!?" );
-                
-            }else{
-              JOptionPane.showMessageDialog( null, "Update success!!!?" );
+                if(!cIBLL.updateCourseInstructor(a, b)){
+                    JOptionPane.showMessageDialog( null, "Update fail!!!?" );
 
-            }                
-            txtSearch.setText("");
-            model.setRowCount(0);
-            model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
-            tableCourseIns.setModel(model);
-            cIBLL.resetCourseIOld();
-            btnHuyActionPerformed(evt);
-        } catch (Exception ex) {
-            Logger.getLogger(CourseIntructorGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }else{
+                  JOptionPane.showMessageDialog( null, "Update success!!!?" );
+
+                }                
+                txtSearch.setText("");
+                model.setRowCount(0);
+                model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
+                tableCourseIns.setModel(model);
+                cIBLL.resetCourseIOld();
+                btnHuyActionPerformed(evt);
+            } catch (Exception ex) {
+                Logger.getLogger(CourseIntructorGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        else {
+            int maKhoahoc = Integer.parseInt(maKH.getText());
+            int maGiangvien = Integer.parseInt(maGV.getText());
+//            try {
+//                if(kiểm tra 2 mã đã tồn tại trong CSDL hay chưa) {
+//                    JOptionPane.showMessageDialog( null, "Record already exists!!!?");
+//                }
+//                else {
+//                    gọi hàm thêm khóa học từ BLL
+//                    JOptionPane.showMessageDialog( null, "Insert success!!!?" );
+//                }
+//                txtSearch.setText("");
+//                model.setRowCount(0);
+//                model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
+//                tableCourseIns.setModel(model);
+//                btnHuyActionPerformed(evt);
+//            } catch (Exception ex) {
+//                Logger.getLogger(CourseIntructorGUI.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+        }  
     }//GEN-LAST:event_btnXongActionPerformed
+    
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+        // TODO add your handling code here:
+        int luaChon = JOptionPane.showConfirmDialog(null, "Có thêm không?", "Hỏi", JOptionPane.YES_NO_OPTION);
+        if (luaChon == JOptionPane.YES_OPTION) {
+            insert = true;
+            nameCourse.setEnabled(true);
+            namePerson.setEnabled(true);
+            btnThem.setEnabled(false);
+            btnSua.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnXong.setVisible(true);
+            btnHuy.setVisible(true);   
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
+    //copy code button xóa vô đây
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
     /**
      * @param args the command line arguments
      */
