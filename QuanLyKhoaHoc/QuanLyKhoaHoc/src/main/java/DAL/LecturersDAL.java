@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -48,9 +50,9 @@ public class LecturersDAL extends MyDatabaseManager {
     public ArrayList<Lecturers> readLecturers() throws SQLException {
         ArrayList<Lecturers> list = new ArrayList<>();
         String query ="SELECT * FROM  Person WHERE HireDate >0 ;";
-        PreparedStatement p = c.prepareStatement(query); 
         try {
-            ResultSet rs = p.executeQuery();
+            PreparedStatement pst = c.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Lecturers cs = new Lecturers(
                     rs.getInt("PersonID"),
@@ -60,11 +62,9 @@ public class LecturersDAL extends MyDatabaseManager {
                 );
                 list.add(cs);
             }
-            rs.close();
         } catch (SQLException ex) {
-            System.out.println("Khong the load database person: " + ex);
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return list;
     }
     public int updateLecturers(Lecturers s) throws SQLException {
@@ -103,7 +103,7 @@ public class LecturersDAL extends MyDatabaseManager {
         }
     }
     public int deleteLecturers(int personID) throws SQLException {
-        String query = "DELETE FROM Person WHERE PersonID = ?";
+        String query = "Update Person SET HireDate = NULL WHERE PersonID = ?";
         PreparedStatement p = c.prepareStatement(query);
         p.setInt(1, personID);
         int result = p.executeUpdate();

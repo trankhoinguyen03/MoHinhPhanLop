@@ -18,11 +18,14 @@ public class Student {
         
     }
 
-    public Student(String firstName, String lastName, Date enrollmentDate) {
+    public Student(int personId, String firstName, String lastName, Date enrollmentDate) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.personId = personId;
         this.enrollmentDate = enrollmentDate;
     }
+
+    
     
     public String getName() {
         return firstName + lastName;

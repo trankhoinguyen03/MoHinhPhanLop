@@ -63,7 +63,6 @@ public class CourseDAL extends MyDatabaseManager {
                 value.setDepartmentId(rs.getInt(4));
                 list.add(value);
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
