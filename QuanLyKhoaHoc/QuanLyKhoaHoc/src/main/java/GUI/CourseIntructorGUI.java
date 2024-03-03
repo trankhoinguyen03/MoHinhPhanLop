@@ -4,10 +4,7 @@
  */
 package GUI;
 
-import BLL.CourseBLL;
-import BLL.CourseInstructorBLL;
-import BLL.LecturersBLL;
-import DTO.*;
+import BLL.*;
 import com.mysql.cj.LicenseConfiguration;
 import java.util.ArrayList;
 import java.util.logging.Level;

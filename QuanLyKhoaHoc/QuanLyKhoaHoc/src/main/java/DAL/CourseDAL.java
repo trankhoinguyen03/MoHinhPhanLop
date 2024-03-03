@@ -4,7 +4,7 @@
  */
 package DAL;
 
-import DTO.Course;
+import BLL.Course;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

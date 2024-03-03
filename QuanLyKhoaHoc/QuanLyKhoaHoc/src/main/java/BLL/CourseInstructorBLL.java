@@ -5,9 +5,9 @@
 package BLL;
 
 import DAL.CourseInstructorDAL;
-import DTO.Course;
-import DTO.CourseInstructor;
-import DTO.Lecturers;
+import BLL.Course;
+import BLL.CourseInstructor;
+import BLL.Lecturers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;

@@ -4,7 +4,6 @@
  */
 package BLL;
 
-import DTO.Lecturers;
 import DAL.LecturersDAL;
 import java.sql.SQLException;
 import java.util.ArrayList;

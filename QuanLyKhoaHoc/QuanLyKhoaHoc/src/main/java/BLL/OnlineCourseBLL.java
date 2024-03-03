@@ -5,9 +5,7 @@
 package BLL;
 
 import DAL.CourseDAL;
-import DTO.OnlineCourse;
 import DAL.OnlineCourseDAL;
-import DTO.Course;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.SQLException;

@@ -3,14 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package GUI;
-import BLL.CourseBLL;
-import BLL.DepartmentBLL;
-import BLL.OnlineCourseBLL;
-import BLL.OnsiteCourseBLL;
-import DTO.Course;
-import DTO.Department;
-import DTO.OnlineCourse;
-import DTO.OnsiteCourse;
+import BLL.*;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.text.DateFormat;

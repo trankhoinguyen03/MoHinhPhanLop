@@ -5,8 +5,6 @@
 package BLL;
 
 import DAL.CourseDAL;
-import DTO.Course;
-import DTO.Lecturers;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;

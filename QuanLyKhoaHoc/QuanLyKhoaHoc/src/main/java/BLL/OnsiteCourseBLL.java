@@ -5,9 +5,7 @@
 package BLL;
 
 import DAL.CourseDAL;
-import DTO.OnsiteCourse;
 import DAL.OnsiteCourseDAL;
-import DTO.Course;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;

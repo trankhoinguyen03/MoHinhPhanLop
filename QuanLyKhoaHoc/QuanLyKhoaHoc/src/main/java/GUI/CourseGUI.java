@@ -4,14 +4,7 @@
  */
 package GUI;
 
-import BLL.CourseBLL;
-import BLL.DepartmentBLL;
-import BLL.OnlineCourseBLL;
-import BLL.OnsiteCourseBLL;
-import DTO.OnlineCourse;
-import DTO.OnsiteCourse;
-import DTO.Course;
-import DTO.Department;
+import BLL.*;
 import GUI.CourseInsert_Edit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
