@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author HuynhQuocTien
  */
 public class CourseInstructorBLL {
-    private CourseInstructorDAL dal=new CourseInstructorDAL();
+    private static CourseInstructorDAL dal = new CourseInstructorDAL();
     CourseInstructor saveCiold;
     public CourseInstructorBLL() {
     }
@@ -65,4 +65,12 @@ public class CourseInstructorBLL {
      public CourseInstructor getCourseInstructorNewByID(Course cour, Lecturers pers){
         return new CourseInstructor(cour.getCourseId(),cour.getTitle(),pers.getPersonId(),pers.toString());
     }
+    public static boolean addCourseInstructor( int idcorse, int idperson) throws SQLException {
+        return dal.addCourseInstructor(  idcorse, idperson);
+    }
+
+    public static int deleteCourseInstructor( int idcorse, int idperson) throws SQLException {
+        return dal.deleteCourseInstructor(  idcorse, idperson);
+    }
+
 }

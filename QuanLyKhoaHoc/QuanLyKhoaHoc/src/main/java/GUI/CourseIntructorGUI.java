@@ -6,7 +6,7 @@ package GUI;
 
 import BLL.CourseBLL;
 import BLL.CourseInstructorBLL;
-import BLL.LecturersBLL;;
+import BLL.LecturersBLL;
 import DTO.*;
 import com.mysql.cj.LicenseConfiguration;
 import java.util.ArrayList;
@@ -14,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -332,6 +334,9 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_tableCourseInsMouseClicked
     
+    /**
+     * @param evt
+     */
     private void btnXongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXongActionPerformed
         // TODO add your handling code here:
         if(!insert) {
@@ -377,6 +382,25 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
 //            } catch (Exception ex) {
 //                Logger.getLogger(CourseIntructorGUI.class.getName()).log(Level.SEVERE, null, ex);
 //            }
+                try {
+                    if (!maKH.getText().isEmpty() && !maGV.getText().isEmpty()) {
+                        CourseInstructorBLL.addCourseInstructor(maKhoahoc, maGiangvien);
+                        JOptionPane.showMessageDialog(null, "Thêm thành công!");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Thêm thất bại! Vui lòng chọn đầy đủ thông tin.");
+                    }
+                    // Cập nhật bảng hiển thị
+                    txtSearch.setText("");
+                    model.setRowCount(0);
+                    model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
+                    tableCourseIns.setModel(model);
+                    btnHuyActionPerformed(evt);
+                } catch (Exception e) {
+                    // Xử lý ngoại lệ nếu có
+                    e.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+
         }  
     }//GEN-LAST:event_btnXongActionPerformed
     
@@ -391,12 +415,33 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
             btnSua.setEnabled(false);
             btnXoa.setEnabled(false);
             btnXong.setVisible(true);
-            btnHuy.setVisible(true);   
+            btnHuy.setVisible(true);
+            
         }
-    }//GEN-LAST:event_btnThemActionPerformed
-    //copy code button xóa vô đây
+    }
+    
+    
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
+        int row = (int) ((JTable) this.tableCourseIns).getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn khóa học muốn xóa");
+        } else {
+            int result = JOptionPane.showConfirmDialog(null, "Bạn có muốn xóa không?", "Xác nhận", JOptionPane.OK_CANCEL_OPTION);
+            if (result == JOptionPane.OK_OPTION) {
+                try {
+                    if (CourseInstructorBLL.deleteCourseInstructor(Integer.parseInt(maKH.getText()),Integer.parseInt(maGV.getText())) != 0 )  {
+                        JOptionPane.showMessageDialog(null, "Xóa thành công!");
+                        model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
+                        tableCourseIns.setModel(model);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Xóa thất bại!");
+                    }
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
     /**
      * @param args the command line arguments
@@ -492,8 +537,8 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField maGV;
-    private javax.swing.JTextField maKH;
+    private JTextField maGV;
+    private JTextField maKH;
     private javax.swing.JComboBox<Course> nameCourse;
     private javax.swing.JComboBox<Lecturers> namePerson;
     private javax.swing.JTable tableCourseIns;

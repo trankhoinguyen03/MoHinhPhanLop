@@ -219,6 +219,22 @@ public class CourseInstructorDAL extends MyDatabaseManager{
         }
        return list.get(0); 
     }
-    
+    public boolean addCourseInstructor(int CourseID, int PersonID) throws SQLException {
+        String query = "INSERT INTO CourseInstructor (CourseID, PersonID) VALUES (?, ?)";
+        try (PreparedStatement p = c.prepareStatement(query)) {
+            p.setInt(1, CourseID);
+            p.setInt(2, PersonID);
+            int rowsAffected = p.executeUpdate();
+            return rowsAffected > 0;
+        }
+    }
+    public int deleteCourseInstructor(int CourseID, int PersonID) throws SQLException {
+        String query = "DELETE FROM CourseInstructor WHERE CourseID = ? And PersonID = ?";
+        PreparedStatement p = c.prepareStatement(query);
+        p.setInt(1, CourseID);
+        p.setInt(2, PersonID);
+        int result = p.executeUpdate();
+        return result;
+    }
     
 }
