@@ -86,13 +86,13 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("QUẢN LÝ THÔNG TIN PHÂN CÔNG GIẢNG DẠY");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 536, 55));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 536, 55));
 
         jLabel2.setText("Mã khóa học:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 82, 22));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 82, 22));
 
         jLabel3.setText("Mã giảng viên:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 82, 24));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 82, 24));
 
         maKH.setEditable(false);
         maKH.setEnabled(false);
@@ -101,7 +101,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 maKHActionPerformed(evt);
             }
         });
-        getContentPane().add(maKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 189, -1));
+        getContentPane().add(maKH, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 189, -1));
 
         maGV.setEditable(false);
         maGV.setEnabled(false);
@@ -110,13 +110,13 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 maGVActionPerformed(evt);
             }
         });
-        getContentPane().add(maGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 189, -1));
+        getContentPane().add(maGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 189, -1));
 
         jLabel4.setText("Tên khóa học:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 82, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 82, -1));
 
         jLabel5.setText("Tên giảng viên:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 82, 24));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 120, 82, 24));
 
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +124,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 btnThemActionPerformed(evt);
             }
         });
-        getContentPane().add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        getContentPane().add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -132,7 +132,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 btnSuaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
+        getContentPane().add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, -1, -1));
 
         btnXoa.setText("Xóa");
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -140,14 +140,14 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 btnXoaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 180, -1, -1));
+        getContentPane().add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, -1));
 
         txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSearchKeyReleased(evt);
             }
         });
-        getContentPane().add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 259, -1));
+        getContentPane().add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 259, -1));
 
         jButton4.setText("Tìm kiếm");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +155,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 180, -1, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 160, -1, -1));
 
         tableCourseIns.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -189,7 +189,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tableCourseIns);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, 730, 260));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 730, 260));
 
         nameCourse.setEnabled(false);
         nameCourse.addActionListener(new java.awt.event.ActionListener() {
@@ -197,7 +197,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 nameCourseActionPerformed(evt);
             }
         });
-        getContentPane().add(nameCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 260, -1));
+        getContentPane().add(nameCourse, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 260, -1));
 
         namePerson.setEnabled(false);
         namePerson.addActionListener(new java.awt.event.ActionListener() {
@@ -205,7 +205,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 namePersonActionPerformed(evt);
             }
         });
-        getContentPane().add(namePerson, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 260, -1));
+        getContentPane().add(namePerson, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, 260, -1));
 
         btnXong.setText("Xong");
         btnXong.addActionListener(new java.awt.event.ActionListener() {
@@ -213,7 +213,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 btnXongActionPerformed(evt);
             }
         });
-        getContentPane().add(btnXong, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 80, -1));
+        getContentPane().add(btnXong, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 90, 80, -1));
 
         btnHuy.setText("Huỷ");
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
@@ -221,7 +221,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 btnHuyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 140, 80, -1));
+        getContentPane().add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 120, 80, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -295,7 +295,6 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
         btnXoa.setEnabled(!false);
         btnXong.setVisible(!true);
         btnHuy.setVisible(!true);
-        
         try {
             Course cour= (Course) courseBLL.findElement(cIBLL.returnOld().getCourseID());
             Lecturers lect = (Lecturers) personBLL.findElement(cIBLL.returnOld().getPersonID());
@@ -353,7 +352,6 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 model.setRowCount(0);
                 model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
                 tableCourseIns.setModel(model);
-                //cIBLL.resetCourseIOld();
                 btnHuyActionPerformed(evt);
             } catch (Exception ex) {
                 Logger.getLogger(CourseIntructorGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -519,8 +517,8 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private JTextField maGV;
-    private JTextField maKH;
+    private javax.swing.JTextField maGV;
+    private javax.swing.JTextField maKH;
     private javax.swing.JComboBox<Course> nameCourse;
     private javax.swing.JComboBox<Lecturers> namePerson;
     private javax.swing.JTable tableCourseIns;
