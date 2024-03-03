@@ -14,23 +14,15 @@ public class Lecturers {
     String firstName, lastName;
     int personId;
     Date hireDate;
-    Date enrollmentDate;
+    
     public Lecturers() {
     }
 
-    public Lecturers(String firstName, String lastName, int personId, Date hireDate) {
+    public Lecturers(int personId, String firstName, String lastName, Date hireDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personId = personId;
         this.hireDate = hireDate;
-    }
-
-    public Lecturers(int personId,String lastName,String firstName,  Date hireDate,Date EnrollmentDate) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.personId = personId;
-        this.hireDate = hireDate;
-        this.enrollmentDate=EnrollmentDate;
     }
 
     public String getFirstName() {

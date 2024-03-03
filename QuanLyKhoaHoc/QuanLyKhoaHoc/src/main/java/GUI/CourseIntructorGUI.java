@@ -29,7 +29,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
     DefaultTableModel model = new DefaultTableModel();
     DefaultComboBoxModel<Course> comboBoxModel;
     DefaultComboBoxModel<Lecturers> comboBoxModelPS;   
-    private boolean insert;
+    private boolean insert = false;
 
     /**
      * Creates new form TeachingAssignment
@@ -255,7 +255,6 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
     private void nameCourseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameCourseActionPerformed
         // TODO add your handling code here:
         maKH.setText(((Course) nameCourse.getSelectedItem()).getCourseId()+"");
-
     }//GEN-LAST:event_nameCourseActionPerformed
 
     private void maKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maKHActionPerformed
@@ -343,8 +342,8 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
             int maKhoahoc = Integer.parseInt(maKH.getText());
             int maGiangvien = Integer.parseInt(maGV.getText());
             try {
-                CourseInstructor a =   cIBLL.returnOld();
-                CourseInstructor b =   cIBLL.getCourseInstructorNewByID(courseBLL.findElement(maKhoahoc),personBLL.findElement(maGiangvien));
+                CourseInstructor a =  cIBLL.returnOld();
+                CourseInstructor b =  cIBLL.getCourseInstructorNewByID(courseBLL.findElement(maKhoahoc),personBLL.findElement(maGiangvien));
 
                 if(!cIBLL.updateCourseInstructor(a, b)){
                     JOptionPane.showMessageDialog( null, "Update fail!!!?" );
@@ -357,7 +356,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                 model.setRowCount(0);
                 model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
                 tableCourseIns.setModel(model);
-                cIBLL.resetCourseIOld();
+                //cIBLL.resetCourseIOld();
                 btnHuyActionPerformed(evt);
             } catch (Exception ex) {
                 Logger.getLogger(CourseIntructorGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -366,45 +365,31 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
         else {
             int maKhoahoc = Integer.parseInt(maKH.getText());
             int maGiangvien = Integer.parseInt(maGV.getText());
-//            try {
-//                if(kiểm tra 2 mã đã tồn tại trong CSDL hay chưa) {
-//                    JOptionPane.showMessageDialog( null, "Record already exists!!!?");
-//                }
-//                else {
-//                    gọi hàm thêm khóa học từ BLL
-//                    JOptionPane.showMessageDialog( null, "Insert success!!!?" );
-//                }
-//                txtSearch.setText("");
-//                model.setRowCount(0);
-//                model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
-//                tableCourseIns.setModel(model);
-//                btnHuyActionPerformed(evt);
-//            } catch (Exception ex) {
-//                Logger.getLogger(CourseIntructorGUI.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-                try {
-                    if (!maKH.getText().isEmpty() && !maGV.getText().isEmpty()) {
-                        CourseInstructorBLL.addCourseInstructor(maKhoahoc, maGiangvien);
-                        JOptionPane.showMessageDialog(null, "Thêm thành công!");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Thêm thất bại! Vui lòng chọn đầy đủ thông tin.");
-                    }
-                    // Cập nhật bảng hiển thị
-                    txtSearch.setText("");
-                    model.setRowCount(0);
-                    model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
-                    tableCourseIns.setModel(model);
-                    btnHuyActionPerformed(evt);
-                } catch (Exception e) {
-                    // Xử lý ngoại lệ nếu có
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            try {
+                
+                if (!maKH.getText().isEmpty() && !maGV.getText().isEmpty()) {
+                    CourseInstructorBLL.addCourseInstructor(maKhoahoc, maGiangvien);
+                    JOptionPane.showMessageDialog(null, "Thêm thành công!");
+                    insert = false;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Thêm thất bại! Vui lòng chọn đầy đủ thông tin.");
                 }
-
+                // Cập nhật bảng hiển thị
+                txtSearch.setText("");
+                model.setRowCount(0);
+                model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
+                tableCourseIns.setModel(model);
+                //cIBLL.resetCourseIOld();
+                btnHuyActionPerformed(evt);
+            } catch (Exception e) {
+                // Xử lý ngoại lệ nếu có
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            }
         }  
     }//GEN-LAST:event_btnXongActionPerformed
     
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {                                        
         // TODO add your handling code here:
         int luaChon = JOptionPane.showConfirmDialog(null, "Có thêm không?", "Hỏi", JOptionPane.YES_NO_OPTION);
         if (luaChon == JOptionPane.YES_OPTION) {

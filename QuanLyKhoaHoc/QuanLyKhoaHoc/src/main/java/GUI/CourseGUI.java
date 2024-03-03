@@ -204,7 +204,6 @@ public class CourseGUI extends javax.swing.JInternalFrame {
         });
 
         courseInsert_Edit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        courseInsert_Edit.setVisible(true);
         courseInsert_Edit.setInsert(true);
         courseInsert_Edit.setFlag(true);
         try {
@@ -369,9 +368,7 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                 loadToTable(courseBLL.getList());
             }
         });
-
         courseInsert_Edit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        courseInsert_Edit.setVisible(true);
         courseInsert_Edit.getjButton1().setVisible(true);
         courseInsert_Edit.setInsert(false);
         courseInsert_Edit.setFlag(true);

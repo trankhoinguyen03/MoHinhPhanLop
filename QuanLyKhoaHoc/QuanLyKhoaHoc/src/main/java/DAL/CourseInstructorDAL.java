@@ -104,8 +104,7 @@ public class CourseInstructorDAL extends MyDatabaseManager{
                         rs.getInt("PersonID"),
                         rs.getString("LastName"),
                         rs.getString("FirstName"),    
-                        rs.getDate("HireDate"),
-                        rs.getDate("EnrollmentDate")
+                        rs.getDate("HireDate")
                 );
                 
             } 

@@ -29,11 +29,10 @@ public class LecturersDAL extends MyDatabaseManager {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
                 Lecturers cs = new Lecturers(
-                        rs.getInt("PersonID"),
-                        rs.getString("LastName"),
-                        rs.getString("FirstName"),
-                        rs.getDate("HireDate"),
-                         rs.getDate("EnrollmentDate")
+                    rs.getInt("PersonID"),
+                    rs.getString("LastName"),
+                    rs.getString("FirstName"),
+                    rs.getDate("HireDate")
                 );
                 list.add(cs);
             }
@@ -46,17 +45,27 @@ public class LecturersDAL extends MyDatabaseManager {
 
         return list;
     }
-    public void readLecturers() throws SQLException {
-        String query = "SELECT * FROM Person WHERE HireDate >0";
-        ResultSet rs = this.doReadQuery(query);
-        if (rs != null) {
-            //int i = 1;
+    public ArrayList<Lecturers> readLecturers() throws SQLException {
+        ArrayList<Lecturers> list = new ArrayList<>();
+        String query ="SELECT * FROM  Person WHERE HireDate >0 ;";
+        PreparedStatement p = c.prepareStatement(query); 
+        try {
+            ResultSet rs = p.executeQuery();
             while (rs.next()) {
-                System.out.print(rs.getString("PersonId") + " - ");
-                System.out.println(rs.getString("Lastname") + " " + rs.getString("Firstname"));
-                //i++;
+                Lecturers cs = new Lecturers(
+                    rs.getInt("PersonID"),
+                    rs.getString("LastName"),
+                    rs.getString("FirstName"),
+                    rs.getDate("HireDate")
+                );
+                list.add(cs);
             }
+            rs.close();
+        } catch (SQLException ex) {
+            System.out.println("Khong the load database person: " + ex);
         }
+
+        return list;
     }
     public int updateLecturers(Lecturers s) throws SQLException {
         String query = "Update Person SET FirstName = ? , LastName = ? "+ " WHERE PersonID = ?";
