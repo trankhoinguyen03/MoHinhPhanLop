@@ -68,7 +68,9 @@ public class CourseInstructorBLL {
     public static boolean addCourseInstructor( int idcorse, int idperson) throws SQLException {
         return dal.addCourseInstructor(  idcorse, idperson);
     }
-
+    public static int checkAddCourseInstructor( int idcourse, int idperson) throws SQLException {
+        return dal.checkAddCourseInstructor( idcourse, idperson);
+    }
     public static int deleteCourseInstructor( int idcorse, int idperson) throws SQLException {
         return dal.deleteCourseInstructor(  idcorse, idperson);
     }
