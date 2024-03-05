@@ -370,7 +370,7 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
                                 }
                                 else {
                                     if(onsiteBLL.updateCourse(onsite)) {
-                                        JOptionPane.showMessageDialog(null, "Edit the course successfully!");
+                                        JOptionPane.showMessageDialog(null, "Edit the course successfully !");
                                         Clear();
                                         dispose();
                                     }
