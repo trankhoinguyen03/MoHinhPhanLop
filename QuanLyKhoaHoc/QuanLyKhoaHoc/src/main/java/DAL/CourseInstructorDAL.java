@@ -227,6 +227,17 @@ public class CourseInstructorDAL extends MyDatabaseManager{
             return rowsAffected > 0;
         }
     }
+    public int checkAddCourseInstructor(int CourseID, int PersonID) throws SQLException {
+        String query = "SELECT COUNT(*) FROM CourseInstructor WHERE CourseID = ? AND PersonID = ?";
+        try (PreparedStatement p = c.prepareStatement(query)) {
+            p.setInt(1, CourseID);
+            p.setInt(2, PersonID);
+            ResultSet rs = p.executeQuery();
+            rs.next();
+            int count =rs.getInt(1);
+            return count ;
+        }
+    }   
     public int deleteCourseInstructor(int CourseID, int PersonID) throws SQLException {
         String query = "DELETE FROM CourseInstructor WHERE CourseID = ? And PersonID = ?";
         PreparedStatement p = c.prepareStatement(query);
