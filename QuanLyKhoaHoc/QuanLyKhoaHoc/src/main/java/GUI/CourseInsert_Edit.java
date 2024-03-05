@@ -277,29 +277,52 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
                             course.setDepartmentId(x.getDepartmentId());
                         }
                     }
-                    if(courseBLL.addCourse(course) != 0) {
-                        if(jComboBox1.getSelectedIndex() == 0) {                       
-                            OnlineCourse online = new OnlineCourse();
-                            online.setCourseId(courseBLL.getLastCourseId());
-                            online.setUrl(jTextFieldUrl.getText());
-                            if(onlineBLL.addCourse(online) != 0) {
-                                JOptionPane.showMessageDialog(null, "Added course successfully!");
-                                Clear();
+                    if(!"valid".equals(courseBLL.checkValue(course))) {
+                        JOptionPane.showMessageDialog(this, courseBLL.checkValue(course));
+                    }
+                    else {
+                        if(courseBLL.addCourse(course)) {
+                            if(jComboBox1.getSelectedIndex() == 0) {                       
+                                OnlineCourse online = new OnlineCourse();
+                                online.setCourseId(courseBLL.getLastCourseId());
+                                online.setUrl(jTextFieldUrl.getText());
+                                if(!"valid".equals(onlineBLL.checkValue(online))) {
+                                    JOptionPane.showMessageDialog(this, onlineBLL.checkValue(online));
+                                }
+                                else {
+                                    if(onlineBLL.addCourse(online)) {
+                                        JOptionPane.showMessageDialog(this, "Add new course successfully!");
+                                        Clear();
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(this, "Add new course fail!");
+                                    }
+                                }
+                            }
+                            else {
+                                OnsiteCourse onsite = new OnsiteCourse();
+                                onsite.setCourseId(courseBLL.getLastCourseId());
+                                onsite.setLocation(jTextFieldDiaChi.getText());
+                                onsite.setDays(jTextFieldNgay.getText());
+                                onsite.setTime(jTextFieldGio.getText());
+                                if(!"valid".equals(onsiteBLL.checkValue(onsite))) {
+                                    JOptionPane.showMessageDialog(this, onsiteBLL.checkValue(onsite));
+                                }
+                                else {
+                                    if(onsiteBLL.addCourse(onsite)) {
+                                        JOptionPane.showMessageDialog(null, "Add new course successfully!");
+                                        Clear();
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(this, "Add new course fail!");
+                                    }
+                                }
                             }
                         }
                         else {
-                            OnsiteCourse onsite = new OnsiteCourse();
-                            onsite.setCourseId(courseBLL.getLastCourseId());
-                            onsite.setLocation(jTextFieldDiaChi.getText());
-                            onsite.setDays(jTextFieldNgay.getText());
-                            onsite.setTime(jTextFieldGio.getText());
-                            if(onsiteBLL.addCourse(onsite) != 0) {
-                                JOptionPane.showMessageDialog(null, "Added course successfully!");
-                                Clear();
-                            }
+                            JOptionPane.showMessageDialog(this, "Add new course fail!");
                         }
                     }
-                    
                 }
                 else {
                     Course course = new Course();
@@ -313,30 +336,54 @@ public class CourseInsert_Edit extends javax.swing.JFrame {
                             course.setDepartmentId(x.getDepartmentId());
                         }
                     }
-                    if(courseBLL.updateCourse(course) != 0) {
-                        if(jComboBox1.getSelectedIndex() == 0) {                       
-                            OnlineCourse online = new OnlineCourse();
-                            online.setCourseId(Integer.parseInt(jTextFieldId.getText()));
-                            online.setUrl(jTextFieldUrl.getText());
-                            if(onlineBLL.updateCourse(online) != 0) {
-                                JOptionPane.showMessageDialog(null, "Edited the course successfully !");
-                                Clear();
-                                dispose();
+                    if(!"valid".equals(courseBLL.checkValue(course))) {
+                        JOptionPane.showMessageDialog(this, courseBLL.checkValue(course));
+                    }
+                    else {
+                        if(courseBLL.updateCourse(course)) {
+                            if(jComboBox1.getSelectedIndex() == 0) {                       
+                                OnlineCourse online = new OnlineCourse();
+                                online.setCourseId(Integer.parseInt(jTextFieldId.getText()));
+                                online.setUrl(jTextFieldUrl.getText());
+                                if(!"valid".equals(onlineBLL.checkValue(online))) {
+                                    JOptionPane.showMessageDialog(this, onlineBLL.checkValue(online));
+                                }
+                                else {
+                                    if(onlineBLL.updateCourse(online)) {
+                                        JOptionPane.showMessageDialog(null, "Edit the course successfully!");
+                                        Clear();
+                                        dispose();
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "Edit the course fail!");
+                                    }
+                                }
                             }
+                            else {
+                                OnsiteCourse onsite = new OnsiteCourse();
+                                onsite.setCourseId(Integer.parseInt(jTextFieldId.getText()));
+                                onsite.setLocation(jTextFieldDiaChi.getText());
+                                onsite.setDays(jTextFieldNgay.getText());
+                                onsite.setTime(jTextFieldGio.getText());
+                                if(!"valid".equals(onsiteBLL.checkValue(onsite))) {
+                                    JOptionPane.showMessageDialog(this, onsiteBLL.checkValue(onsite));
+                                }
+                                else {
+                                    if(onsiteBLL.updateCourse(onsite)) {
+                                        JOptionPane.showMessageDialog(null, "Edit the course successfully !");
+                                        Clear();
+                                        dispose();
+                                    }
+                                    else {
+                                        JOptionPane.showMessageDialog(null, "Edit the course fail!");
+                                    }
+                                }
+                            } 
                         }
                         else {
-                            OnsiteCourse onsite = new OnsiteCourse();
-                            onsite.setCourseId(Integer.parseInt(jTextFieldId.getText()));
-                            onsite.setLocation(jTextFieldDiaChi.getText());
-                            onsite.setDays(jTextFieldNgay.getText());
-                            onsite.setTime(jTextFieldGio.getText());
-                            if(onsiteBLL.updateCourse(onsite) != 0) {
-                                JOptionPane.showMessageDialog(null, "Edited the course successfully !");
-                                Clear();
-                                dispose();
-                            }
-                        } 
-                    } 
+                            JOptionPane.showMessageDialog(null, "Edit the course fail!");
+                        }
+                    }      
                 }
             }
         } catch (SQLException ex) {

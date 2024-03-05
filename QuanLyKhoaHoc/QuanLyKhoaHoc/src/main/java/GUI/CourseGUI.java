@@ -195,7 +195,6 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                 loadToTable(courseBLL.getList());
             }
         });
-
         courseInsert_Edit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         courseInsert_Edit.setInsert(true);
         courseInsert_Edit.setFlag(true);
@@ -230,6 +229,7 @@ public class CourseGUI extends javax.swing.JInternalFrame {
             
             courseInsert_Edit.getjButton1().setVisible(true);
             courseInsert_Edit.setVisible(true);
+            JOptionPane.showMessageDialog(null, "Please enter all data!");
         } catch (SQLException ex) {
             Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -361,6 +361,7 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                 loadToTable(courseBLL.getList());
             }
         });
+        
         courseInsert_Edit.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         courseInsert_Edit.getjButton1().setVisible(true);
         courseInsert_Edit.setInsert(false);
@@ -412,7 +413,8 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                             } catch (SQLException ex) {
                                 Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            courseInsert_Edit.setVisible(true);
+                            courseInsert_Edit.setVisible(true);   
+                            JOptionPane.showMessageDialog(null, "Please do not leave the data blank!");
                             flag = true;
                             break;
                         }
@@ -464,8 +466,8 @@ public class CourseGUI extends javax.swing.JInternalFrame {
                             } catch (SQLException ex) {
                                 Logger.getLogger(CourseGUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            
                             courseInsert_Edit.setVisible(true);
+                            JOptionPane.showMessageDialog(null, "Please do not leave the data blank!");
                             break;
                         }
                     }
@@ -475,7 +477,7 @@ public class CourseGUI extends javax.swing.JInternalFrame {
             // Mở một hộp thoại chỉnh sửa hoặc một form chỉnh sửa với dữ liệu đã chọn
             // Ví dụ: new EditDialog(data).setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một bản ghi để chỉnh sửa.");
+            JOptionPane.showMessageDialog(null, "Please choose the course to edit!");
         }
     }//GEN-LAST:event_jButtonUpdateActionPerformed
 

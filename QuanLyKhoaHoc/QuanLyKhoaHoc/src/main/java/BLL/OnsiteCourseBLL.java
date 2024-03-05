@@ -24,47 +24,36 @@ public class OnsiteCourseBLL {
         return onsiteCourseDAL.getList();
     }
 
-    public int addCourse(OnsiteCourse value) {
-        if(checkValue(value.getLocation(), value.getDays(), value.getTime())) {
-            return onsiteCourseDAL.addOnsiteCourse(value);
-        }
-        return 0;
+    public boolean addCourse(OnsiteCourse onsite) {
+        return onsiteCourseDAL.addOnsiteCourse(onsite);
     }
 
-    public int updateCourse(OnsiteCourse value) {
-        if(checkValue(value.getLocation(), value.getDays(), value.getTime())) {
-            return onsiteCourseDAL.updateOnsiteCourse(value);
-        }
-        return 0;
+    public boolean updateCourse(OnsiteCourse onsite) {
+        return onsiteCourseDAL.updateOnsiteCourse(onsite);
     }
     
-    public boolean checkValue(String location, String days, String time) {
-        if("".equals(location)) {
-            JOptionPane.showMessageDialog(null, "location not null!");
-            return false;
+    public String checkValue(OnsiteCourse onsite) {
+        if("".equals(onsite.getLocation())) {
+            return "location not null!";
         }
-        else if("".equals(days)) {
-            JOptionPane.showMessageDialog(null, "days not null!");
-            return false;
+        else if("".equals(onsite.getDays())) {
+            return "days not null!";
         }
-        else if(!days.matches("[MTWHFS]*")) {
-            JOptionPane.showMessageDialog(null, "days must only contain M T W H F S");
-            return false;
+        else if(!onsite.getDays().matches("[MTWHFS]*")) {
+            return "days must only contain M T W H F S";
         }
-        else if("".equals(time)) {
-            JOptionPane.showMessageDialog(null, "time not null!");
-            return false;
+        else if("".equals(onsite.getTime())) {
+            return "time not null!";
         }
         else {
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:00");
-                LocalTime.parse(time, formatter);
+                LocalTime.parse(onsite.getTime(), formatter);
             } catch (DateTimeParseException e) {
-                JOptionPane.showMessageDialog(null, "time not invalid!");
-                return false;
+                return "Invalid time!";
             }
         }
-        return true;
+        return "valid";
     }
 
     public int deleteCourse(int value) {

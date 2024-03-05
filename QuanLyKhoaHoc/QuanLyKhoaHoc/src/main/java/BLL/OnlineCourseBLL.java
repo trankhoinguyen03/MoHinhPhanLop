@@ -24,34 +24,26 @@ public class OnlineCourseBLL {
         return onlineCourseDAL.getList();
     }
 
-    public int addCourse(OnlineCourse value) {
-        if(checkValue(value.getUrl())) {
-            return onlineCourseDAL.addOnlineCourse(value);
-        }
-        return 0;
+    public boolean addCourse(OnlineCourse online) {
+        return onlineCourseDAL.addOnlineCourse(online);
     }
 
-    public int updateCourse(OnlineCourse value) {
-        if(checkValue(value.getUrl())) {
-            return onlineCourseDAL.updateOnlineCourse(value);
-        }
-        return 0;
+    public boolean updateCourse(OnlineCourse online) {
+        return onlineCourseDAL.updateOnlineCourse(online);
     }
     
-    public boolean checkValue(String url) {
-        if("".equals(url)) {
-            JOptionPane.showMessageDialog(null, "url not null!");
-            return false;
+    public String checkValue(OnlineCourse online) {
+        if("".equals(online.getUrl())) {
+            return "Url not null!";
         }
         else {
             try {
-                new URL(url);
+                new URL(online.getUrl());
             } catch (MalformedURLException e) {
-                JOptionPane.showMessageDialog(null, "url not invalid!");
-                return false;
+                return "Invalid url!";
             }
         }
-        return true;
+        return "valid";
     }
     
     public int deleteCourse(int value) {

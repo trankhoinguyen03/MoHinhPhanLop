@@ -43,33 +43,33 @@ public class OnsiteCourseDAL extends MyDatabaseManager {
         }
         return list;
     }
-    public int addOnsiteCourse(OnsiteCourse value) {
+    public boolean addOnsiteCourse(OnsiteCourse value) {
         try {
             String query= "Insert into onsitecourse (CourseID, Location, Days, Time ) VALUES(?,?,?,?)";
             PreparedStatement pst = c.prepareStatement(query);
             pst.setInt(1, value.getCourseId());
             pst.setNString(2, value.getLocation());
             pst.setNString(3, value.getDays());
-            pst.setString(4, value.getTime().toString());
-            return pst.executeUpdate();
+            pst.setString(4, value.getTime());
+            return pst.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return false;
     }
-    public int updateOnsiteCourse(OnsiteCourse value){
+    public boolean updateOnsiteCourse(OnsiteCourse value){
         try {
             String query= "update onsitecourse set Location=?, Days=?, Time=?  where CourseID=? ";
             PreparedStatement pst= c.prepareStatement(query);
             pst.setNString(1, value.getLocation());
             pst.setNString(2, value.getDays());
-            pst.setString(3, value.getTime().toString());
+            pst.setString(3, value.getTime());
             pst.setInt(4, value.getCourseId());
-            return pst.executeUpdate();
+            return pst.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return false;
     }
     public int deleteOnsiteCourse(int value){
         try {

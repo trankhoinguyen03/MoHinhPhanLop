@@ -85,18 +85,18 @@ public class CourseDAL extends MyDatabaseManager {
         return list;
     }
 
-    public int addCourse(Course value) {
+    public boolean addCourse(Course value) {
         try {
             String query = "Insert into Course (Title, Credits, DepartmentID ) VALUES(?,?,?)";
             PreparedStatement pst = c.prepareStatement(query);
             pst.setNString(1, value.getTitle());
             pst.setInt(2, value.getCredits());
             pst.setInt(3, value.getDepartmentId());
-            return pst.executeUpdate();
+            return pst.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return false;
     }
     
     public int getLastCourseId() throws SQLException {
@@ -112,7 +112,7 @@ public class CourseDAL extends MyDatabaseManager {
         }
     }
     
-    public int updateCourse(Course value) {
+    public boolean updateCourse(Course value) {
         try {
             String query = "update Course set Title=?, Credits=?, DepartmentID=? where CourseID=? ";
             PreparedStatement pst = c.prepareStatement(query);
@@ -120,11 +120,11 @@ public class CourseDAL extends MyDatabaseManager {
             pst.setInt(2, value.getCredits());
             pst.setInt(3, value.getDepartmentId());
             pst.setInt(4, value.getCourseId());
-            return pst.executeUpdate();
+            return pst.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return false;
     }
 
     public int deleteCourse(int value) {

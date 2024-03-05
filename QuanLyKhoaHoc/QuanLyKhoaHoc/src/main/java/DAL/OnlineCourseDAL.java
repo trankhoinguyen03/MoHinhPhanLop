@@ -41,29 +41,29 @@ public class OnlineCourseDAL extends MyDatabaseManager {
         }
         return list;
     }
-    public int addOnlineCourse(OnlineCourse value) {
+    public boolean addOnlineCourse(OnlineCourse value) {
         try {
             String query= "Insert into onlinecourse (CourseID, url ) VALUES(?,?)";
             PreparedStatement pst = c.prepareStatement(query);
             pst.setInt(1, value.getCourseId());
             pst.setNString(2, value.getUrl());
-            return pst.executeUpdate();
+            return pst.executeUpdate()> 0;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return false;
     }
-    public int updateOnlineCourse(OnlineCourse value){
+    public boolean updateOnlineCourse(OnlineCourse value){
         try {
             String query= "update onlinecourse set url=? where CourseID=? ";
             PreparedStatement pst= c.prepareStatement(query);
             pst.setNString(1, value.getUrl());
             pst.setInt(2, value.getCourseId());
-            return pst.executeUpdate();
+            return pst.executeUpdate() > 0;
         } catch (SQLException ex) {
             Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return 0;
+        return false;
     }
     public int deleteOnlineCourse(int value){
         try {

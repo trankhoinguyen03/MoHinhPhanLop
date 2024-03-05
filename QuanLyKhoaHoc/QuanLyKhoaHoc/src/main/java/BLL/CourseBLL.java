@@ -24,34 +24,26 @@ public class CourseBLL {
         return courseDAL.getListDepartmentId();
     }
 
-    public int addCourse(Course value) {
-        if (checkValue(value.getTitle(), value.getCredits())) {
-            return courseDAL.addCourse(value);
-        }
-        return 0;
+    public boolean addCourse(Course course) {
+        return courseDAL.addCourse(course);
     }
     
     public int getLastCourseId() throws SQLException {
         return courseDAL.getLastCourseId();
     }
 
-    public int updateCourse(Course value) {
-        if (checkValue(value.getTitle(), value.getCredits())) {
-            return courseDAL.updateCourse(value);
-        }
-        return 0;
+    public boolean updateCourse(Course course) {
+        return courseDAL.updateCourse(course);
     }
     
-    public boolean checkValue(String title, int credits) {
-        if("".equals(title)) {
-            JOptionPane.showMessageDialog(null, "Title not null!");
-            return false;
+    public String checkValue(Course course) {
+        if("".equals(course.getTitle())) {
+            return "Title not null!";
         }
-        else if(credits <= 0) {
-            JOptionPane.showMessageDialog(null, "Credits must be numbers 1 through 4!");
-            return false;
+        else if(course.getCredits() <= 0 || course.getCredits() > 4) {
+            return "Credits must be numbers 1 through 4!";
         }
-        return true;
+        return "valid";
     }
 
     public int deleteCourse(int value) {
