@@ -51,17 +51,17 @@ public class CourseBLL {
     }
 
     public ArrayList<Course> searchCourse(String value) {
-        ArrayList<Course> list = new ArrayList<>();
+        ArrayList<Course> searchList = new ArrayList<>();
         for (Course x : this.getList()) {
 
             String id = Integer.toString(x.getCourseId()).toLowerCase();
             String credits = Integer.toString(x.getCredits()).toLowerCase();
             String department = Integer.toString(x.getDepartmentId()).toLowerCase();
             if (id.contains(value.toLowerCase()) || x.getTitle().toLowerCase().contains(value.toLowerCase()) || credits.contains(value.toLowerCase()) || department.contains(value.toLowerCase())) {
-                list.add(x);
+                searchList.add(x);
             }
         }
-        return list;
+        return searchList;
     }
      public ArrayList<Course> loadData() throws Exception{
         return courseDAL.loadDatabase();
