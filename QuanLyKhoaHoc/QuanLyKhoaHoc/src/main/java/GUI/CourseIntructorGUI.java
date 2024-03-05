@@ -361,27 +361,35 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
             int maKhoahoc = Integer.parseInt(maKH.getText());
             int maGiangvien = Integer.parseInt(maGV.getText());
             try {
-                
-                if (!maKH.getText().isEmpty() && !maGV.getText().isEmpty()) {
-                    CourseInstructorBLL.addCourseInstructor(maKhoahoc, maGiangvien);
-                    JOptionPane.showMessageDialog(null, "Thêm thành công!");
-                    insert = false;
+                if (CourseInstructorBLL.checkAddCourseInstructor(maKhoahoc, maGiangvien) == 0) {
+                    if(CourseInstructorBLL.addCourseInstructor(maKhoahoc, maGiangvien)) {
+                        JOptionPane.showMessageDialog(null, "Thêm thành công!");
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Thêm thất bại!");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Thêm thất bại! Vui lòng chọn đầy đủ thông tin.");
+                    JOptionPane.showMessageDialog(null, "Lỗi! id đã tồn tại");
                 }
                 // Cập nhật bảng hiển thị
                 txtSearch.setText("");
                 model.setRowCount(0);
                 model = addArrayListToTable(cIBLL.loadDSCourseInstructor());
                 tableCourseIns.setModel(model);
-                //cIBLL.resetCourseIOld();
-                btnHuyActionPerformed(evt);
+                nameCourse.setEnabled(false);
+                namePerson.setEnabled(false);
+                btnThem.setEnabled(!false);
+                btnSua.setEnabled(!false);
+                btnXoa.setEnabled(!false);
+                btnXong.setVisible(!true);
+                btnHuy.setVisible(!true); 
             } catch (Exception e) {
-                // Xử lý ngoại lệ nếu có
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            // Xử lý ngoại lệ nếu có
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
             }
-        }  
+            
+        }
     }//GEN-LAST:event_btnXongActionPerformed
     
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {                                        
