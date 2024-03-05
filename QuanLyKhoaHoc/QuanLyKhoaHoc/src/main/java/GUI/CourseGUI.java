@@ -167,10 +167,20 @@ public class CourseGUI extends javax.swing.JInternalFrame {
         }
         else {
             if("online".equalsIgnoreCase(jTextField1.getText())) {
-                loadToTable(onlineCourseBLL.searchCourse());
+                if(onlineCourseBLL.searchCourse().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No courses found!");
+                }
+                else {
+                    loadToTable(onlineCourseBLL.searchCourse());
+                }
             }
             else if("onsite".equalsIgnoreCase(jTextField1.getText())) {
-                loadToTable(onsiteCourseBLL.searchCourse());
+                if(onsiteCourseBLL.searchCourse().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "No courses found!");
+                }
+                else {
+                    loadToTable(onsiteCourseBLL.searchCourse());
+                }
             }
             else if(courseBLL.searchCourse(jTextField1.getText()).isEmpty()) {
                 JOptionPane.showMessageDialog(null, "No courses found!");
