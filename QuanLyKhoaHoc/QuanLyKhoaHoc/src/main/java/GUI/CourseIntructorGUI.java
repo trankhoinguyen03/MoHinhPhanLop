@@ -369,7 +369,7 @@ public class CourseIntructorGUI extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, "Thêm thất bại!");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Lỗi! id đã tồn tại");
+                        JOptionPane.showMessageDialog(null, "Lỗi! id đã tồn tại");
                 }
                 // Cập nhật bảng hiển thị
                 txtSearch.setText("");
