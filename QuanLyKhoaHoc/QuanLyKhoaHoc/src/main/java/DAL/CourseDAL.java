@@ -140,4 +140,20 @@ public class CourseDAL extends MyDatabaseManager {
         return 0;
     }
     
+    public List<String> getCourseIDs() {
+        List<String> courseIDs = new ArrayList<>();
+
+        String query = "SELECT CourseID FROM Course";
+        try {
+            PreparedStatement pst = c.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                courseIDs.add(rs.getString("CourseID"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return courseIDs;
+    }
 }

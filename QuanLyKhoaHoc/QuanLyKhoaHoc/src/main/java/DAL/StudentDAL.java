@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -66,5 +67,21 @@ public class StudentDAL extends MyDatabaseManager {
         p.setInt(1, personID);
         int result = p.executeUpdate();
         return result;
+    }
+    public List<String> getStudentIDs() {
+        List<String> personID = new ArrayList<>();
+
+        String query = "SELECT PersonID FROM Person";
+        try {
+            PreparedStatement pst = c.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                personID.add(rs.getString("PersonID"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return personID;
     }
 }

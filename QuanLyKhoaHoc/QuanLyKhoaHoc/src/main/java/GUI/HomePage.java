@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -194,16 +195,20 @@ public class HomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPhanCongActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        jPanel2.removeAll();
-        jPanel2.repaint();
-        PersonGUI gui = new PersonGUI();
-        gui.setLocation(-10, -50);
-        gui.setSize(830, 620);
-        gui.setVisible(true);
-        gui.setResizable(true);
-        jPanel2.add(gui);
-        jPanel2.repaint();
+        try {
+            // TODO add your handling code here:
+            jPanel2.removeAll();
+            jPanel2.repaint();
+            PersonGUI gui = new PersonGUI();
+            gui.setLocation(-10, -50);
+            gui.setSize(830, 620);
+            gui.setVisible(true);
+            gui.setResizable(true);
+            jPanel2.add(gui);
+            jPanel2.repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(HomePage.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

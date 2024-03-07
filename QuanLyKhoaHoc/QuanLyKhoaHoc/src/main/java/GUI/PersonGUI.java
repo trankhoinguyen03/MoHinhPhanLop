@@ -280,7 +280,7 @@ public class PersonGUI extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jTableGiangVien);
 
-        jPanelGV.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 131, 770, 266));
+        jPanelGV.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 131, 750, 250));
 
         jButtonThemGV.setText("Thêm");
         jButtonThemGV.addActionListener(new java.awt.event.ActionListener() {
@@ -306,7 +306,7 @@ public class PersonGUI extends javax.swing.JInternalFrame {
 
         jTabbedPane.addTab("Giảng viên", jPanelGV);
 
-        getContentPane().add(jTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 74, -1, 447));
+        getContentPane().add(jTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 74, -1, 410));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

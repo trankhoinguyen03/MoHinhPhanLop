@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -45,5 +46,8 @@ public class StudentBLL {
     }
     public int deleteStudent(int personID) throws SQLException {
         return dal.deleteStudent(personID);
+    }
+    public List<String> getStudentIDs() {
+        return dal.getStudentIDs();
     }
 }
