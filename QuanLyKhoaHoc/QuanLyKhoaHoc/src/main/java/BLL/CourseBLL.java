@@ -7,6 +7,7 @@ package BLL;
 import DAL.CourseDAL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,14 +21,15 @@ public class CourseBLL {
     public ArrayList<Course> getList() {
         return courseDAL.getList();
     }
-    public ArrayList<Integer> getListDepartmentId(){
+
+    public ArrayList<Integer> getListDepartmentId() {
         return courseDAL.getListDepartmentId();
     }
 
     public boolean addCourse(Course course) {
         return courseDAL.addCourse(course);
     }
-    
+
     public int getLastCourseId() throws SQLException {
         return courseDAL.getLastCourseId();
     }
@@ -35,12 +37,11 @@ public class CourseBLL {
     public boolean updateCourse(Course course) {
         return courseDAL.updateCourse(course);
     }
-    
+
     public String checkValue(Course course) {
-        if("".equals(course.getTitle())) {
+        if ("".equals(course.getTitle())) {
             return "Title not null!";
-        }
-        else if(course.getCredits() <= 0 || course.getCredits() > 4) {
+        } else if (course.getCredits() <= 0 || course.getCredits() > 4) {
             return "Credits must be numbers 1 through 4!";
         }
         return "valid";
@@ -63,17 +64,23 @@ public class CourseBLL {
         }
         return list;
     }
-     public ArrayList<Course> loadData() throws Exception{
+
+    public ArrayList<Course> loadData() throws Exception {
         return courseDAL.loadDatabase();
     }
-      public Course findElement(int id) throws Exception{
+
+    public Course findElement(int id) throws Exception {
         ArrayList<Course> list = courseDAL.loadDatabase();
-        for(Course co : list){
-            if(co.getCourseId() == id)
+        for (Course co : list) {
+            if (co.getCourseId() == id) {
                 return co;
+            }
         }
         return null;
-    } 
-    
-    
+    }
+
+    public List<String> getCourseIDs() {
+        return courseDAL.getCourseIDs();
+    }
+
 }

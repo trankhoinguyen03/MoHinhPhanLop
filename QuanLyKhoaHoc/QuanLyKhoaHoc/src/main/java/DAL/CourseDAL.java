@@ -24,11 +24,12 @@ public class CourseDAL extends MyDatabaseManager {
     public CourseDAL() {
         super();
         this.connectDB();
-    }  
+    }
+
     public ArrayList<Course> loadDatabase() throws Exception {
         ArrayList<Course> list = new ArrayList<>();
-        Statement st = c.createStatement(); 
-        String query ="SELECT * FROM  Course ";
+        Statement st = c.createStatement();
+        String query = "SELECT * FROM  Course ";
         try {
             ResultSet rs = st.executeQuery(query);
             while (rs.next()) {
@@ -36,12 +37,11 @@ public class CourseDAL extends MyDatabaseManager {
                         rs.getInt("CourseID"),
                         rs.getString("Title"),
                         rs.getInt("Credits"),
-                         rs.getInt("DepartmentID")
+                        rs.getInt("DepartmentID")
                 );
                 list.add(cs);
             }
             rs.close();
-            
 
         } catch (SQLException ex) {
             System.out.println("Khong the load database Course: " + ex);
@@ -49,6 +49,7 @@ public class CourseDAL extends MyDatabaseManager {
 
         return list;
     }
+
     public ArrayList<Course> getList() {
         ArrayList list = new ArrayList<Course>();
         String query = "select *from Course";
@@ -68,14 +69,15 @@ public class CourseDAL extends MyDatabaseManager {
         }
         return list;
     }
+
     public ArrayList<Integer> getListDepartmentId() {
         ArrayList list = new ArrayList<Integer>();
         String query = "select *from department";
         try {
             PreparedStatement pst = c.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
-            while (rs.next()) {              
-                int value= rs.getInt(1);
+            while (rs.next()) {
+                int value = rs.getInt(1);
                 list.add(value);
             }
 
@@ -98,7 +100,7 @@ public class CourseDAL extends MyDatabaseManager {
         }
         return false;
     }
-    
+
     public int getLastCourseId() throws SQLException {
         String query = "Select Max(CourseId) From Course";
         PreparedStatement pst = c.prepareStatement(query);
@@ -111,7 +113,7 @@ public class CourseDAL extends MyDatabaseManager {
             throw new SQLException("No data found");
         }
     }
-    
+
     public boolean updateCourse(Course value) {
         try {
             String query = "update Course set Title=?, Credits=?, DepartmentID=? where CourseID=? ";
@@ -139,5 +141,22 @@ public class CourseDAL extends MyDatabaseManager {
         }
         return 0;
     }
-    
+
+    public List<String> getCourseIDs() {
+        List<String> courseIDs = new ArrayList<>();
+
+        String query = "SELECT CourseID FROM Course";
+        try {
+            PreparedStatement pst = c.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                courseIDs.add(rs.getString("CourseID"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return courseIDs;
+    }
+
 }

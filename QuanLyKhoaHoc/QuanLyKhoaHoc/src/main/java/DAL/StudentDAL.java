@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,22 +19,24 @@ import java.util.logging.Logger;
  * @author Acer
  */
 public class StudentDAL extends MyDatabaseManager {
+
     public StudentDAL() {
         super();
         this.connectDB();
     }
+
     public ArrayList<Student> readStudents() throws SQLException {
         ArrayList<Student> list = new ArrayList<>();
-        String query ="SELECT * FROM  Person WHERE HireDate >0 ;";
+        String query = "SELECT * FROM  Person WHERE HireDate >0 ;";
         try {
             PreparedStatement pst = c.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 Student cs = new Student(
-                    rs.getInt("PersonID"),
-                    rs.getString("LastName"),
-                    rs.getString("FirstName"),
-                    rs.getDate("EnrollmentDate")
+                        rs.getInt("PersonID"),
+                        rs.getString("LastName"),
+                        rs.getString("FirstName"),
+                        rs.getDate("EnrollmentDate")
                 );
                 list.add(cs);
             }
@@ -42,8 +45,9 @@ public class StudentDAL extends MyDatabaseManager {
         }
         return list;
     }
+
     public int updateStudent(Student s) throws SQLException {
-        String query = "Update Person SET FirstName = ? , LastName = ? "+ " WHERE PersonID = ?";
+        String query = "Update Person SET FirstName = ? , LastName = ? " + " WHERE PersonID = ?";
         PreparedStatement p = c.prepareStatement(query);
         p.setString(1, s.getFirstName());
         p.setString(2, s.getLastName());
@@ -51,6 +55,7 @@ public class StudentDAL extends MyDatabaseManager {
         int result = p.executeUpdate();
         return result;
     }
+
     public int insertStudent(Student s) throws SQLException {
         String query = "Insert Person (FirstName, LastName, EnrollmentDate) VALUES (?, ?, ?)";
         PreparedStatement p = c.prepareStatement(query);
@@ -60,6 +65,7 @@ public class StudentDAL extends MyDatabaseManager {
         int result = p.executeUpdate();
         return result;
     }
+
     public void findStudent(String fullName) throws SQLException {
         String query = "SELECT * FROM Person WHERE concat(FirstName, ' ', LastName)  LIKE ?";
         PreparedStatement p = c.prepareStatement(query);
@@ -72,16 +78,33 @@ public class StudentDAL extends MyDatabaseManager {
                 System.out.println(rs.getString("Lastname") + " " + rs.getString("Firstname"));
                 i++;
             }
-        }
-        else {
+        } else {
             System.out.println("Not found");
         }
     }
+
     public int deleteStudent(int personID) throws SQLException {
         String query = "Update Person SET EnrollmentDate = NULL WHERE PersonID = ?";
         PreparedStatement p = c.prepareStatement(query);
         p.setInt(1, personID);
         int result = p.executeUpdate();
         return result;
+    }
+
+    public List<String> getStudentIDs() {
+        List<String> personID = new ArrayList<>();
+
+        String query = "SELECT PersonID FROM Person";
+        try {
+            PreparedStatement pst = c.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                personID.add(rs.getString("PersonID"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CourseDAL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return personID;
     }
 }
