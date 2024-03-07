@@ -8,6 +8,7 @@ import DAL.StudentDAL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,8 +21,8 @@ public class StudentBLL {
         dal = new StudentDAL();
     }
     
-    public void readStudents() throws SQLException {
-        dal.readStudents();
+    public ArrayList<Student> readStudents() throws SQLException {
+        return dal.readStudents();
     }
     public int updateStudent(Student s) throws SQLException {
         return dal.updateStudent(s);

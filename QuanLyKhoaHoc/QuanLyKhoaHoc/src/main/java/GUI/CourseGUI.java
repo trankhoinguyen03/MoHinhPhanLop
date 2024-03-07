@@ -498,13 +498,6 @@ public class CourseGUI extends javax.swing.JInternalFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CourseGUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
