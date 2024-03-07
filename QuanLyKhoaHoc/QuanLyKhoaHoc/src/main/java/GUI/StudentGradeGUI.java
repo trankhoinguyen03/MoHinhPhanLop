@@ -21,6 +21,7 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
     private List<String> courses = new ArrayList<>();
     private List<String> students = new ArrayList<>();
     StudentGradeBLL studentGradeBLL = new StudentGradeBLL();
+    private boolean insert = false;
 
     /**
      * Creates new form StudentGrade
@@ -28,6 +29,9 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
     public StudentGradeGUI() {
         initComponents();
         fillTable();
+        btnHuy.setVisible(false);
+        btnLuu.setVisible(false);
+
         // Lấy danh sách khóa học từ CourseDAL
         CourseDAL courseDAL = new CourseDAL();
         courses = courseDAL.getCourseIDs();
@@ -44,6 +48,8 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         for (String student : students) {
             cbMaSV.addItem(student);
         }
+        cbMaKhoaHoc.setSelectedItem(null);
+        cbMaSV.setSelectedItem(null);
     }
 
     private void fillTable() {
@@ -81,7 +87,7 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txtTenKhoaHoc = new javax.swing.JTextField();
         txtTenSV = new javax.swing.JTextField();
-        btnThem = new javax.swing.JButton();
+        btnHuy = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btnXoa = new javax.swing.JButton();
@@ -96,13 +102,11 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         txtDiemSo = new javax.swing.JTextField();
         cbMaKhoaHoc = new javax.swing.JComboBox<>();
         cbMaSV = new javax.swing.JComboBox<>();
+        btnThem = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
+        btnLuu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                formKeyReleased(evt);
-            }
-        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("Tên sinh viên:");
@@ -116,13 +120,13 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         txtTenSV.setEnabled(false);
         getContentPane().add(txtTenSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 310, -1));
 
-        btnThem.setText("Thêm");
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
+        btnHuy.setText("Hủy");
+        btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
+                btnHuyActionPerformed(evt);
             }
         });
-        getContentPane().add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+        getContentPane().add(btnHuy, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
 
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -146,12 +150,6 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Mã khóa học:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 82, 22));
-
-        jtfSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtfSearchActionPerformed(evt);
-            }
-        });
         getContentPane().add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 200, -1));
 
         jLabel3.setText("Mã sinh viên:");
@@ -203,55 +201,48 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 82, 24));
         getContentPane().add(txtDiemSo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 160, -1));
 
-        cbMaKhoaHoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMaKhoaHocActionPerformed(evt);
-            }
-        });
         getContentPane().add(cbMaKhoaHoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 162, -1));
 
-        cbMaSV.addActionListener(new java.awt.event.ActionListener() {
+        getContentPane().add(cbMaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 162, -1));
+
+        btnThem.setText("Thêm");
+        btnThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMaSVActionPerformed(evt);
+                btnThemActionPerformed(evt);
             }
         });
-        getContentPane().add(cbMaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 162, -1));
+        getContentPane().add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+
+        btnClear.setText("Clear");
+        btnClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, -1, -1));
+
+        btnLuu.setText("Lưu");
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnLuu, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // Lấy dữ liệu được chọn từ bảng
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow >= 0) {
-            // Lấy dữ liệu ban đầu
-            int enrollmentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
-            int courseID = Integer.parseInt(jTable1.getValueAt(selectedRow, 1).toString());
-            int studentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 2).toString());
-            float grade = Float.parseFloat(jTable1.getValueAt(selectedRow, 3).toString());
-
-            // Lấy dữ liệu mới từ giao diện
-            int newCourseID = Integer.parseInt(cbMaKhoaHoc.getSelectedItem().toString());
-            int newStudentID = Integer.parseInt(cbMaSV.getSelectedItem().toString());
-            float newGrade = Float.parseFloat(txtDiemSo.getText());
-
-            // Kiểm tra xem có sự thay đổi không
-            if (courseID != newCourseID || studentID != newStudentID || grade != newGrade) {
-                // Nếu có sự thay đổi, thực hiện cập nhật dữ liệu
-                boolean success = studentGradeBLL.editStudentGrade(enrollmentID, newCourseID, newStudentID, newGrade);
-                if (success) {
-                    JOptionPane.showMessageDialog(this, "Data updated successfully");
-                    // Sau khi cập nhật thành công, làm mới bảng
-                    fillTable();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Failed to update data");
-                }
-            } else {
-                // Nếu không có sự thay đổi, hiển thị thông báo "No changes made"
-                JOptionPane.showMessageDialog(this, "No changes made");
-            }
+        int luaChon = JOptionPane.showConfirmDialog(null, "Bạn có muốn cập thay đổi quả học tập không?", "Question", JOptionPane.YES_NO_OPTION);
+        if (luaChon == JOptionPane.YES_OPTION) {
+            btnThem.setEnabled(false);
+            btnSua.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnLuu.setVisible(true);
+            btnHuy.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(this, "Please select a row to edit");
+            System.out.println("Người dùng đã chọn Không");
+
         }
     }//GEN-LAST:event_btnSuaActionPerformed
 
@@ -278,51 +269,37 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        String maKhoaHoc = cbMaKhoaHoc.getSelectedItem() != null ? cbMaKhoaHoc.getSelectedItem().toString() : "";
-        String maSV = cbMaSV.getSelectedItem() != null ? cbMaSV.getSelectedItem().toString() : "";
-        String diemSo = txtDiemSo.getText().trim();
+    private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
+        btnHuy.setVisible(false);
+        btnLuu.setVisible(false);
+        btnThem.setEnabled(true);
+        btnSua.setEnabled(true);
+        btnXoa.setEnabled(true);
 
-        // Kiểm tra xem các trường dữ liệu có được nhập đủ không
-        if (maKhoaHoc.isEmpty() || maSV.isEmpty() || diemSo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields");
-            return;
-        }
-
-        // Chuyển đổi dữ liệu từ String sang kiểu dữ liệu phù hợp
-        int courseIDInt = Integer.parseInt(maKhoaHoc);
-        int studentIDInt = Integer.parseInt(maSV);
-        float gradeFloat = Float.parseFloat(diemSo);
-
-        // Thực hiện thêm dữ liệu mới vào cơ sở dữ liệu
-        int enrollmentID = studentGradeBLL.insertStudentGrade(courseIDInt, studentIDInt, gradeFloat);
-
-        if (enrollmentID > 0) {
-            // Hiển thị thông báo khi thêm dữ liệu thành công
-            JOptionPane.showMessageDialog(this, "Data added successfully. Enrollment ID: " + enrollmentID);
-
-            // Cập nhật lại bảng hiển thị danh sách sinh viên
-            fillTable();
-            resetValue();
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add data");
-        }
-    }//GEN-LAST:event_btnThemActionPerformed
+    }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow != -1) { // Kiểm tra xem có hàng được chọn không
             int enrollmentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
-            boolean success = studentGradeBLL.deleteStudentGrade(enrollmentID);
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Data deleted successfully.");
-                fillTable(); // Cập nhật lại bảng jtStudentGrade
+
+            // Xác nhận từ người dùng
+            int dialogResult = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa?", "Xác nhận xóa", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                // Người dùng đã xác nhận muốn xóa
+                boolean success = studentGradeBLL.deleteStudentGrade(enrollmentID);
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Xóa thành công.");
+                    fillTable(); // Cập nhật lại bảng jtStudentGrade
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa không thành công.");
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to delete data.");
+                // Người dùng đã chọn NO hoặc đóng hộp thoại, không thực hiện xóa.
+                JOptionPane.showMessageDialog(this, "Xóa đã bị hủy.");
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Please select a row to delete.");
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn kết quả học tập muốn xóa.");
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
@@ -348,27 +325,140 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
+    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jtfSearchActionPerformed
+        int luaChon = JOptionPane.showConfirmDialog(null, "Bạn có muốn thêm kết quả học tập không?", "Question", JOptionPane.YES_NO_OPTION);
+        if (luaChon == JOptionPane.YES_OPTION) {
+            insert = true;
+            btnThem.setEnabled(false);
+            btnSua.setEnabled(false);
+            btnXoa.setEnabled(false);
+            btnLuu.setVisible(true);
+            btnHuy.setVisible(true);
 
-    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        } else {
+            System.out.println("Người dùng đã chọn Không");
 
-    }//GEN-LAST:event_formKeyReleased
+        }
+    }//GEN-LAST:event_btnThemActionPerformed
 
-    private void cbMaKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaKhoaHocActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMaKhoaHocActionPerformed
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        resetValue();
+    }//GEN-LAST:event_btnClearActionPerformed
 
-    private void cbMaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaSVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMaSVActionPerformed
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        // Lấy dữ liệu được chọn từ bảng
+        int selectedRow = jTable1.getSelectedRow();
+        if (selectedRow >= 0) {
+            // Lấy dữ liệu ban đầu
+
+            int courseID = Integer.parseInt(jTable1.getValueAt(selectedRow, 1).toString());
+            int studentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 2).toString());
+            float grade = Float.parseFloat(jTable1.getValueAt(selectedRow, 3).toString());
+
+            // Lấy dữ liệu mới từ giao diện
+            int newCourseID;
+            int newStudentID;
+            float newGrade;
+
+            try {
+                newCourseID = Integer.parseInt(cbMaKhoaHoc.getSelectedItem().toString());
+                newStudentID = Integer.parseInt(cbMaSV.getSelectedItem().toString());
+                newGrade = Float.parseFloat(txtDiemSo.getText());
+
+                // Kiểm tra điểm số phải lớn hơn hoặc bằng 0 và bé hơn 4
+                if (newGrade < 0 || newGrade >= 4) {
+                    JOptionPane.showMessageDialog(this, "Điểm số phải lớn hơn hoặc bằng 0 và bé hơn 4.");
+                    return;
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập đúng định dạng số cho mã khóa học, mã sinh viên, và điểm số.");
+                return;
+            }
+
+            // Kiểm tra xem có sự thay đổi không
+            if (courseID != newCourseID || studentID != newStudentID || grade != newGrade) {
+                // Nếu có sự thay đổi, thực hiện cập nhật dữ liệu
+                if (insert) {
+                    // Thực hiện thêm dữ liệu mới vào cơ sở dữ liệu
+                    int enrollmentID = studentGradeBLL.insertStudentGrade(newCourseID, newStudentID, newGrade);
+
+                    if (enrollmentID > 0) {
+                        // Hiển thị thông báo khi thêm dữ liệu thành công
+                        JOptionPane.showMessageDialog(this, "Thêm dữ liệu thành công.");
+
+                        // Cập nhật lại bảng hiển thị danh sách sinh viên
+                        fillTable();
+                        resetValue();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thêm dữ liệu thất bại.");
+                    }
+                } else {
+                    int enrollmentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
+                    boolean success = studentGradeBLL.editStudentGrade(enrollmentID, newCourseID, newStudentID, newGrade);
+                    if (success) {
+                        JOptionPane.showMessageDialog(this, "Cập nhật thành công.");
+                        // Sau khi cập nhật thành công, làm mới bảng
+                        fillTable();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Cập nhật thất bại.");
+                    }
+                }
+                btnHuy.setVisible(false);
+                btnLuu.setVisible(false);
+                btnThem.setEnabled(true);
+                btnSua.setEnabled(true);
+                btnXoa.setEnabled(true);
+                insert = false;
+            } else {
+                // Nếu không có sự thay đổi, hiển thị thông báo "Không có sự thay đổi!"
+                JOptionPane.showMessageDialog(this, "Không có sự thay đổi!");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Vui lòng điền đầy đủ thông tin.");
+        }
+    }//GEN-LAST:event_btnLuuActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new StudentGradeGUI().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnHuy;
+    private javax.swing.JButton btnLuu;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
