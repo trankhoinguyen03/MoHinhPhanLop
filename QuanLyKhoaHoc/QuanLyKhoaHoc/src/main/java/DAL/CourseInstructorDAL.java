@@ -49,7 +49,7 @@ public class CourseInstructorDAL extends MyDatabaseManager{
 
         return list;
     }
-     public void updateCourseInstructor(CourseInstructor csinOld, CourseInstructor csinNew) throws Exception {
+     public Boolean updateCourseInstructor(CourseInstructor csinOld, CourseInstructor csinNew) throws Exception {
         
         String sql = "UPDATE CourseInstructor SET CourseID = ?, PersonID = ? WHERE CourseID = ? AND PersonID = ?";        
         try {
@@ -60,9 +60,11 @@ public class CourseInstructorDAL extends MyDatabaseManager{
             preparedStatement.setString(3, Integer.toString(csinOld.getCourseID()));
             preparedStatement.setString(4, Integer.toString(csinOld.getPersonID()));
             preparedStatement.executeUpdate();
+            return true;
             
         } catch (SQLException ex) {
             System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");
+            return false;
         }
     }  
     public String findNameByCourse(int id){
