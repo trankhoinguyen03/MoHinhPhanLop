@@ -18,13 +18,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class StudentGradeGUI extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form StudentGrade
-     */
     private List<String> courses = new ArrayList<>();
     private List<String> students = new ArrayList<>();
     StudentGradeBLL studentGradeBLL = new StudentGradeBLL();
 
+    /**
+     * Creates new form StudentGrade
+     */
     public StudentGradeGUI() {
         initComponents();
         fillTable();
@@ -86,7 +86,7 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         btnXoa = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtSearch = new javax.swing.JTextField();
+        jtfSearch = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         btnSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -98,6 +98,11 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         cbMaSV = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("Tên sinh viên:");
@@ -105,11 +110,11 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
 
         txtTenKhoaHoc.setEditable(false);
         txtTenKhoaHoc.setEnabled(false);
-        getContentPane().add(txtTenKhoaHoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 290, -1));
+        getContentPane().add(txtTenKhoaHoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 310, -1));
 
         txtTenSV.setEditable(false);
-        txtTenSV.setAutoscrolls(false);
-        getContentPane().add(txtTenSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 290, -1));
+        txtTenSV.setEnabled(false);
+        getContentPane().add(txtTenSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 310, -1));
 
         btnThem.setText("Thêm");
         btnThem.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +122,7 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
                 btnThemActionPerformed(evt);
             }
         });
-        getContentPane().add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 80, -1));
+        getContentPane().add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         btnSua.setText("Sửa");
         btnSua.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +130,7 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
                 btnSuaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 70, -1));
+        getContentPane().add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("QUẢN LÝ KẾT QUẢ");
@@ -137,20 +142,20 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
                 btnXoaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, -1));
+        getContentPane().add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, -1, -1));
 
         jLabel2.setText("Mã khóa học:");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 82, 22));
 
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+        jtfSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
+                jtfSearchActionPerformed(evt);
             }
         });
-        getContentPane().add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, 200, -1));
+        getContentPane().add(jtfSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 200, -1));
 
         jLabel3.setText("Mã sinh viên:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 82, 24));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 82, 24));
 
         btnSearch.setText("Tìm kiếm");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +163,7 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
                 btnSearchActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 90, -1));
+        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 180, 90, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -189,14 +194,14 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 253, 720, 230));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 253, 720, 230));
 
         jLabel4.setText("Tên khóa học:");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 82, 22));
 
         jLabel6.setText("Điểm số:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 82, 24));
-        getContentPane().add(txtDiemSo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 160, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 82, 24));
+        getContentPane().add(txtDiemSo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 160, -1));
 
         cbMaKhoaHoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,12 +215,12 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
                 cbMaSVActionPerformed(evt);
             }
         });
-        getContentPane().add(cbMaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 162, -1));
+        getContentPane().add(cbMaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 110, 162, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // Lấy dữ liệu được chọn từ bảng
         int selectedRow = jTable1.getSelectedRow();
         if (selectedRow >= 0) {
@@ -248,22 +253,10 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Please select a row to edit");
         }
-    }//GEN-LAST:event_btnSearchActionPerformed
-
-    private void cbMaKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaKhoaHocActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMaKhoaHocActionPerformed
-
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnSuaActionPerformed
 
-    private void cbMaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaSVActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMaSVActionPerformed
-
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        String searchQuery = txtSearch.getText().trim();
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        String searchQuery = jtfSearch.getText().trim();
         DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
         tableModel.setRowCount(0);
 
@@ -283,7 +276,7 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
             // Nếu trường tìm kiếm trống, hiển thị tất cả sinh viên
             fillTable();
         }
-    }//GEN-LAST:event_txtSearchActionPerformed
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         String maKhoaHoc = cbMaKhoaHoc.getSelectedItem() != null ? cbMaKhoaHoc.getSelectedItem().toString() : "";
@@ -334,40 +327,78 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        String maKhoaHoc = cbMaKhoaHoc.getSelectedItem() != null ? cbMaKhoaHoc.getSelectedItem().toString() : "";
-        String maSV = cbMaSV.getSelectedItem() != null ? cbMaSV.getSelectedItem().toString() : "";
-        String diemSo = txtDiemSo.getText().trim();
+        // Lấy hàng được chọn
+        int selectedRow = jTable1.getSelectedRow();
 
-        // Kiểm tra xem các trường dữ liệu có được nhập đủ không
-        if (maKhoaHoc.isEmpty() || maSV.isEmpty() || diemSo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields");
-            return;
-        }
+        // Kiểm tra xem có hàng nào được chọn hay không
+        if (selectedRow != -1) {
+            // Lấy dữ liệu từ bảng và hiển thị lên giao diện
+            int courseID = Integer.parseInt(jTable1.getValueAt(selectedRow, 1).toString());
+            int studentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 2).toString());
+            String grade = jTable1.getValueAt(selectedRow, 3).toString();
+            String studentName = jTable1.getValueAt(selectedRow, 4).toString();
+            String courseName = jTable1.getValueAt(selectedRow, 5).toString();
 
-        // Chuyển đổi dữ liệu từ String sang kiểu dữ liệu phù hợp
-        int courseIDInt = Integer.parseInt(maKhoaHoc);
-        int studentIDInt = Integer.parseInt(maSV);
-        float gradeFloat = Float.parseFloat(diemSo);
-
-        // Thực hiện thêm dữ liệu mới vào cơ sở dữ liệu
-        int enrollmentID = studentGradeBLL.insertStudentGrade(courseIDInt, studentIDInt, gradeFloat);
-
-        if (enrollmentID > 0) {
-            // Hiển thị thông báo khi thêm dữ liệu thành công
-            JOptionPane.showMessageDialog(this, "Data added successfully. Enrollment ID: " + enrollmentID);
-
-            // Cập nhật lại bảng hiển thị danh sách sinh viên
-            fillTable();
-            resetValue();
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add data");
+            // Hiển thị dữ liệu lên giao diện
+            cbMaKhoaHoc.setSelectedItem(String.valueOf(courseID));
+            cbMaSV.setSelectedItem(String.valueOf(studentID));
+            txtTenKhoaHoc.setText(courseName);
+            txtTenSV.setText(studentName);
+            txtDiemSo.setText(grade);
         }
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jtfSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtfSearchActionPerformed
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+
+    }//GEN-LAST:event_formKeyReleased
+
+    private void cbMaKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaKhoaHocActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMaKhoaHocActionPerformed
+
+    private void cbMaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaSVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbMaSVActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new StudentGradeGUI().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
@@ -384,8 +415,8 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jtfSearch;
     private javax.swing.JTextField txtDiemSo;
-    private javax.swing.JTextField txtSearch;
     private javax.swing.JTextField txtTenKhoaHoc;
     private javax.swing.JTextField txtTenSV;
     // End of variables declaration//GEN-END:variables
