@@ -4,14 +4,6 @@
  */
 package GUI;
 
-import BLL.StudentBLL;
-import BLL.StudentGradeBLL;
-import DAL.CourseDAL;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Admin
@@ -21,52 +13,8 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
     /**
      * Creates new form StudentGrade
      */
-    private List<String> courses = new ArrayList<>();
-    private List<String> students = new ArrayList<>();
-    StudentGradeBLL studentGradeBLL = new StudentGradeBLL();
-
     public StudentGradeGUI() {
         initComponents();
-        fillTable();
-        // Lấy danh sách khóa học từ CourseDAL
-        CourseDAL courseDAL = new CourseDAL();
-        courses = courseDAL.getCourseIDs();
-
-        StudentBLL studentBLL = new StudentBLL();
-        students = studentBLL.getStudentIDs();
-
-        // Đưa danh sách khóa học vào JComboBox
-        for (String course : courses) {
-            cbMaKhoaHoc.addItem(course);
-        }
-//        txtPersonID.setEditable(false);
-
-        for (String student : students) {
-            cbMaSV.addItem(student);
-        }
-    }
-
-    private void fillTable() {
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        tableModel.setRowCount(0);
-
-        resetValue();
-
-        // Gọi phương thức đọc sinh viên từ BLL
-        List<List<Object>> studentGradeList = studentGradeBLL.readStudent();
-
-        // Duyệt qua danh sách và thêm dữ liệu vào bảng
-        for (List<Object> studentGradeInfo : studentGradeList) {
-            tableModel.addRow(studentGradeInfo.toArray());
-        }
-    }
-
-    private void resetValue() {
-        cbMaKhoaHoc.setSelectedItem(null);
-        cbMaSV.setSelectedItem(null);
-        txtTenKhoaHoc.setText("");
-        txtTenSV.setText("");
-        txtDiemSo.setText("");
     }
 
     /**
@@ -79,114 +27,98 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel5 = new javax.swing.JLabel();
-        txtTenKhoaHoc = new javax.swing.JTextField();
-        txtTenSV = new javax.swing.JTextField();
-        btnThem = new javax.swing.JButton();
-        btnSua = new javax.swing.JButton();
+        jTextField3 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        btnXoa = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txtSearch = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        btnSearch = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtDiemSo = new javax.swing.JTextField();
-        cbMaKhoaHoc = new javax.swing.JComboBox<>();
-        cbMaSV = new javax.swing.JComboBox<>();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("Tên sinh viên:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 120, 82, 24));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, 82, 24));
+        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 310, -1));
+        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 110, 310, -1));
 
-        txtTenKhoaHoc.setEditable(false);
-        txtTenKhoaHoc.setEnabled(false);
-        getContentPane().add(txtTenKhoaHoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 290, -1));
+        jButton1.setText("Thêm");
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
-        txtTenSV.setEditable(false);
-        txtTenSV.setAutoscrolls(false);
-        getContentPane().add(txtTenSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 120, 290, -1));
-
-        btnThem.setText("Thêm");
-        btnThem.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setText("Sửa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnThemActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnThem, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, -1, -1));
-
-        btnSua.setText("Sửa");
-        btnSua.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSuaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnSua, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, -1, 20));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("QUẢN LÝ KẾT QUẢ");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 218, 55));
 
-        btnXoa.setText("Xóa");
-        btnXoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXoaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnXoa, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, -1));
+        jButton3.setText("Xóa");
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, -1, -1));
 
         jLabel2.setText("Mã khóa học:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 82, 22));
-
-        txtSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchActionPerformed(evt);
-            }
-        });
-        getContentPane().add(txtSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 200, 200, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 82, 22));
+        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 200, -1));
 
         jLabel3.setText("Mã sinh viên:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 82, 24));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 82, 24));
 
-        btnSearch.setText("Tìm kiếm");
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+        jButton4.setText("Tìm kiếm");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
+                jButton4ActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 200, 90, -1));
+        getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 180, 90, -1));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 189, -1));
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 110, 189, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "ID", "Mã khóa học", "Mã sinh viên", "Điểm số", "Tên sinh viên", "Tên khóa học"
+                "Tên sinh viên", "Điểm số"
             }
         ));
-        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable1MouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 253, 720, 230));
@@ -195,230 +127,67 @@ public class StudentGradeGUI extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 80, 82, 22));
 
         jLabel6.setText("Điểm số:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 82, 24));
-        getContentPane().add(txtDiemSo, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 160, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 82, 24));
+        getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 189, -1));
 
-        cbMaKhoaHoc.addActionListener(new java.awt.event.ActionListener() {
+        jLabel7.setText("Khóa học:");
+        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 72, 22));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMaKhoaHocActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
-        getContentPane().add(cbMaKhoaHoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 162, -1));
+        getContentPane().add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 162, -1));
 
-        cbMaSV.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMaSVActionPerformed(evt);
-            }
-        });
-        getContentPane().add(cbMaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 162, -1));
+        jButton5.setText("Chọn");
+        getContentPane().add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // Lấy dữ liệu được chọn từ bảng
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow >= 0) {
-            // Lấy dữ liệu ban đầu
-            int enrollmentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
-            int courseID = Integer.parseInt(jTable1.getValueAt(selectedRow, 1).toString());
-            int studentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 2).toString());
-            float grade = Float.parseFloat(jTable1.getValueAt(selectedRow, 3).toString());
-
-            // Lấy dữ liệu mới từ giao diện
-            int newCourseID = Integer.parseInt(cbMaKhoaHoc.getSelectedItem().toString());
-            int newStudentID = Integer.parseInt(cbMaSV.getSelectedItem().toString());
-            float newGrade = Float.parseFloat(txtDiemSo.getText());
-
-            // Kiểm tra xem có sự thay đổi không
-            if (courseID != newCourseID || studentID != newStudentID || grade != newGrade) {
-                // Nếu có sự thay đổi, thực hiện cập nhật dữ liệu
-                boolean success = studentGradeBLL.editStudentGrade(enrollmentID, newCourseID, newStudentID, newGrade);
-                if (success) {
-                    JOptionPane.showMessageDialog(this, "Data updated successfully");
-                    // Sau khi cập nhật thành công, làm mới bảng
-                    fillTable();
-                } else {
-                    JOptionPane.showMessageDialog(this, "Failed to update data");
-                }
-            } else {
-                // Nếu không có sự thay đổi, hiển thị thông báo "No changes made"
-                JOptionPane.showMessageDialog(this, "No changes made");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select a row to edit");
-        }
-    }//GEN-LAST:event_btnSearchActionPerformed
-
-    private void cbMaKhoaHocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaKhoaHocActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbMaKhoaHocActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnSuaActionPerformed
+    }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void cbMaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMaSVActionPerformed
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbMaSVActionPerformed
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-        String searchQuery = txtSearch.getText().trim();
-        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
-        tableModel.setRowCount(0);
-
-        if (!searchQuery.isEmpty()) {
-            List<List<Object>> searchResult = studentGradeBLL.searchStudentGrade(searchQuery);
-
-            if (searchResult != null) {
-                // Xóa dữ liệu cũ trong bảng
-                tableModel.setRowCount(0);
-
-                // Hiển thị kết quả tìm kiếm trên bảng
-                for (List<Object> studentGradeInfo : searchResult) {
-                    tableModel.addRow(studentGradeInfo.toArray());
-                }
-            }
-        } else {
-            // Nếu trường tìm kiếm trống, hiển thị tất cả sinh viên
-            fillTable();
-        }
-    }//GEN-LAST:event_txtSearchActionPerformed
-
-    private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        String maKhoaHoc = cbMaKhoaHoc.getSelectedItem() != null ? cbMaKhoaHoc.getSelectedItem().toString() : "";
-        String maSV = cbMaSV.getSelectedItem() != null ? cbMaSV.getSelectedItem().toString() : "";
-        String diemSo = txtDiemSo.getText().trim();
-
-        // Kiểm tra xem các trường dữ liệu có được nhập đủ không
-        if (maKhoaHoc.isEmpty() || maSV.isEmpty() || diemSo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields");
-            return;
-        }
-
-        // Chuyển đổi dữ liệu từ String sang kiểu dữ liệu phù hợp
-        int courseIDInt = Integer.parseInt(maKhoaHoc);
-        int studentIDInt = Integer.parseInt(maSV);
-        float gradeFloat = Float.parseFloat(diemSo);
-
-        // Thực hiện thêm dữ liệu mới vào cơ sở dữ liệu
-        int enrollmentID = studentGradeBLL.insertStudentGrade(courseIDInt, studentIDInt, gradeFloat);
-
-        if (enrollmentID > 0) {
-            // Hiển thị thông báo khi thêm dữ liệu thành công
-            JOptionPane.showMessageDialog(this, "Data added successfully. Enrollment ID: " + enrollmentID);
-
-            // Cập nhật lại bảng hiển thị danh sách sinh viên
-            fillTable();
-            resetValue();
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add data");
-        }
-    }//GEN-LAST:event_btnThemActionPerformed
-
-    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        int selectedRow = jTable1.getSelectedRow();
-        if (selectedRow != -1) { // Kiểm tra xem có hàng được chọn không
-            int enrollmentID = Integer.parseInt(jTable1.getValueAt(selectedRow, 0).toString());
-            boolean success = studentGradeBLL.deleteStudentGrade(enrollmentID);
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Data deleted successfully.");
-                fillTable(); // Cập nhật lại bảng jtStudentGrade
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to delete data.");
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Please select a row to delete.");
-        }
-    }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        String maKhoaHoc = cbMaKhoaHoc.getSelectedItem() != null ? cbMaKhoaHoc.getSelectedItem().toString() : "";
-        String maSV = cbMaSV.getSelectedItem() != null ? cbMaSV.getSelectedItem().toString() : "";
-        String diemSo = txtDiemSo.getText().trim();
-
-        // Kiểm tra xem các trường dữ liệu có được nhập đủ không
-        if (maKhoaHoc.isEmpty() || maSV.isEmpty() || diemSo.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill in all fields");
-            return;
-        }
-
-        // Chuyển đổi dữ liệu từ String sang kiểu dữ liệu phù hợp
-        int courseIDInt = Integer.parseInt(maKhoaHoc);
-        int studentIDInt = Integer.parseInt(maSV);
-        float gradeFloat = Float.parseFloat(diemSo);
-
-        // Thực hiện thêm dữ liệu mới vào cơ sở dữ liệu
-        int enrollmentID = studentGradeBLL.insertStudentGrade(courseIDInt, studentIDInt, gradeFloat);
-
-        if (enrollmentID > 0) {
-            // Hiển thị thông báo khi thêm dữ liệu thành công
-            JOptionPane.showMessageDialog(this, "Data added successfully. Enrollment ID: " + enrollmentID);
-
-            // Cập nhật lại bảng hiển thị danh sách sinh viên
-            fillTable();
-            resetValue();
-
-        } else {
-            JOptionPane.showMessageDialog(this, "Failed to add data");
-        }
-    }//GEN-LAST:event_jTable1MouseClicked
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(StudentGradeGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StudentGradeGUI().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnSua;
-    private javax.swing.JButton btnThem;
-    private javax.swing.JButton btnXoa;
-    private javax.swing.JComboBox<String> cbMaKhoaHoc;
-    private javax.swing.JComboBox<String> cbMaSV;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtDiemSo;
-    private javax.swing.JTextField txtSearch;
-    private javax.swing.JTextField txtTenKhoaHoc;
-    private javax.swing.JTextField txtTenSV;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
