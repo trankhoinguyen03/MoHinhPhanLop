@@ -4,17 +4,50 @@
  */
 package GUI;
 
+import BLL.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Admin
  */
 public class PersonGUI extends javax.swing.JInternalFrame {
-
+    private DefaultTableModel modelSV;
+    private DefaultTableModel modelGV;
+    private LecturersBLL lecturersBLL = new LecturersBLL();
+    private StudentBLL studentBLL = new StudentBLL();
     /**
      * Creates new form NewJFrame
      */
-    public PersonGUI() {
+    public PersonGUI() throws SQLException {
         initComponents();
+        loadToTableSV(studentBLL.readStudents());
+        loadToTableGV(lecturersBLL.readLecturers());
+    }
+    
+    public void loadToTableSV(ArrayList<Student> list) {
+        String[] header = {"Mã sinh viên", "Họ sinh viên", "Tên sinh viên", "Ngày tham gia"};
+        modelSV = new DefaultTableModel(header, 0);
+        this.jTableSinhVien.setModel(modelSV);
+        for (Student x : list) {
+            Object[] data = {x.getPersonId(), x.getFirstName(), x.getLastName(), x.getEnrollmentDate()};
+            modelSV.addRow(data);
+        }
+    }
+    
+    public void loadToTableGV(ArrayList<Lecturers> list) {
+        String[] header = {"Mã giảng viên", "Họ giảng viên", "Tên giảng viên", "Ngày thuê"};
+        modelGV = new DefaultTableModel(header, 0);
+        this.jTableGiangVien.setModel(modelGV);
+        for (Lecturers x : list) {
+            Object[] data = {x.getPersonId(), x.getFirstName(),  x.getLastName(), x.getHireDate().toString()};
+            modelGV.addRow(data);
+        }
     }
 
     /**
@@ -27,37 +60,37 @@ public class PersonGUI extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jTextField6 = new javax.swing.JTextField();
+        jTabbedPane = new javax.swing.JTabbedPane();
+        jPanelSV = new javax.swing.JPanel();
+        jButtonXoaSV = new javax.swing.JButton();
+        jTextFieldTenSV = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextFieldTimKiemSV = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jButtonTimKiemSV = new javax.swing.JButton();
+        jTextFieldMaSV = new javax.swing.JTextField();
+        jTextFieldNgayThamGia = new javax.swing.JTextField();
+        jTextFieldHoSV = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jTableSinhVien = new javax.swing.JTable();
+        jButtonThemSV = new javax.swing.JButton();
+        jButtonSuaSV = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jButton6 = new javax.swing.JButton();
-        jTextField7 = new javax.swing.JTextField();
+        jPanelGV = new javax.swing.JPanel();
+        jButtonXoaGV = new javax.swing.JButton();
+        jTextFieldTenGV = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField8 = new javax.swing.JTextField();
+        jTextFieldTimKiemGV = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jButton7 = new javax.swing.JButton();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField9 = new javax.swing.JTextField();
-        jTextField10 = new javax.swing.JTextField();
+        jButtonTimKiemGV = new javax.swing.JButton();
+        jTextFieldMaGV = new javax.swing.JTextField();
+        jTextFieldNgayThue = new javax.swing.JTextField();
+        jTextFieldHoGV = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
+        jTableGiangVien = new javax.swing.JTable();
+        jButtonThemGV = new javax.swing.JButton();
+        jButtonSuaGV = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
 
@@ -69,38 +102,54 @@ public class PersonGUI extends javax.swing.JInternalFrame {
         jLabel1.setText("QUẢN LÝ THÔNG TIN");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(276, 30, 244, -1));
 
-        jButton3.setText("Xóa");
+        jPanelSV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextField6.addActionListener(new java.awt.event.ActionListener() {
+        jButtonXoaSV.setText("Xóa");
+        jButtonXoaSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField6ActionPerformed(evt);
+                jButtonXoaSVActionPerformed(evt);
             }
         });
+        jPanelSV.add(jButtonXoaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(281, 96, -1, -1));
+
+        jTextFieldTenSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTenSVActionPerformed(evt);
+            }
+        });
+        jPanelSV.add(jTextFieldTenSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 55, 189, -1));
 
         jLabel2.setText("Mã sinh viên:");
+        jPanelSV.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 26, 82, 22));
+        jPanelSV.add(jTextFieldTimKiemSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 96, 259, -1));
 
         jLabel3.setText("Họ:");
+        jPanelSV.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 24, 25, 24));
 
-        jButton4.setText("Tìm kiếm");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTimKiemSV.setText("Tìm kiếm");
+        jButtonTimKiemSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                jButtonTimKiemSVActionPerformed(evt);
             }
         });
+        jPanelSV.add(jButtonTimKiemSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(673, 96, 81, -1));
+        jPanelSV.add(jTextFieldMaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 25, 189, -1));
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNgayThamGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jTextFieldNgayThamGiaActionPerformed(evt);
             }
         });
+        jPanelSV.add(jTextFieldNgayThamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 55, 189, -1));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldHoSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                jTextFieldHoSVActionPerformed(evt);
             }
         });
+        jPanelSV.add(jTextFieldHoSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 25, 189, -1));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableSinhVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -122,128 +171,87 @@ public class PersonGUI extends javax.swing.JInternalFrame {
                 "Mã sinh viên", "Họ", "Tên", "Ngày tham gia"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jButton1.setText("Thêm");
-
-        jButton2.setText("Sửa");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        jTableSinhVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableSinhVienMouseClicked(evt);
             }
         });
+        jScrollPane1.setViewportView(jTableSinhVien);
+
+        jPanelSV.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 131, 754, 245));
+
+        jButtonThemSV.setText("Thêm");
+        jButtonThemSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThemSVActionPerformed(evt);
+            }
+        });
+        jPanelSV.add(jButtonThemSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 96, -1, -1));
+
+        jButtonSuaSV.setText("Sửa");
+        jButtonSuaSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSuaSVActionPerformed(evt);
+            }
+        });
+        jPanelSV.add(jButtonSuaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 96, -1, -1));
 
         jLabel4.setText("Ngày tham gia:");
+        jPanelSV.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 58, 82, -1));
 
         jLabel6.setText("Tên: ");
+        jPanelSV.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 54, -1, 24));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(101, 101, 101)
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton2)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(16, 16, 16))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(91, 91, 91))
-        );
+        jTabbedPane.addTab("Sinh viên", jPanelSV);
 
-        jTabbedPane1.addTab("Sinh viên", jPanel1);
+        jPanelGV.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton6.setText("Xóa");
-
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        jButtonXoaGV.setText("Xóa");
+        jButtonXoaGV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                jButtonXoaGVActionPerformed(evt);
             }
         });
+        jPanelGV.add(jButtonXoaGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(281, 96, -1, -1));
+
+        jTextFieldTenGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldTenGVActionPerformed(evt);
+            }
+        });
+        jPanelGV.add(jTextFieldTenGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 55, 189, -1));
 
         jLabel5.setText("Mã giảng viên");
+        jPanelGV.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 26, 82, 22));
+        jPanelGV.add(jTextFieldTimKiemGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(408, 96, 259, -1));
 
         jLabel8.setText("Họ:");
+        jPanelGV.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 24, 25, 24));
 
-        jButton7.setText("Tìm kiếm");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        jButtonTimKiemGV.setText("Tìm kiếm");
+        jButtonTimKiemGV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                jButtonTimKiemGVActionPerformed(evt);
             }
         });
+        jPanelGV.add(jButtonTimKiemGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(673, 96, 81, -1));
+        jPanelGV.add(jTextFieldMaGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 25, 189, -1));
 
-        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNgayThue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField9ActionPerformed(evt);
+                jTextFieldNgayThueActionPerformed(evt);
             }
         });
+        jPanelGV.add(jTextFieldNgayThue, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 55, 189, -1));
 
-        jTextField10.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldHoGV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField10ActionPerformed(evt);
+                jTextFieldHoGVActionPerformed(evt);
             }
         });
+        jPanelGV.add(jTextFieldHoGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(478, 25, 189, -1));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableGiangVien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -265,152 +273,163 @@ public class PersonGUI extends javax.swing.JInternalFrame {
                 "Mã giảng viên", "Họ", "Tên", "Ngày thuê"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
-
-        jButton8.setText("Thêm");
-
-        jButton9.setText("Sửa");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+        jTableGiangVien.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableGiangVienMouseClicked(evt);
             }
         });
+        jScrollPane2.setViewportView(jTableGiangVien);
+
+        jPanelGV.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 131, 770, 266));
+
+        jButtonThemGV.setText("Thêm");
+        jButtonThemGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonThemGVActionPerformed(evt);
+            }
+        });
+        jPanelGV.add(jButtonThemGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 96, -1, -1));
+
+        jButtonSuaGV.setText("Sửa");
+        jButtonSuaGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSuaGVActionPerformed(evt);
+            }
+        });
+        jPanelGV.add(jButtonSuaGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 96, -1, -1));
 
         jLabel9.setText("Ngày thuê");
+        jPanelGV.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 58, 82, -1));
 
         jLabel10.setText("Tên: ");
+        jPanelGV.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 54, -1, 24));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(101, 101, 101)
-                        .addComponent(jButton8)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton9)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 770, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField4)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-                        .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton9)
-                    .addComponent(jButton8)
-                    .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(70, 70, 70))
-        );
+        jTabbedPane.addTab("Giảng viên", jPanelGV);
 
-        jTabbedPane1.addTab("Giảng viên", jPanel3);
-
-        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 74, -1, 447));
+        getContentPane().add(jTabbedPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 74, -1, 447));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void jButtonTimKiemSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimKiemSVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+        try {
+            if("".equals(jTextFieldTimKiemSV.getText())) {
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+                    JOptionPane.showMessageDialog(null, "Please enter search information!");
+                    loadToTableSV(studentBLL.readStudents());
+            }
+            else if(studentBLL.searchStudents(jTextFieldTimKiemSV.getText()).isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No students found!");
+                loadToTableSV(studentBLL.readStudents());
+            }
+            else {
+                loadToTableSV(studentBLL.searchStudents(jTextFieldTimKiemSV.getText()));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonTimKiemSVActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jTextFieldHoSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldHoSVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jTextFieldHoSVActionPerformed
 
-    private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
+    private void jButtonSuaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuaSVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField6ActionPerformed
+    }//GEN-LAST:event_jButtonSuaSVActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTextFieldTenSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTenSVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTextFieldTenSVActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void jTextFieldNgayThamGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNgayThamGiaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_jTextFieldNgayThamGiaActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    private void jTextFieldTenGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTenGVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    }//GEN-LAST:event_jTextFieldTenGVActionPerformed
 
-    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+    private void jButtonTimKiemGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTimKiemGVActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField9ActionPerformed
+        try {
+            if("".equals(jTextFieldTimKiemGV.getText())) {
 
-    private void jTextField10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField10ActionPerformed
+                    JOptionPane.showMessageDialog(null, "Please enter search information!");
+                    loadToTableGV(lecturersBLL.readLecturers());
+            }
+            else if(lecturersBLL.searchLecturers(jTextFieldTimKiemGV.getText()).isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No lecturers found!");
+                loadToTableGV(lecturersBLL.readLecturers());
+            }
+            else {
+                loadToTableGV(lecturersBLL.searchLecturers(jTextFieldTimKiemGV.getText()));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonTimKiemGVActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jTextFieldNgayThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNgayThueActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jTextFieldNgayThueActionPerformed
+
+    private void jTextFieldHoGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldHoGVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldHoGVActionPerformed
+
+    private void jButtonSuaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuaGVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonSuaGVActionPerformed
+
+    private void jTableSinhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSinhVienMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTableSinhVien.getSelectedRow();
+        jTextFieldMaSV.setText(""+jTableSinhVien.getValueAt(selectedRow, 0));
+        jTextFieldHoSV.setText(""+jTableSinhVien.getValueAt(selectedRow, 1));
+        jTextFieldTenSV.setText(""+jTableSinhVien.getValueAt(selectedRow, 2));
+        jTextFieldNgayThamGia.setText(""+jTableSinhVien.getValueAt(selectedRow, 3));
+    }//GEN-LAST:event_jTableSinhVienMouseClicked
+
+    private void jTableGiangVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableGiangVienMouseClicked
+        // TODO add your handling code here:
+        int selectedRow = jTableGiangVien.getSelectedRow();
+        jTextFieldMaGV.setText(""+jTableGiangVien.getValueAt(selectedRow, 0));
+        jTextFieldHoGV.setText(""+jTableGiangVien.getValueAt(selectedRow, 1));
+        jTextFieldTenGV.setText(""+jTableGiangVien.getValueAt(selectedRow, 2));
+        jTextFieldNgayThue.setText(""+jTableGiangVien.getValueAt(selectedRow, 3));
+    }//GEN-LAST:event_jTableGiangVienMouseClicked
+
+    private void jButtonThemGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemGVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonThemGVActionPerformed
+
+    private void jButtonThemSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemSVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonThemSVActionPerformed
+
+    private void jButtonXoaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoaGVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonXoaGVActionPerformed
+
+    private void jButtonXoaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoaSVActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonXoaSVActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButtonSuaGV;
+    private javax.swing.JButton jButtonSuaSV;
+    private javax.swing.JButton jButtonThemGV;
+    private javax.swing.JButton jButtonThemSV;
+    private javax.swing.JButton jButtonTimKiemGV;
+    private javax.swing.JButton jButtonTimKiemSV;
+    private javax.swing.JButton jButtonXoaGV;
+    private javax.swing.JButton jButtonXoaSV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -420,22 +439,22 @@ public class PersonGUI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanelGV;
+    private javax.swing.JPanel jPanelSV;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField10;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTabbedPane jTabbedPane;
+    private javax.swing.JTable jTableGiangVien;
+    private javax.swing.JTable jTableSinhVien;
+    private javax.swing.JTextField jTextFieldHoGV;
+    private javax.swing.JTextField jTextFieldHoSV;
+    private javax.swing.JTextField jTextFieldMaGV;
+    private javax.swing.JTextField jTextFieldMaSV;
+    private javax.swing.JTextField jTextFieldNgayThamGia;
+    private javax.swing.JTextField jTextFieldNgayThue;
+    private javax.swing.JTextField jTextFieldTenGV;
+    private javax.swing.JTextField jTextFieldTenSV;
+    private javax.swing.JTextField jTextFieldTimKiemGV;
+    private javax.swing.JTextField jTextFieldTimKiemSV;
     // End of variables declaration//GEN-END:variables
 }

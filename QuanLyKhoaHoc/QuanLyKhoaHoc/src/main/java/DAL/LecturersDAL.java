@@ -85,23 +85,6 @@ public class LecturersDAL extends MyDatabaseManager {
         int result = p.executeUpdate();
         return result;
     }
-    public void findLecturers(String fullName) throws SQLException {
-        String query = "SELECT * FROM Person WHERE concat(FirstName, ' ', LastName)  LIKE ?";
-        PreparedStatement p = c.prepareStatement(query);
-        p.setString(1, "%" + fullName + "%");
-        ResultSet rs = p.executeQuery();
-        if (rs != null) {
-            int i = 1;
-            while (rs.next()) {
-                System.out.print(i + " - ");
-                System.out.println(rs.getString("Lastname") + " " + rs.getString("Firstname"));
-                i++;
-            }
-        }
-        else {
-            System.out.println("Not found");
-        }
-    }
     public int deleteLecturers(int personID) throws SQLException {
         String query = "Update Person SET HireDate = NULL WHERE PersonID = ?";
         PreparedStatement p = c.prepareStatement(query);

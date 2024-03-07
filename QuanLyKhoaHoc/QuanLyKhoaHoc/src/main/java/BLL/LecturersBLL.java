@@ -28,8 +28,18 @@ public class LecturersBLL {
     public int insertLecturers(Lecturers s) throws SQLException {
         return dal.insertLecturers(s);
     }
-    public void findLecturers(String fullName) throws SQLException {
-        dal.findLecturers(fullName);
+    public ArrayList<Lecturers> searchLecturers(String value) throws SQLException {
+        ArrayList<Lecturers> list = new ArrayList<>();
+        for (Lecturers x : readLecturers()) {
+            String id = Integer.toString(x.getPersonId()).toLowerCase();
+            String firtName = x.getFirstName().toLowerCase();
+            String lastName = x.getLastName().toLowerCase();
+            String hireDate = x.getHireDate().toString().toLowerCase();
+            if (id.contains(value.toLowerCase()) || firtName.contains(value.toLowerCase()) || lastName.contains(value.toLowerCase()) || hireDate.contains(value.toLowerCase())) {
+                list.add(x);
+            }
+        }
+        return list;
     }
     public int deleteLecturers(int personID) throws SQLException {
         return dal.deleteLecturers(personID);

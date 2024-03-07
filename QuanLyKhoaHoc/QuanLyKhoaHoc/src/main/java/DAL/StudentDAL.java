@@ -24,7 +24,7 @@ public class StudentDAL extends MyDatabaseManager {
     }
     public ArrayList<Student> readStudents() throws SQLException {
         ArrayList<Student> list = new ArrayList<>();
-        String query ="SELECT * FROM  Person WHERE HireDate >0 ;";
+        String query ="SELECT * FROM  Person WHERE EnrollmentDate > 0 ;";
         try {
             PreparedStatement pst = c.prepareStatement(query);
             ResultSet rs = pst.executeQuery();
@@ -33,7 +33,7 @@ public class StudentDAL extends MyDatabaseManager {
                     rs.getInt("PersonID"),
                     rs.getString("LastName"),
                     rs.getString("FirstName"),
-                    rs.getDate("EnrollmentDate")
+                    rs.getString("EnrollmentDate")
                 );
                 list.add(cs);
             }
@@ -59,23 +59,6 @@ public class StudentDAL extends MyDatabaseManager {
         p.setString(3, s.getEnrollmentDate().toString());
         int result = p.executeUpdate();
         return result;
-    }
-    public void findStudent(String fullName) throws SQLException {
-        String query = "SELECT * FROM Person WHERE concat(FirstName, ' ', LastName)  LIKE ?";
-        PreparedStatement p = c.prepareStatement(query);
-        p.setString(1, "%" + fullName + "%");
-        ResultSet rs = p.executeQuery();
-        if (rs != null) {
-            int i = 1;
-            while (rs.next()) {
-                System.out.print(i + " - ");
-                System.out.println(rs.getString("Lastname") + " " + rs.getString("Firstname"));
-                i++;
-            }
-        }
-        else {
-            System.out.println("Not found");
-        }
     }
     public int deleteStudent(int personID) throws SQLException {
         String query = "Update Person SET EnrollmentDate = NULL WHERE PersonID = ?";

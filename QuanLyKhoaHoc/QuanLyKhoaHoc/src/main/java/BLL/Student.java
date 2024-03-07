@@ -13,12 +13,12 @@ import java.sql.Date;
 public class Student {
     String firstName, lastName;
     int personId;
-    Date enrollmentDate;
+    String enrollmentDate;
     public Student() {
         
     }
 
-    public Student(int personId, String firstName, String lastName, Date enrollmentDate) {
+    public Student(int personId, String firstName, String lastName, String enrollmentDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personId = personId;
@@ -55,11 +55,11 @@ public class Student {
         this.personId = personId;
     }
 
-    public Date getEnrollmentDate() {
+    public String getEnrollmentDate() {
         return enrollmentDate;
     }
 
-    public void setEnrollmentDate(Date enrollmentDate) {
+    public void setEnrollmentDate(String enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
     
