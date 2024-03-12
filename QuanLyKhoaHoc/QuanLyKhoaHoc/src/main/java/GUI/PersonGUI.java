@@ -21,6 +21,8 @@ public class PersonGUI extends javax.swing.JInternalFrame {
     private DefaultTableModel modelGV;
     private LecturersBLL lecturersBLL = new LecturersBLL();
     private StudentBLL studentBLL = new StudentBLL();
+    private boolean insertSV = true;
+    private boolean insertGV = true;
     /**
      * Creates new form NewJFrame
      */
@@ -49,7 +51,36 @@ public class PersonGUI extends javax.swing.JInternalFrame {
             modelGV.addRow(data);
         }
     }
-
+    
+    public void ClearSV() {
+        jButtonSuaSV.setEnabled(true);
+        jButtonThemSV.setEnabled(true);
+        jButtonXoaSV.setEnabled(true);
+        jButtonXongSV.setEnabled(false);
+        jButtonHuySV.setEnabled(false);
+        jTextFieldNgayThamGia.setEnabled(false);
+        jTextFieldTenSV.setEnabled(false);
+        jTextFieldHoSV.setEnabled(false);
+        jTextFieldMaSV.setText("");
+        jTextFieldNgayThamGia.setText("");
+        jTextFieldTenSV.setText("");
+        jTextFieldHoSV.setText("");
+    }
+    
+    public void ClearGV() {
+        jButtonSuaGV.setEnabled(true);
+        jButtonThemGV.setEnabled(true);
+        jButtonXoaGV.setEnabled(true);
+        jButtonXongGV.setEnabled(false);
+        jButtonHuyGV.setEnabled(false);
+        jTextFieldNgayThue.setEnabled(false);
+        jTextFieldTenGV.setEnabled(false);
+        jTextFieldHoGV.setEnabled(false);
+        jTextFieldMaGV.setText("");
+        jTextFieldNgayThue.setText("");
+        jTextFieldTenGV.setText("");
+        jTextFieldHoGV.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -77,6 +108,8 @@ public class PersonGUI extends javax.swing.JInternalFrame {
         jButtonSuaSV = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        jButtonXongSV = new javax.swing.JButton();
+        jButtonHuySV = new javax.swing.JButton();
         jPanelGV = new javax.swing.JPanel();
         jButtonXoaGV = new javax.swing.JButton();
         jTextFieldTenGV = new javax.swing.JTextField();
@@ -93,6 +126,8 @@ public class PersonGUI extends javax.swing.JInternalFrame {
         jButtonSuaGV = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jButtonXongGV = new javax.swing.JButton();
+        jButtonHuyGV = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(782, 527));
@@ -110,8 +145,9 @@ public class PersonGUI extends javax.swing.JInternalFrame {
                 jButtonXoaSVActionPerformed(evt);
             }
         });
-        jPanelSV.add(jButtonXoaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(281, 96, -1, -1));
+        jPanelSV.add(jButtonXoaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
 
+        jTextFieldTenSV.setEnabled(false);
         jTextFieldTenSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldTenSVActionPerformed(evt);
@@ -133,8 +169,11 @@ public class PersonGUI extends javax.swing.JInternalFrame {
             }
         });
         jPanelSV.add(jButtonTimKiemSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(673, 96, 81, -1));
+
+        jTextFieldMaSV.setEnabled(false);
         jPanelSV.add(jTextFieldMaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 25, 189, -1));
 
+        jTextFieldNgayThamGia.setEnabled(false);
         jTextFieldNgayThamGia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNgayThamGiaActionPerformed(evt);
@@ -142,6 +181,7 @@ public class PersonGUI extends javax.swing.JInternalFrame {
         });
         jPanelSV.add(jTextFieldNgayThamGia, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 55, 189, -1));
 
+        jTextFieldHoSV.setEnabled(false);
         jTextFieldHoSV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldHoSVActionPerformed(evt);
@@ -186,7 +226,7 @@ public class PersonGUI extends javax.swing.JInternalFrame {
                 jButtonThemSVActionPerformed(evt);
             }
         });
-        jPanelSV.add(jButtonThemSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 96, -1, -1));
+        jPanelSV.add(jButtonThemSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
 
         jButtonSuaSV.setText("Sửa");
         jButtonSuaSV.addActionListener(new java.awt.event.ActionListener() {
@@ -194,13 +234,31 @@ public class PersonGUI extends javax.swing.JInternalFrame {
                 jButtonSuaSVActionPerformed(evt);
             }
         });
-        jPanelSV.add(jButtonSuaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 96, -1, -1));
+        jPanelSV.add(jButtonSuaSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
 
         jLabel4.setText("Ngày tham gia:");
         jPanelSV.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 58, 82, -1));
 
         jLabel6.setText("Tên: ");
         jPanelSV.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 54, -1, 24));
+
+        jButtonXongSV.setText("Xong");
+        jButtonXongSV.setEnabled(false);
+        jButtonXongSV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXongSVActionPerformed(evt);
+            }
+        });
+        jPanelSV.add(jButtonXongSV, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        jButtonHuySV.setText("Hủy");
+        jButtonHuySV.setEnabled(false);
+        jButtonHuySV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHuySVActionPerformed(evt);
+            }
+        });
+        jPanelSV.add(jButtonHuySV, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jTabbedPane.addTab("Sinh viên", jPanelSV);
 
@@ -212,8 +270,9 @@ public class PersonGUI extends javax.swing.JInternalFrame {
                 jButtonXoaGVActionPerformed(evt);
             }
         });
-        jPanelGV.add(jButtonXoaGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(281, 96, -1, -1));
+        jPanelGV.add(jButtonXoaGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 90, -1, -1));
 
+        jTextFieldTenGV.setEnabled(false);
         jTextFieldTenGV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldTenGVActionPerformed(evt);
@@ -235,8 +294,11 @@ public class PersonGUI extends javax.swing.JInternalFrame {
             }
         });
         jPanelGV.add(jButtonTimKiemGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(673, 96, 81, -1));
+
+        jTextFieldMaGV.setEnabled(false);
         jPanelGV.add(jTextFieldMaGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 25, 189, -1));
 
+        jTextFieldNgayThue.setEnabled(false);
         jTextFieldNgayThue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNgayThueActionPerformed(evt);
@@ -244,6 +306,7 @@ public class PersonGUI extends javax.swing.JInternalFrame {
         });
         jPanelGV.add(jTextFieldNgayThue, new org.netbeans.lib.awtextra.AbsoluteConstraints(199, 55, 189, -1));
 
+        jTextFieldHoGV.setEnabled(false);
         jTextFieldHoGV.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldHoGVActionPerformed(evt);
@@ -288,7 +351,7 @@ public class PersonGUI extends javax.swing.JInternalFrame {
                 jButtonThemGVActionPerformed(evt);
             }
         });
-        jPanelGV.add(jButtonThemGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 96, -1, -1));
+        jPanelGV.add(jButtonThemGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 90, -1, -1));
 
         jButtonSuaGV.setText("Sửa");
         jButtonSuaGV.addActionListener(new java.awt.event.ActionListener() {
@@ -296,13 +359,31 @@ public class PersonGUI extends javax.swing.JInternalFrame {
                 jButtonSuaGVActionPerformed(evt);
             }
         });
-        jPanelGV.add(jButtonSuaGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(191, 96, -1, -1));
+        jPanelGV.add(jButtonSuaGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 90, -1, -1));
 
         jLabel9.setText("Ngày thuê");
         jPanelGV.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 58, 82, -1));
 
         jLabel10.setText("Tên: ");
         jPanelGV.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 54, -1, 24));
+
+        jButtonXongGV.setText("Xong");
+        jButtonXongGV.setEnabled(false);
+        jButtonXongGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonXongGVActionPerformed(evt);
+            }
+        });
+        jPanelGV.add(jButtonXongGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+
+        jButtonHuyGV.setText("Hủy");
+        jButtonHuyGV.setEnabled(false);
+        jButtonHuyGV.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHuyGVActionPerformed(evt);
+            }
+        });
+        jPanelGV.add(jButtonHuyGV, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
         jTabbedPane.addTab("Giảng viên", jPanelGV);
 
@@ -337,6 +418,19 @@ public class PersonGUI extends javax.swing.JInternalFrame {
 
     private void jButtonSuaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuaSVActionPerformed
         // TODO add your handling code here:
+        if(jTableSinhVien.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Please choose the student to edit!");
+        }
+        else {
+            insertSV = false;
+            jButtonSuaSV.setEnabled(false);
+            jButtonThemSV.setEnabled(false);
+            jButtonXoaSV.setEnabled(false);
+            jButtonXongSV.setEnabled(true);
+            jTextFieldNgayThamGia.setEnabled(false);
+            jTextFieldTenSV.setEnabled(true);
+            jTextFieldHoSV.setEnabled(true);
+        }
     }//GEN-LAST:event_jButtonSuaSVActionPerformed
 
     private void jTextFieldTenSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldTenSVActionPerformed
@@ -381,6 +475,19 @@ public class PersonGUI extends javax.swing.JInternalFrame {
 
     private void jButtonSuaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuaGVActionPerformed
         // TODO add your handling code here:
+        if(jTableGiangVien.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Please choose the lecturer to edit!");
+        }
+        else {
+            insertGV = false;
+            jButtonSuaGV.setEnabled(false);
+            jButtonThemGV.setEnabled(false);
+            jButtonXoaGV.setEnabled(false);
+            jButtonXongGV.setEnabled(true);
+            jTextFieldNgayThue.setEnabled(true);
+            jTextFieldTenGV.setEnabled(true);
+            jTextFieldHoGV.setEnabled(true);
+        }
     }//GEN-LAST:event_jButtonSuaGVActionPerformed
 
     private void jTableSinhVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableSinhVienMouseClicked
@@ -403,25 +510,197 @@ public class PersonGUI extends javax.swing.JInternalFrame {
 
     private void jButtonThemGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemGVActionPerformed
         // TODO add your handling code here:
+            insertGV = true;
+            jTextFieldMaGV.setText("");
+            jTextFieldNgayThue.setText("");
+            jTextFieldTenGV.setText("");
+            jTextFieldHoGV.setText("");
+            jTextFieldNgayThue.setEnabled(true);
+            jTextFieldTenGV.setEnabled(true);
+            jTextFieldHoGV.setEnabled(true);
+            jButtonSuaGV.setEnabled(false);
+            jButtonThemGV.setEnabled(false);
+            jButtonXoaGV.setEnabled(false);
+            jButtonXongGV.setEnabled(true);
+            jButtonHuyGV.setEnabled(true);
     }//GEN-LAST:event_jButtonThemGVActionPerformed
 
     private void jButtonThemSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonThemSVActionPerformed
         // TODO add your handling code here:
+            insertSV = true;
+            jTextFieldMaSV.setText("");
+            jTextFieldNgayThamGia.setText("");
+            jTextFieldTenSV.setText("");
+            jTextFieldHoSV.setText("");
+            jTextFieldNgayThamGia.setEnabled(true);
+            jTextFieldTenSV.setEnabled(true);
+            jTextFieldHoSV.setEnabled(true);
+            jButtonSuaSV.setEnabled(false);
+            jButtonThemSV.setEnabled(false);
+            jButtonXoaSV.setEnabled(false);
+            jButtonXongSV.setEnabled(true);
+            jButtonHuySV.setEnabled(true);
     }//GEN-LAST:event_jButtonThemSVActionPerformed
 
     private void jButtonXoaGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoaGVActionPerformed
         // TODO add your handling code here:
+        if(jTableGiangVien.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Please choose the lecturer to delete!");
+        }
+        else {
+            try {
+                if(lecturersBLL.deleteLecturers(Integer.parseInt(jTextFieldMaGV.getText()))) {
+                    JOptionPane.showMessageDialog(null, "Delete success!");
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Delete fail!");
+                }
+                loadToTableGV(lecturersBLL.readLecturers());
+                ClearGV();
+            } catch (SQLException ex) {
+                Logger.getLogger(PersonGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButtonXoaGVActionPerformed
 
     private void jButtonXoaSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXoaSVActionPerformed
         // TODO add your handling code here:
+        if(jTableSinhVien.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Please choose the student to delete!");
+        }
+        else {
+            try {
+                if(studentBLL.deleteStudent(Integer.parseInt(jTextFieldMaSV.getText()))) {
+                    JOptionPane.showMessageDialog(null, "Delete success!");
+                }
+                else {
+                    JOptionPane.showMessageDialog(null, "Delete fail!");
+                }
+                loadToTableSV(studentBLL.readStudents());
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(PersonGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }//GEN-LAST:event_jButtonXoaSVActionPerformed
+
+    private void jButtonXongSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXongSVActionPerformed
+        // TODO add your handling code here:
+        if(insertSV) {
+            Student student = new Student();
+            student.setFirstName(jTextFieldHoSV.getText());
+            student.setLastName(jTextFieldTenSV.getText());
+            student.setEnrollmentDate(jTextFieldNgayThamGia.getText());
+            try {
+                if(!"valid".equals(studentBLL.checkValue(student))) {
+                    JOptionPane.showMessageDialog(null, studentBLL.checkValue(student));
+                }
+                else {
+                    if(studentBLL.insertStudent(student)) {
+                        JOptionPane.showMessageDialog(null, "Insert success!");
+                        ClearSV();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Insert fail!");
+                    }
+                    loadToTableSV(studentBLL.readStudents());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PersonGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            Student student = new Student();
+            student.setFirstName(jTextFieldHoSV.getText());
+            student.setLastName(jTextFieldTenSV.getText());
+            student.setEnrollmentDate(jTextFieldNgayThamGia.getText());
+            try {
+                if(!"valid".equals(studentBLL.checkValue(student))) {
+                    JOptionPane.showMessageDialog(null, studentBLL.checkValue(student));
+                }
+                else {
+                    if(studentBLL.updateStudent(student)) {
+                        JOptionPane.showMessageDialog(null, "Update success!");
+                        ClearSV();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Update fail!");
+                    }
+                    loadToTableSV(studentBLL.readStudents());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PersonGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonXongSVActionPerformed
+
+    private void jButtonXongGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonXongGVActionPerformed
+        // TODO add your handling code here:
+        if(insertGV) {
+            Lecturers lecturer = new Lecturers();
+            lecturer.setFirstName(jTextFieldHoGV.getText());
+            lecturer.setLastName(jTextFieldTenGV.getText());
+            lecturer.setHireDate(jTextFieldNgayThamGia.getText());
+            try {
+                if(!"valid".equals(lecturersBLL.checkValue(lecturer))) {
+                    JOptionPane.showMessageDialog(null, lecturersBLL.checkValue(lecturer));
+                }
+                else {
+                    if(lecturersBLL.insertLecturers(lecturer)) {
+                        JOptionPane.showMessageDialog(null, "Insert success!");
+                        ClearGV();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Insert fail!");
+                    }
+                    loadToTableGV(lecturersBLL.readLecturers());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PersonGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else {
+            Lecturers lecturer = new Lecturers();
+            lecturer.setFirstName(jTextFieldHoGV.getText());
+            lecturer.setLastName(jTextFieldTenGV.getText());
+            lecturer.setHireDate(jTextFieldNgayThamGia.getText());
+            try {
+                if(!"valid".equals(lecturersBLL.checkValue(lecturer))) {
+                    JOptionPane.showMessageDialog(null, lecturersBLL.checkValue(lecturer));
+                }
+                else {
+                    if(lecturersBLL.updateLecturers(lecturer)) {
+                        JOptionPane.showMessageDialog(null, "Update success!");
+                        ClearGV();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Update fail!");
+                    }
+                    loadToTableGV(lecturersBLL.readLecturers());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PersonGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_jButtonXongGVActionPerformed
+    
+    private void jButtonHuySVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHuySVActionPerformed
+        // TODO add your handling code here:
+        ClearSV();
+    }//GEN-LAST:event_jButtonHuySVActionPerformed
+
+    private void jButtonHuyGVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHuyGVActionPerformed
+        // TODO add your handling code here:
+        ClearGV();
+    }//GEN-LAST:event_jButtonHuyGVActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonHuyGV;
+    private javax.swing.JButton jButtonHuySV;
     private javax.swing.JButton jButtonSuaGV;
     private javax.swing.JButton jButtonSuaSV;
     private javax.swing.JButton jButtonThemGV;
@@ -430,6 +709,8 @@ public class PersonGUI extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButtonTimKiemSV;
     private javax.swing.JButton jButtonXoaGV;
     private javax.swing.JButton jButtonXoaSV;
+    private javax.swing.JButton jButtonXongGV;
+    private javax.swing.JButton jButtonXongSV;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

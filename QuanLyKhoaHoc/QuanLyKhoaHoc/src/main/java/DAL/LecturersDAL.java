@@ -34,7 +34,7 @@ public class LecturersDAL extends MyDatabaseManager {
                     rs.getInt("PersonID"),
                     rs.getString("LastName"),
                     rs.getString("FirstName"),
-                    rs.getDate("HireDate")
+                    rs.getString("HireDate")
                 );
                 list.add(cs);
             }
@@ -58,7 +58,7 @@ public class LecturersDAL extends MyDatabaseManager {
                     rs.getInt("PersonID"),
                     rs.getString("LastName"),
                     rs.getString("FirstName"),
-                    rs.getDate("HireDate")
+                    rs.getString("HireDate")
                 );
                 list.add(cs);
             }
@@ -67,30 +67,32 @@ public class LecturersDAL extends MyDatabaseManager {
         }
         return list;
     }
-    public int updateLecturers(Lecturers s) throws SQLException {
+    public boolean updateLecturers(Lecturers s) throws SQLException {
         String query = "Update Person SET FirstName = ? , LastName = ? "+ " WHERE PersonID = ?";
         PreparedStatement p = c.prepareStatement(query);
         p.setString(1, s.getFirstName());
         p.setString(2, s.getLastName());
         p.setInt(3, s.getPersonId());
         int result = p.executeUpdate();
-        return result;
+        return result > 0;
     }
-    public int insertLecturers(Lecturers s) throws SQLException {
+    public boolean insertLecturers(Lecturers s) throws SQLException {
         String query = "Insert Person (FirstName, LastName, HireDate) VALUES (?, ?, ?)";
         PreparedStatement p = c.prepareStatement(query);
         p.setString(1, s.getFirstName());
         p.setString(2, s.getLastName());
-        p.setString(3, s.getHireDate().toString());
+        p.setString(3, s.getHireDate());
         int result = p.executeUpdate();
-        return result;
+        return result > 0;
     }
-    public int deleteLecturers(int personID) throws SQLException {
-        String query = "Update Person SET HireDate = NULL WHERE PersonID = ?";
+    public boolean deleteLecturers(int personID) throws SQLException {
+        String query = "DELETE FROM person WHERE HireDate > 0 AND "
+                + "PersonID = ? AND "
+                + "NOT EXISTS (SELECT 1 FROM courseinstructor WHERE person.PersonID = courseinstructor.PersonID)";
         PreparedStatement p = c.prepareStatement(query);
         p.setInt(1, personID);
         int result = p.executeUpdate();
         //this.readLecturerss();
-        return result;
+        return result > 0;
     }
 }

@@ -43,30 +43,32 @@ public class StudentDAL extends MyDatabaseManager {
         }
         return list;
     }
-    public int updateStudent(Student s) throws SQLException {
+    public boolean updateStudent(Student s) throws SQLException {
         String query = "Update Person SET FirstName = ? , LastName = ? "+ " WHERE PersonID = ?";
         PreparedStatement p = c.prepareStatement(query);
         p.setString(1, s.getFirstName());
         p.setString(2, s.getLastName());
         p.setInt(3, s.getPersonId());
         int result = p.executeUpdate();
-        return result;
+        return result > 0;
     }
-    public int insertStudent(Student s) throws SQLException {
+    public boolean insertStudent(Student s) throws SQLException {
         String query = "Insert Person (FirstName, LastName, EnrollmentDate) VALUES (?, ?, ?)";
         PreparedStatement p = c.prepareStatement(query);
         p.setString(1, s.getFirstName());
         p.setString(2, s.getLastName());
-        p.setString(3, s.getEnrollmentDate().toString());
+        p.setString(3, s.getEnrollmentDate());
         int result = p.executeUpdate();
-        return result;
+        return result > 0;
     }
-    public int deleteStudent(int personID) throws SQLException {
-        String query = "Update Person SET EnrollmentDate = NULL WHERE PersonID = ?";
+    public boolean deleteStudent(int personID) throws SQLException {
+        String query = "DELETE FROM person WHERE EnrollmentDate > 0 AND "
+                + "PersonID = ? AND "
+                + "NOT EXISTS (SELECT 1 FROM studentgrade WHERE person.PersonID = studentgrade.StudentID)";
         PreparedStatement p = c.prepareStatement(query);
         p.setInt(1, personID);
         int result = p.executeUpdate();
-        return result;
+        return result > 0;
     }
     public List<String> getStudentIDs() {
         List<String> personID = new ArrayList<>();

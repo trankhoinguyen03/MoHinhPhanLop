@@ -11,14 +11,14 @@ import java.sql.Date;
  * @author Acer
  */
 public class Lecturers {
-    String firstName, lastName;
-    int personId;
-    Date hireDate;
+    private String firstName, lastName;
+    private int personId;
+    private String hireDate;
     
     public Lecturers() {
     }
 
-    public Lecturers(int personId, String firstName, String lastName, Date hireDate) {
+    public Lecturers(int personId, String firstName, String lastName, String hireDate) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.personId = personId;
@@ -49,11 +49,11 @@ public class Lecturers {
         this.personId = personId;
     }
 
-    public Date getHireDate() {
+    public String getHireDate() {
         return hireDate;
     }
 
-    public void setHireDate(Date hireDate) {
+    public void setHireDate(String hireDate) {
         this.hireDate = hireDate;
     }
     @Override
