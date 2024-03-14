@@ -40,8 +40,7 @@ public class CourseInstructorBLL {
                 if(csinOld.getCourseID()==csinNew.getCourseID() && csinOld.getPersonID()== csinNew.getPersonID())
                     return false;
                 try {                   
-                    dal.updateCourseInstructor(csinOld,csinNew);
-                    return true;
+                    return dal.updateCourseInstructor(csinOld,csinNew);
                 } catch (Exception e) {
                     System.out.println("Khong the Cap nhat CourseInstructor vao database !!!");   
                 }
